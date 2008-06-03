@@ -2,7 +2,7 @@
 
 It seems that for years, Mozilla / Phoenix / Firebird / Firefox on Unix/X11 have had a problem with flash where if you interact with a flash object on a page, the whole browser window will just decide to raise itself to the top of the stack for no reason.  I remember looking for a bug entry for the problem way back and finding one, but that's about all I remember.  On a whim I thought of an idea with library preloading and gave it a whirl, and it worked.
 
-Download: http://incise.org/files/dev/interceptor.c
+Download: <a href="http://incise.org/files/dev/interceptor.c">http://incise.org/files/dev/interceptor.c</a>
 
 Usage:
 <pre>
@@ -18,6 +18,6 @@ Packages needed (Ubuntu): libx11-dev, gcc, libc-dev
 
 Other distros/BSDs: you basically need gcc and whatever packages will give you the files Xlib.h and dlfcn.h
 
-The basic idea of how it works is that in X11, windows raise themselves by calling XR<em>'</em>'aiseWindow.  We can intercept these calls and conditionally drop them, causing the window to stay right where it is.  There are some imperfect heuristics involved which you may need to alter.  It looks for a window with WM_CLASS of ("Gecko", "Firefox-bin"), so if you are using Mozilla or any other Gecko browser besides Firefox, then it will be different.  To check, run <code>xprop | grep WM_CLASS</code> and click the cross cursor on your browser window.  This is what you will need to change it to.
+The basic idea of how it works is that in X11, windows raise themselves by calling XRaiseWindow.  We can intercept these calls and conditionally drop them, causing the window to stay right where it is.  There are some imperfect heuristics involved which you may need to alter.  It looks for a window with WM_CLASS of ("Gecko", "Firefox-bin"), so if you are using Mozilla or any other Gecko browser besides Firefox, then it will be different.  To check, run <code>xprop | grep WM_CLASS</code> and click the cross cursor on your browser window.  This is what you will need to change it to.
 
-It also only blocks XR<em>'</em>'aiseWindow requests from windows that are more than 400 pixels wide and tall.  This keeps it from interfering with menus.  A better idea might be to check for override_redirect, or various window properties.. but I'll have to get around to that some other time.  For now, it won't work if you have a really small browser window, which you probably don't anyway.
+It also only blocks XRaiseWindow requests from windows that are more than 400 pixels wide and tall.  This keeps it from interfering with menus.  A better idea might be to check for override_redirect, or various window properties.. but I'll have to get around to that some other time.  For now, it won't work if you have a really small browser window, which you probably don't anyway.

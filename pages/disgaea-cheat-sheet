@@ -1,4 +1,4 @@
-/!\ None of this was written by me.  I merely stole the best parts from <a href="http://boards.gamefaqs.com/gfaqs/genmessage.php?board=589678&topic=23629866">this GameFAQs thread</a> and reformatted them.
+<em><strong>None of this was written by me.  I merely stole the best parts from <a href="http://boards.gamefaqs.com/gfaqs/genmessage.php?board=589678&topic=23629866">this GameFAQs thread</a> and reformatted them so that I would have a handy reference for myself.</strong></em>
 
 <h2>Specialists</h2>
 
@@ -45,6 +45,7 @@ I have a character with 25+ Spear Mastery, yet I can't get Longinus! Enter and e
 
 <h2>Most worthwhile specialists</h2>
 
+<table>
 <tr><td>Statistician</td><td>Exp</td><td>300</td></tr>
 <tr><td>Broker</td><td>Hell</td><td>300</td></tr>
 <tr><td>Manager</td><td>Mana</td><td>300</td></tr>
@@ -53,10 +54,13 @@ I have a character with 25+ Spear Mastery, yet I can't get Longinus! Enter and e
 <tr><td>Sentry</td><td>Def</td><td>19998</td></tr>
 <tr><td>Teacher</td><td>Int</td><td>19998</td></tr>
 <tr><td>Marksman</td><td>Hit</td><td>19998</td></tr>
+</table>
 
 <h2>Character class requirements</h2>
 
-<tr><td></td><td><strong>Note that the required characters must exist AT THE SAME TIME.</strong></td></tr>
+<strong>Note that the required characters must exist AT THE SAME TIME.</strong>
+
+<table>
 <tr><td>Archer</td><td>Train a character until s/he has 3+ in Bow</td></tr>
 <tr><td>EDF Soldier</td><td>Train a character until s/he has 30+ in Gun</td></tr>
 <tr><td>Rogue</td><td>Fighter + Warrior lv 5+ (doesn't matter if they're Male or Female)</td></tr>
@@ -66,9 +70,11 @@ I have a character with 25+ Spear Mastery, yet I can't get Longinus! Enter and e
 <tr><td>Ronin</td><td>Female Warrior + Female Fighter with a combined lv of 20+</td></tr>
 <tr><td>Angel</td><td>Female Cleric + Knight + Archer lv 100+</td></tr>
 <tr><td>Majin</td><td>Male Warrior + Male Brawler + Ninja + Rogue + Scout lv 200+</td></tr>
+</table>
 
 <h2>Best places to level up</h2>
 
+<table>
 <tr><td>5 - 3</td></tr>
 <tr><td>7 - 1</td></tr>
 <tr><td>9 - 1</td></tr>
@@ -78,3 +84,4 @@ I have a character with 25+ Spear Mastery, yet I can't get Longinus! Enter and e
 <tr><td>Cave of Ordeals - 3</td></tr>
 <tr><td>Beauty Castle - 2</td></tr>
 <tr><td>Item World</td></tr>
+</table>
