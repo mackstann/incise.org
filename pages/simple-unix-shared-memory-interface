@@ -1,0 +1,87 @@
+This is a simple example of how to use shared memory.  I found that there were a number of hoops
+to jump through to make it work right, so I figured I'd put my code up in case anyone else
+needs help with it.
+
+If you want to use multiple blocks of shared memory in a single process then
+you might need to pass a different id to ftok() for each one.  I used the same block every time so I had no need for that.
+
+In any case,
+the main entry point is open_shm(). It returns a block of shared memory
+of the specified size. If justreading is 1 and there's been data written
+to the block of shared mem, then you access what has already been
+written. Otherwise, you create a new one
+with undefined contents.
+
+Once you get your memory block successfully returned to you by open_shm(), you can treat it like any
+other block of memory that you'd get from e.g. malloc().
+
+PDIE() is left as an exercise to the reader...
+
+<pre>
+/* This code written by Nick Welch <mack@incise.org>, 2006.
+ *
+ <li>This code is in the public domain</li>
+ <li>and is provided AS IS, with NO WARRANTY. */</li>
+
+static key_t get_shm_key(void)
+{
+    /* both arbitrary */
+    const char * KEY_PATH = "/dev/null";
+    const char KEY_ID = 0xc4; 
+
+    key_t key = ftok(KEY_PATH, KEY_ID);
+    if (key == (key_t)-1)
+        PDIE("ftok");
+
+    return key;
+}
+
+static int get_shm_min(void)
+{
+    struct shminfo info;
+    if((shmctl(0, IPC_INFO, (struct shmid_ds *)(void *)&info)) == -1)
+        PDIE("shmctl (shminfo)");
+    return info.shmmin;
+}
+
+static void * open_shm(size_t bytes, int justreading)
+{
+    void * shm;
+    key_t key = get_shm_key();
+
+    int id; 
+
+    if(!justreading)
+    {
+        /* we need to delete it in case we need to allocate more memory this
+         <li>time than last time.  if we try that without first deleting it, we</li>
+         <li>will get EINVAL.</li>
+         */
+
+        id = shmget(key, get_shm_min(), 0644|IPC_CREAT);
+
+        if(id == -1)
+            PDIE("shmget (first call)");
+
+        shm = shmat(id, NULL, 0);
+        if (shm == NULL)
+            PDIE("shmat(first call)");
+
+        if(shmctl(id, IPC_RMID, NULL) == -1)
+            PDIE("shmctl (marking shm segment for removal)");
+
+        if(shmdt(shm) == -1)
+            PDIE("shmdt (detaching shm segment to delete it)");
+    }
+
+    id = shmget(key, bytes, justreading ? 0 : 0644|IPC_CREAT);
+    if(id == -1)
+        PDIE("shmget (second call)");
+
+    shm = shmat(id, NULL, 0);
+    if (shm == NULL)
+        PDIE("shmat (second call)");
+
+    return shm;
+}
+</pre>

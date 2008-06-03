@@ -1,0 +1,30 @@
+Let's face it, Fluxbox isn't that minimalistic.  And Metacity's description on freshmeat as being "lightweight" is kind of a joke.
+
+Here's an un-scientific comparison.
+
+<tr><td> name       </td><td> version     </td><td> language </td><td> lines of code^1^ </td><td> binary size^2^ </td><td> # of libraries^3^ </td></tr>
+<tr><td> metacity   </td><td> 2.9.2       </td><td> C        </td><td><#888888>49787    </td><td><#999999>485048 </td><td><#888888>34 </td></tr>
+<tr><td> fluxbox^4^ </td><td> 0.1.14      </td><td> C++      </td><td><#999999>20601    </td><td><#888888>579596 </td><td><#aaaaaa>16 </td></tr>
+<tr><td> openbox    </td><td> 3.2         </td><td> C        </td><td><#aaaaaa>20218    </td><td><#cccccc>206136 </td><td><#999999>21 </td></tr>
+<tr><td> blackbox   </td><td> 0.70.0beta3 </td><td> C++      </td><td><#bbbbbb>16519    </td><td><#aaaaaa>474144 </td><td><#bbbbbb>14 </td></tr>
+<tr><td> pekwm      </td><td> 0.1.3       </td><td> C++      </td><td><#cccccc>12306    </td><td><#bbbbbb>298972 </td><td><#cccccc>11 </td></tr>
+<tr><td> aewm       </td><td> 1.3.0       </td><td> C        </td><td><#dddddd>2855     </td><td><#dddddd>28580  </td><td><#eeeeee>5  </td></tr>
+<tr><td> evilwm^5^  </td><td> 0.99.17     </td><td> C        </td><td><#eeeeee>1656     </td><td><#eeeeee>20244  </td><td><#eeeeee>5  </td></tr>
+<tr><td> tinywm     </td><td> 1.1         </td><td> C        </td><td><#ffffff>56       </td><td><#ffffff>5036   </td><td><#ffffff>4  </td></tr>
+
+<h3>notes</h3>
+
+ 1. obtained with sloccount
+ 1. binaries were stripped
+ 1. obtained with ldd; including libc etc.
+ 1. built with debian patches due to build failure with vanilla source
+ 1. built with MWM_HINTS undefined due to build problem
+
+<h3>specs</h3>
+
+ <li>machine: Linux 2.6.7, Pentium 4</li>
+ <li>compiler: gcc version 3.3.4 (Debian 1:3.3.4-13)</li>
+
+<h3>a personal comment</h3>
+
+This page is not to be taken too seriously.

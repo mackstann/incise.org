@@ -1,0 +1,30 @@
+<a href="whimsy.html">whimsy</a> is a highly hackable window manager written in Python.  It is currently pre-alpha or maybe alpha quality and is somewhat suitable for use, depending on your expectations.  The main mechanism of event handling is the listener pattern, also known as the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>.  Here is <a href="http://whimsy.svn.sourceforge.net/viewvc/whimsy/whimsy/main.py?view=markup">main.py</a>, which still contains my own personal key/mouse bindings, since I've pretty much been developing whimsy hermit-style so far.  It should give you a decent idea of what <a href="whimsy.html">whimsy</a> is like to play with, code-wise.  <a href="http://whimsy.svn.sourceforge.net/viewvc/whimsy/whimsy/">Here</a> is the rest of the code for browsing.  <a href="http://whimsy.svn.sourceforge.net/viewvc/whimsy/whimsy/actions/ewmh.py?view=markup">Here</a> is ewmh.py which will show you which <a href="http://standards.freedesktop.org/wm-spec/wm-spec-1.3.html">EWMH</a> hints have been implemented thus far.
+
+<h2>current random rant</h2>
+
+At work I have been using xmonad for a while, the impetus being the thought that perhaps tiling window management really is the true way for me to eventually go, and maybe I've been wasting my time on a stupid mouse-friendly Python window manager, while these apparently really brilliant academic dudes have been rallying the support of the nerd hordes to create a sensation.  Fortunately, I guess, I just don't dig the tiling thing that much.  It feels unpredictable and arbitrary and awkward.  It feels like your whole monitor is a data structure.  Which sounds kinda cool, but it just annoys me.
+
+But the thing is, there is some value to having windows easily (though maybe not automatically) fill up voids on your screen and avoid overlapping each other.  I've been thinking about how to ride the line between normal mouse-driven window management and tiling window management, though I have no concrete plan yet.  I'm not sure that there is too much that can be done automatically.  I find that I have a few things that I want to always stay the same (browser, gaim, code windows), and other than that, everything is kind of transient and I don't care if it is arranged meticulously.  I have lots of viewports and can use alt plus my mouse buttons/wheel to move/resize/restack windows very directly and easily, and it just never feels like a problem to me.  Some edge snapping would be cool though.
+
+<h2>code/usage</h2>
+
+CODE MAY BE UNSTABLE AND LOCK YOUR X SERVER.
+
+<pre>
+$ svn co https://whimsy.svn.sourceforge.net/svnroot/whimsy whimsy
+$ cd whimsy
+$ sh runit
+
+$ # in another shell, if you want some added protection from the X server hanging:
+$ sh monitor.sh 1
+</pre>
+
+runit repeatedly runs whimsy in a while loop, so it'll restart if killed.  monitor.sh will kill it if it hangs for more than a minute or two or something like that.  Of course you may never notice it being killed and immediately restarting, so if you want to do me a favor, check the contents of the relevant out.YYYYMMDD-HH<strong><em>':MM</strong></em>':SS output file(s) and if you see any Python exceptions, let me know. (mack@ this domain.)  I never experience a lockup of the X server, except  for special occasions when a two year old mashes the buttons on my mouse in an apparently magical way. I've even  tried to recreate it myself and  have failed.  Damn.
+
+There are no window borders/decorations.  There is support for viewports/large desktops (which are basically like virtual desktops, but are "physically" linked in that a window hanging off of one will show up partially in the next, instead of being completely isolated little worlds).  There aren't many window management operations implemented other than the basics: moving, resizing, closing, raising, lowering, and executing commands.  You can also execute arbitrary Python, of course.
+
+
+
+<h2>status</h2>
+
+<a href="whimsy.html">whimsy</a> has been an on again, off again toy project of mine since sometime in 2005.  I've been using it as my normal window manager since around March 2007.

@@ -1,0 +1,58 @@
+I started to grow really tired of hacking up html for every web page I made, and
+since I had been working with wiki stuff at work, I really thought it would be
+nice if I could just make my web pages in vi, like normal, but using wiki
+markup.  I could then use some sort of tool to generate html pages from that.
+
+Well, yeah.  Apparently not as simple as it sounds.
+
+I did a small amount of searching, didn't find much, and decided to write my own
+wiki markup parser.  That got old really fast and I decided that I should find
+something else to do it for me.  I found
+<a href="http://paginas.fe.up.pt/~villate/parsewiki/">parsewiki</a>.  It did the job... sort
+of.  Its support for complex wiki markup is limited, and my Perl skills are
+insignificant enough that I couldn't do a lot more than fiddle with regexes.
+
+So ok, I needed to use a larger, more mature piece of wiki software, with a
+more sophisticated parser.  Moin<strong><em>'Moin and M</strong></em>'ediaWiki were the two big ones that
+popped into my mind, but looking at the code of their parsers (and a number of
+other wikis), it became obvious that hacking the parser functionality out of
+them was not realistic.
+
+I figured, well, I could always just paste my stuff into a wiki in a browser
+and then steal the html it gave me -- but that is way too much work.  This
+needs to be something I can script.  Then curl popped into mind, and I started
+to hack up a script which would take my wiki markup, send it to Wikipedia via
+curl, and then parse out the html I wanted.  It worked!  But alas, this was
+extremely evil.  I couldn't abuse Wikipedia in such a way.  I needed to run a
+wiki on my own machine, and do the same thing with it -- but I hate setting up
+and running big complex dynamic web apps.
+
+Then someone pointed me towards
+<a href="http://moinmoin.wikiwikiweb.de/DesktopEdition">MoinMoin DesktopEdition</a> -- it
+was perfect!  I can just untar it, run it, and bam -- a running local wiki!  So
+I modified my script to work with Moin instead of MediaWiki, but Moin was
+giving me 403s (something "knew" I wasn't using a browser, and was trying to
+prevent abuse, I think), and then complaining about locks on pages and whatnot.
+I didn't even need to submit or save anything to the wiki; I just needed the
+"preview" functionality -- so I needed to get around Moin's paranoia.  A couple
+simple hacks accomplished that:
+
+<a href="http://incise.org/files/dev/statiki/mmde_1.3.2-1_statiki.patch">mmde_1.3.2-1_statiki.patch</a>
+
+Basically you just grab the MMDE tarball, unpack it, apply these tiny tweaks,
+and then run <code>python moin.py</code> whenever you need it running.  It starts up
+on <code>localhost:8080</code>.  Simple.
+
+Here is my script that submits to Moin and parses the generated html back out:
+
+<a href="http://incise.org/files/dev/statiki/statiki.py">statiki.py</a>
+
+I use a little wrapper script for calling it:
+
+<a href="http://incise.org/files/dev/statiki/statiki.sh">statiki.sh</a>
+
+And this is the html template I use for incise.org:
+
+<a href="http://incise.org/files/dev/statiki/template.html">template.html</a>
+
+<em>(now I just use a full moin installation for my site)</em>

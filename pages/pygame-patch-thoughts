@@ -1,0 +1,3 @@
+In AbstractGroup.draw:  self.spritedict should be assigned to local variable to avoid repeated symbol lookup
+
+<em>a group that holds only the 'n' most recent elements. sort of like the GroupSingle class, but holding more than one sprite</em> -- GroupFifo?

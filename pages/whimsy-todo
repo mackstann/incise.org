@@ -1,0 +1,37 @@
+<h2>handle non-normal-client windows</h2>
+
+Progress: zilch
+
+i.e. override_redirect windows, unmapped windows, iconified, etc.
+
+
+<h2>sane key/mouse binding system</h2>
+
+Progress: moderate
+
+For now (until hotspot stuff and window db are all working together nicely) it should just be global grabs mapped to functions that can do further filtering, and the actual actions.  Should turn off <em>replay</em> by default, instead of requiring user to do so, since that is the most common desired behavior.
+
+The more granular grabbing will come when window types are working, and the callback functions generally assume that they should just go ahead and execute the action.  The binding setup should be the thing that takes care of making sure the right events go to the right places -- generally.
+
+
+<h2>window labels</h2>
+
+Progress: some, but unsure of proper design
+
+Keeping things in sync with the "database" might be an issue.
+
+Container-wise, it's probably best to have a dict with window keys and sequence values, listing the labels for that window. -- yes
+
+Formerly window "types."
+
+<h2>easy creation of 'hotspot' windows</h2>
+
+Progress: none
+
+Basically the same idea that OmegaWM uses, although at least for now, with no graphics-related stuff.  Just creating the windows, putting them in the right places, giving them labels, and generally managing them (repositioning on resize etc.).
+
+<h2>complex modifiers</h2>
+
+Progress: mostly done
+
+Mentioned in ../Ideas

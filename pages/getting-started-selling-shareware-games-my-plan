@@ -1,0 +1,34 @@
+<h3>The Game</h3>
+ <li>Concept: enhanced remake of Dr. Mario</li>
+ <li>Name: Dr. <????></li>
+ <li>Graphics: better looking than original -- similar to tetris time attack video?</li>
+ <li>Sound: need to find music & sound effects I can use</li>
+ <li>Gameplay: mostly the same as the original.</li>
+ <li>Shareware approach: Free limited demo.  Download full version upon payment.</li>
+ <li>Demo limitations: ????</li>
+ <li>Piracy protection: None.  Most people who pirate it wouldn't have paid anyway, and most people who pay won't even think to pirate it, or know how, or know that they can.  Also, the people who pirate it can end up promoting it to others.</li>
+ <li>Perhaps introduce a character or <a href="http://www.gamedev.net/reference/articles/article1989.asp">brand</a> that can be used again in future games?</li>
+
+<h3>Supporting Crap</h3>
+ <li>Website</li>
+  <li><a href="http://sonicron.solaristudios.com/2006/04/08/double-your-sales-screenshots/">This</a> suggests that screenshots are very important and I agree.  It also suggests video, which I also think is a great idea.  The last point it makes is that about 95% of people can view flash videos, which makes it the best choice as far as getting the most people to see video without hassle.  There is a reason google video and youtube use flash instead of wmv/mov/real/whatever.</li>
+  <li>Once it gets reviewed, post positive stuff from reviews on website.</li>
+ <li>Other sites to sell on</li>
+  <li>download.com</li>
+  <li>ebay!</li>
+  <li>every shareware site i can find</li>
+
+<h3>1.0 release</h3>
+ <li>Keep it simple</li>
+  <li>Need room for feature growth in future versions</li>
+  <li>Release early, but not too early</li>
+ <li>Find some beta testers for all platforms -- INPTC?</li>
+ <li>Technical issues:</li>
+  <li>compiling to executable for all platforms</li>
+  <li>installer? -- might not even need one</li>
+
+<h3>future enhancements</h3>
+ <li>adjust size of playing grid</li>
+ <li>more pill colors</li>
+ <li>graphics/sound themes</li>
+ <li>play vs. AI?  lots of work</li>

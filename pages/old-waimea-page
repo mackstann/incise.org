@@ -1,0 +1,224 @@
+<h1>Waimea, an X11 window manager</h1>
+
+<em>(this page is ancient)</em>
+
+This page is just a general write up about Waimea, usage, installation,
+features, tips, and opinions.  I decided to write this after finding Waimea to
+be a nearly perfect window manager for my habits.  All of the opinions
+expressed in this paper are mine, and are completely subjective.
+<strong>Disclaimer:</strong>  Waimea is fairly complex to configure, at least if you want
+it to work exactly how you want.  If you loathe editing text files for long
+amounts of time, then Waimea may not be for you.
+
+<h1>The good</h1>
+
+ <li>Lightweight/non-bloated</li>
+ <li>Sexy look</li>
+   <li>Xft antialiased fonts</li>
+   <li>Blackbox derived image code</li>
+   <li>Transparency support</li>
+   <li>Pixmap theme support</li>
+ <li>Infinitely customizeable</li>
+ <li>Takes a stance of pure configurability, instead of an ideology for a certain style of usage or a specific intended audience</li>
+ <li>Simple, straightforward configuration files, no endless gui configuration programs</li>
+ <li>Excellent manpage</li>
+ <li>It's relatively young, therefore only going to get better :)</li>
+
+
+<h1>The not-quite-as-good</h1>
+
+ <li>Young and somewhat flaky/buggy</li>
+   <li>Many configuration syntax errors will simply cause Waimea to die</li>
+   <li>Other noticeable bugs and 'oddities'</li>
+   <li>Thankfully the bugs and problems that do exist are tolerable and not that big of a deal, and again, the code is young, therefore many of these things will be worked out.</li>
+ <li>Small community, almost no irc presence (#waimea on irc.freenode.net, get in there right now!! :))</li>
+   <li>Not alot of themes (other than ones already made for black/open/fluxbox, which do not take advantage of Waimea's features)</li>
+ <li>The action file syntax, while very good imo, takes a while to totally figure out (especially with regards to menu relationships and whatnot)</li>
+ <li>Interdependancy of some themes and the action file (I like my action file way too much to just change it at a whim, thank you very much)</li>
+
+<h1>My habits</h1>
+Before I started using Waimea, I was using Openbox, and before that, Blackbox,
+with fairly long periods of Sawfish and pwm usage in there somewhere.  I
+actually tried Waimea not long after it was created (early 2002?), and found it
+"neat" but didn't see anything special so I moved on.  Openbox served me well
+for a while, but it was missing some things, and I had to hack in some things
+as far as mouse interaction.  I have actually only been using Waimea for at the
+most two weeks, but in many ways it is similar to black/openbox so I was
+quickly at home.
+
+The focus model I like to use is sloppy focus, but with a wheel mouse involved.
+I set <strong>Alt+Wheelup</strong> to lower windows, and I set <strong>Alt+Wheeldown</strong> to
+raise windows, and I also make moving/resizing *not* raise windows.  If I had
+to give this system a name, I'd call it "manual focus", or something like that.
+I don't like to have to tell new windows where to go with the mouse, and I do
+like new windows to raise to the top and get focus; this is more of how the
+click to focus crowd likes things, so I suppose I'm in some strange spot in the
+middle.
+
+As far as workspaces go, I used to just use anywhere from 5 to 9 workspaces,
+all in a horizontal line, and use <strong>Ctrl+left/right</strong> to move between them.
+After a while I noticed that flipping back and forth between two workspaces
+that were 2 or 3 apart got kind of tedious, so I thought 2d workspaces would be
+great (having a grid and being able to go left/right and up/down), and I found
+that Openbox supported them, but the support was very immature and basically
+unuseable.  With Waimea I use the standard configuration, which is 9 viewports
+in a 3x3 grid, this is actually what I was trying to achieve in Openbox.  I use
+a number of methods to switch workspaces:  <strong>Control+left/right/up/down</strong>,
+<strong>Control+u/i/o/j/k/l/m/comma/period</strong> keys (notice they are in a 3x3 grid on
+the keyboard), moving the mouse to the edge of the screen while holding Alt,
+and moving the mouse to the screen edge and scrolling up or down on the mouse
+wheel.  That seems like alot of different ways but they all have their use.
+Sometimes I will be coding in one workspace and want to go to the Mozilla
+workspace, So I'll use Control + letter keys to hop to the exact workspaces.
+Sometimes I'll just want to flip back and forth between two workspaces, so I'll
+use <strong>Control+left/right</strong>.  Sometimes I'll be surfing the web and using the
+mouse alot so I'll move over to the screen edge and scroll the mouse wheel to
+go over a workspace.  They all have their uses and i use them all.  One other
+thing that Waimea lets me do that I never did or even could do before, is to
+'surf' around the desktop.  That is, I have 9 viewports, and I can use
+<strong>Alt+Middle</strong> button to "drag" the entire desktop around, windows and all.
+This is cool, if you want to see things in two workspaces, you can be halfway
+in one and halfway in the other, or 1/4 in 4 different workspaces, etc.  In
+reality I don't use this all that much but every once in a while I will have a
+use for it.  Plus, it's just damn cool. :) (''please note that in this
+paragraph, workspaces=workspaces in general, but viewports in Waimea.  Waimea
+has 4 workspaces, each with 9 viewports.  I use one workspace with the 9
+viewports as my workspaces.  I believe this is how people generally use it, but
+the multiple Waimea workspaces can be put to interesting use, such as running
+Gnome in one and KDE in the other, or what have you.)''
+
+I don't like toolbars, icons, or anything of that sort.  I honestly could even
+go without the root menu, but it is there and doesn't get in the way so I use
+it sometimes.  Instead of using a windows taskbar-like program such as
+<strong>fspanel</strong>, <strong>KDE Kicker</strong>, or <strong>Gnome</strong> panel, I just like to lay my
+windows out visually and take advantage of multiple workspaces, without
+stacking window over window over window.
+
+<h1>Waimea</h1>
+<h2>Installation</h2>
+Installation is documented <a href="http://waimea.org/lfs-hint/waimea.html">here</a>, and
+linked to prominantly on <strong>waimea.org</strong>, and covers everything you should
+need to know to get Waimea installed.
+
+<h2>Getting antialiased fonts working</h2>
+You will need to compile with <code>--enable-xft</code>, as
+<a href="http://waimea.org/lfs-hint/waimea.html">documented</a>, and you will need some
+truetype fonts, most likely the ones provided by MS.  If you are not sure where
+to find these fonts, search google for <strong>msttcorefonts</strong>, and download the
+.cab file and use <strong>cabextract</strong> to extract it.  If you are running Debian,
+the package <strong>msttcorefonts</strong> will be helpful.  Once you get these fonts
+installed, you will need to add them to your fontpath in your
+<strong>XF86</strong><strong>Config[-4]</strong> file.  After that you will need to add them to Xft's
+fontpath in <strong>Xft</strong><strong>Config</strong> (should be in the same directory as
+<strong>XF86</strong><strong>Config[-4]</strong>).  Make sure and add their directory as the first
+<code>dir</code> statement.  Then you will need to cd into the directory where they
+are, and run <code>mkfontdir</code>, followed by <code>ttmkfdir -o fonts.scale</code>.
+Restart X and your fonts should be working.  Make sure you tell Waimea to use
+xft fonts with a line such as: <code>*.font: Trebuchet\ MS-9:bold=true [xft]</code>.
+Xft can be a bitch so don't be surprised if you run into a problem.  Keep
+trying, search google, ask on irc, etc, eventually I promise they will work and
+you will be glad you put in the effort :)  Also check
+<a href="http://www.cs.mcgill.ca/~dchest/xfthack/">this</a> out.
+
+<h2>Getting transparency working</h2>
+It is documented in the manpage, but I sure didn't see it until after I figured
+out the hard way, that you have to use <strong>Esetroot</strong> to set your background.
+If you use xsetroot, bsetbg, et al, you will have no transparency.  Another
+thing to note is that the *.opacity: statements in your style file are actually
+backwards from what they appear to be.  An opacity of 10 is actually a
+transparency of 10%.  Therefore if you want a window just barely transparent,
+You would use an opacity of 10 or 20, and if you wanted it very transparent,
+you would use an opacity of 80, 90, 100, etc.
+
+<h2>Styles</h2>
+Everything about styles is documented well in the manpage, study it and look at
+existing styles, it's pretty simple to pick up.
+
+<h2>Actions</h2>
+ACTIONS!!!!  This is where the magic starts.  Your action file dictates all
+interaction between Waimea and your mouse/keyboard.  Your focus method is here.
+Your keybindings are here.  Your menu behavior is here.  Some of the areas of
+the action file are a bit confusing, namely the menu stuff, but keep reading
+the man page and you should be able to figure it all out.  the DEF's are just
+groups of actions that can be included in other action statements.
+
+There are the obvious things you will put in your action file, such as your
+focus model, your keybindings, your workspace switching preferences, etc, but
+there are also some not so obvious things you can do here.  For instance, I
+like the ability to disable the handlebar via the titlebar menu, as I do not
+use the handlebar, rather I use Alt+right mouse button.  I thought to myself
+"it would be great if I could just turn the handlebar off by default", but
+there was no obvious configuration option for this.  Enter the action file!
+Using the Map<em>'</em>'Request event, which is the event that happens when a new window
+asks to be displayed, I assigned the action <code>DecorHandleOff</code>, therefore,
+when a new window opens, it's handlebar will be switched off immediately!  The
+line looks like this: <code>DecorHandleOff : MapRequest,</code>, and is under
+<code>DEF defaultallwindows</code>.
+
+There are some other neat things you can do.  To execute a shell command, just
+use curly braces.  <code>{xterm} : KeyPress = X & Control_L & Alt_L,</code>
+would start an xterm when I press Ctrl+Alt+X.  Things like this should go under
+<code>globalKeyBindings</code>.  If you want to use your multimedia keys, you can use
+<strong>xmodmap</strong> to give them names.  Run <strong>xev</strong>, and press your multimedia
+keys, and note the keycode for each.  Create a file, <strong>~/.xmodmap</strong>, and put
+a statement for each key on a line, in the format of
+<code>keycode 123 = XF86Foobar</code>, where Foobar is a valid key name.  You can find
+a list of valid key names under <strong>/etc/X11/xkb/symbols/inet</strong> (or at least
+that's where it is for me).  Now run <code>xmodmap ~/.xmodmap</code>, and these keys
+will be mapped.  You will have to run xmodmap again every X session, so you
+will most likely want to put the command in <strong>.xinitrc</strong>.  Now you can refer
+to these keys by their names in your action file.  For instance I have the
+line:
+<code>{xmms --fwd} : KeyPress = XF86Forward & !Control_L & !Alt_L,</code>,
+and the line
+<code>{xset dpms force standby} : KeyPress = XF86Sleep & !Control_L & !Alt_L,</code>.
+
+The viewport 'surfing' I talked about is accomplished by this:
+<code>StartViewportMove : ButtonPress = Button2 & Alt_L,</code>.  Remember for
+every move/resize event, you need an <code>EndMoveResize</code> event, like this:
+<code>EndMoveResize : ButtonRelease = Button2 & MoveResizeMask,</code>.
+
+The manual wheel focus is accomplished by this:
+<code>Raise : ButtonPress = Button5 & Alt_L, Lower : ButtonPress = Button4 & Alt_L,</code>.
+
+Another cool thing I have, which I first did in Sawfish (btw Sawfish also has
+excellent bindings), is that I can double click the root window, and get an
+xterm: <code>{xterm} : DoubleClick = Button1 & !Alt_L,</code>
+
+I was sometimes annoyed that I could accidentally switch to another workspace
+by going too close to the edge, and I don't like a time delay, and didn't want
+to make it too inconvient to go over to the next workspace should I choose, so
+I just made it so that I could wheel scroll up or down when touching the screen
+edge, and it flips to that workspace:
+<code>ViewPortLeft : Buttonpress = Button4 & !Alt_L,</code> and copy another with
+Button5.  Put these in the north/south/east/westedge sections.
+
+I prefer my menus to work how they do in black/open/fluxbox, that is, disappear
+when I right click in any part of them.  The default for Waimea is to only do
+this if you right click the title.  Put this under <code>DEF allMenuWindows</code>:
+<code>UnmapTree : ButtonRelease = Button3,</code>.
+
+One last note about actions, if you are having what seems to be a bug or
+problem, it would probably be solved by explicitly stating the on/off states of
+Control_L and Alt_L.  If you have an action set to K & Alt_L, and press
+Control_L on accident, it could act strange.  So if in doubt, always include
+the state of all modifier keys.
+
+<a href="http://incise.org/files/conf/">look here for some action files of mine</a>
+
+<h1>Summary</h1>
+Well, I hope this has helped out someone.  I really think Waimea is something
+special and deserves more attention, and that is mostly why I wrote this, was
+to get more material out there and help spread the word, and make Waimea more
+accessible.  If there is any other questions you have, drop by <strong>#waimea</strong> on
+the freenode irc network (<strong>irc.freenode.net</strong>), or the forums at waimea's
+<a href="http://sf.net/projects/waimea">sourceforge</a> page.  I will likely be adding to
+this page as I think of things to add, and/or people mention things to add.
+
+<h1>Links</h1>
+<h2>Feel free to link to this page, or any of the following pages, in fact it is encouraged :)</h2>
+
+ <li><a href="http://waimea.org">waimea.org</a></li>
+ <li><a href="http://sf.net/projects/waimea">waimea sourceforge page</a></li>
+ <li>#waimea on irc.freenode.net</li>
+ <li><a href="http://incise.org/images/screenshots/">my screenshots, some blackbox, some openbox, some pwm, and some sawfish,  2002-11-24-1.png and later are waimea</a></li>

@@ -1,0 +1,176 @@
+<h2>What it is</h2>
+<a href="py-libmpdclient2.html">py libmpdclient2</a> is a Python library for making <a href="http://musicpd.org">MPD (Music Player Daemon)</a> clients.  It replaces py-libmpdclient and is completely redesigned and written from the ground up.  The result is a much smaller, simpler, more reliable, and more dynamic library.
+
+<h2>Download</h2>
+ <li>http://incise.org/files/dev/<a href="py-libmpdclient2.html">py libmpdclient2</a>-1.0.tgz</li>
+
+<h2>Using <a href="py-libmpdclient2.html">py libmpdclient2</a></h2>
+<code>test.py</code> should do a decent job of showing how the module works -- there's not a lot to it -- but if you have more questions, your best bet is to get a hold of me (mackstann) in #mpd on irc.freenode.net (not there so much anymore).  Or you can email me at mack@incise.org .
+
+Since the library isn't widely packaged, it is probably easiest for you to just include mpdclient2.py in your own client's codebase.  And since it is public domain, you have no licensing issues to worry about whatsoever.  The code belongs to you no less than it belongs to me.
+
+<h2>Projects using <a href="py-libmpdclient2.html">py libmpdclient2</a></h2>
+ <li><a href="http://eleusis.f2o.org/projects/xmms2/chalyx/">Chalyx</a> - a python library to make it easier to write XMMS2 and MPD clients</li>
+ <li><a href="http://arton.cunst.net/mpd/">pbmpcd</a> - python bemused music player client daemon</li>
+ <li><a href="http://dadexter.googlepages.com/kanola">Kanola</a> - a mpd client for KDE, written in Python</li>
+ <li><a href="http://pygmy.berlios.de">Pygmy</a> - Python GTK+ MPD player</li>
+ <li><a href="http://pympd.sf.net">pympd</a> - a frontend for mpd in the style of rhythmbox and itunes, written in python, with pygtk</li>
+ <li><a href="http://www.red-bean.com/~decklin/software/lastfmsubmitd/">lastfmsubmitd</a> - a replacement for the traditional Last.fm plugin model</li>
+ <li><a href="http://sonata.berlios.de">Sonata</a> - a lightweight GTK+ music client for the Music Player Daemon (MPD)</li>
+
+<h2>the situation</h2>
+I wrote py-libmpdclient a while back, basically as a direct translation of the C libmpdclient to Python.  It works and stuff, but there are some problems:
+
+<h3>overall design problems</h3>
+
+ <li>There is lots of dumb repetetive code for implementing the various mpd commands</li>
+ <li>There are too many mostly-useless classes and boilerplate type code that really is not helpful</li>
+ <li>As new fields are added to the output of existing commands, the hard-wired handling of them gets out of sync, and ideally should simply be avoided</li>
+ <li>Adding new commands requires patching on more methods</li>
+
+<h3>just plain dumb stuff</h3>
+
+ <li>Error handling is broken and dumb</li>
+ <li>Leftover C-isms like mapping strings to numbers where there's no reason to</li>
+
+<h2>version two</h2>
+
+So ok, let's fix it.  Basic ideas:
+
+ <li><strong>Simple:</strong> Keep the mechanics simple.  The protocol boils down to sets of key/value pairs, so let's base the design on that.</li>
+ <li><strong>Dynamic:</strong> Define the commands and their behavior in one place, and use Python's dynamic nature to automatically set up code to handle all of the commands.  Adding new commands should be as simple as adding an entry to some data structure.</li>
+
+<h3>more on the protocol</h3>
+
+MPD's protocol is line-based (linefeed (\n) delimited).
+
+Every line sent from the client to the server is a command that elicits a response, with the exception of command lists.  A command list begins with command_list_begin, followed by an arbitrary number of commands, followed by command_list_end.  The entire command list gets one response -- OK if all commands succeeded, ACK if any failed, and no commands after the failed command will have been executed.
+
+A command is a single word followed by a space, followed by space-delimited arguments.  Arguments with embedded spaces or double quotes should be enclosed within double quotes.  Double quotes and backslashes within the quoted string should be escaped with backslashes in the typical way:
+
+ <li>\ changes to \\</li>
+ <li>" changes to \"</li>
+
+A safe implementation is just as simple as that.
+
+<pre>
+escaped = text.replace('\\', '\\\\').replace('"', '\\"')
+</pre>
+
+<pre>
+somecommand "hey i have \"embedded quotes\" in my string"
+ACK what's somecommand?  you're dumb
+somecommand "i have backslashes too.  a backslash is \"\\\"."
+ACK what's somecommand?  you're dumb
+</pre>
+
+Every line that comes from the server is one of:
+
+ <li>OK MPD <version string></li>
+ <li>OK</li>
+ <li>ACK <error string></li>
+ <li>key: value</li>
+
+The OK MPD is sent to the client when it first connects.  Some commands receive a list of key/value pairs.  All commands get either an OK or ACK response (after the key/value pairs, if any).
+
+ /!\ todo: how's the format of the errors work, with all of the funky [foo@bar] {} business?
+
+Examples:
+
+<strong>% telnet localhost 6600</strong>[[BR]]
+<em>Trying 127.0.0.1...</em>[[BR]]
+<em>Connected to localhost.localdomain.</em>[[BR]]
+<em>Escape character is '^]'.</em>[[BR]]
+OK MPD 0.12.0[[BR]]
+<strong>pause</strong>[[BR]]
+OK[[BR]]
+<strong>pause</strong>[[BR]]
+OK[[BR]]
+<strong>outputs</strong>[[BR]]
+outputid: 0[[BR]]
+outputname: my ALSA device[[BR]]
+outputenabled: 1[[BR]]
+OK[[BR]]
+<strong>command_list_begin</strong>[[BR]]
+<strong>pause</strong>[[BR]]
+<strong>pause</strong>[[BR]]
+<strong>command_list_end</strong>[[BR]]
+OK[[BR]]
+<strong>command_list_begin</strong>[[BR]]
+<strong>foo</strong>[[BR]]
+<strong>bar</strong>[[BR]]
+<strong>command_list_end</strong>[[BR]]
+ACK <a href="5@0]">{} unknown command "foo"[[BR</a>]
+<strong>status</strong>[[BR]]
+volume: 79[[BR]]
+repeat: 1[[BR]]
+random: 1[[BR]]
+playlist: 27287[[BR]]
+playlistlength: 3036[[BR]]
+xfade: 0[[BR]]
+state: pause[[BR]]
+song: 554[[BR]]
+songid: 24793[[BR]]
+time: 3:319[[BR]]
+bitrate: 192[[BR]]
+audio: 44100:16:2[[BR]]
+OK
+
+ /!\ todo: command_list_ok_begin adds some more exceptions to the protocol
+
+<h3>implementing the protocol in a generic way</h3>
+
+Check out the <code>status</code> command above.  We can take all of its key/val pairs and throw them into a dict (hash) - voila.  But some commands return multiple "sets" of the same key/val pairs.  For example, the outputs command could return:
+
+<pre>
+outputid: 0
+outputname: my ALSA device
+outputenabled: 1
+outputid: 1
+outputname: lalala
+outputenabled: 1
+</pre>
+
+We now need to break this into two different dicts.  We need to know which keys to consider "beginning" keys -- keys that indicate a new set of pairs; an independent entity in the results.
+
+We also should give each of these entities a type, so we know what it is.  This is necessary for the playlist commands which return arbitrarily ordered lists of playlists, files, and directories.  For example, listallinfo might give us:
+
+<pre>
+directory: music
+directory: music/deftones
+file: music/deftones/deftones - around the fur.mp3
+Time: 212
+Artist: deftones
+Title: around the fur
+Album: deftones
+file: music/deftones/deftones - be quiet and drive (far away).mp3
+Time: 308
+Artist: deftones
+Title: be quiet and drive (far away)
+Album: deftones
+</pre>
+
+So we'll give our dicts a single extra key, "type".  For the above output, we'd have four dicts:
+
+<pre>
+{'directory': 'music', 'type': 'directory'}
+</pre>
+<pre>
+{'directory': 'music/deftones', 'type': 'directory'}
+</pre>
+<pre>
+{'Album': 'deftones', 'Title': 'around the fur', 'Artist': 'deftones', 'file': 'music/deftones/deftones - around the fur.mp3', 'Time': '212', 'type': 'file'}
+</pre>
+<pre>
+{'Album': 'deftones', 'Title': 'be quiet and drive (far away)', 'Artist': 'deftones', 'file': 'music/deftones/deftones - be quiet and drive (far away).mp3', 'Time': '308', 'type': 'file'}
+</pre>
+
+The "type" to use for each entity would be its first key for playlist items, and for other commands we'll just use the name of the command -- after all, it would make no sense for a status object's type to be "volume".
+
+It's also a lot nicer to just do foo.type, foo.directory, etc., instead of foo<a href="'type']">and foo['directory'</a>, so instead of just using a dict, we'll subclass it and implement <code>__getattr__</code> to look up members in the dict for reading.
+
+I mentioned earlier that hard-coding the various keys that go into a given object (like a status object, or a directory object) basically sucks, but the one thing that it allows us to do is convert things to integers where appropriate.  I would also like to convert things like "44100:16:2" to a tuple (44100, 16, 2).  Unfortunately you can't really do this in a generic way.  Imagine that some band has an album called 5.  It would automatically get converted to an int, which wouldn't make sense.  We'd have to keep track of which fields should be integers or sets of integers -- and then what happens when a new integer field is added to some command's output?  Ah, the library is now out of sync.  So I really don't want to do that.  Bummer.
+
+ /!\ todo: explain converters
+
+ /!\ todo: explain the layout of the command dict, and the independent send/fetch/do components

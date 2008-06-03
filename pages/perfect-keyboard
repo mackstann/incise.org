@@ -1,0 +1,129 @@
+This is my own little scratch space for ideas about how to make the
+perfect keyboard -- because let's face it: computer keyboards all suck, to
+varying extents.  My favorite is the
+<a href="http://incise.org/papers/typematrix.html">typematrix</a>, but it is not perfect.
+And when I say "perfect," I mean perfect to me.  If I could create my perfect
+keyboard, it just might turn out to be everyone's perfect keyboard -- but I
+doubt it.
+
+I hope that one day I will somehow be able to actually manufacture this
+perfect keyboard, but who knows.  I might not even care by then.
+
+<strong>This page is, and probably always will be, a work in progress.</strong>
+
+<strong>update: <em>Actually, I never really got around to adding to this page.</em> </strong>
+
+<h1>Inspiration</h1>
+
+While there is no perfect keyboard, there are plenty of good ideas in
+various existing keyboards that can be recycled.  I imagine that patents
+might be a problem if I were to try and sell my perfect keyboard.
+
+The following are some keyboards that have already taken their stab at
+being the perfect keyboard, and what interesting features they have come up
+with:
+
+<h2>Kinesis Contoured Keyboard</h2>
+
+<h3>Links</h3>
+ <li>http://www.kinesis-ergo.com/contoured.htm</li>
+ <li>http://timtyler.org/keyboard/</li>
+ <li>http://sepwww.stanford.edu/sep/jon/sorehand.html</li>
+ <li>http://www.spies.com/~josh/kinesis.html</li>
+ <li>http://www.koniaris.com/dvorak/dvorak.html</li>
+ <li>http://xenia.media.mit.edu/~nelson/misc/kinesis-quickref.html</li>
+ <li>http://www.nmt.edu/~shipman/ergo/kinesis.html</li>
+
+<h3>Interesting bits</h3>
+ <li>hands apart</li>
+ <li>keys in straight columns</li>
+ <li>color-coded home row keys</li>
+ <li>emphasis on DIY layouts, although the implementation (firmware in the keyboard, and some funky real-mode program for manipulating it, I believe) seems cumbersome and problematic</li>
+ <li>concave hand "bowls"</li>
+ <li>little constellations of buttons for the thumbs; actually letting the thumbs make a significant contribution to typing</li>
+
+<h2>note: many more keyboards will be added eventually, this takes time</h2>
+
+<h1>My features</h1>
+
+Ok, so let's figure out what the perfect keyboard should and should not do.
+
+<h2>Goodbye typewriter</h2>
+
+If a feature stems from being a necessity on typewriters, it should
+probably not be used on a computer keyboard.  This includes staggered key
+columns, a monolithic layout, qwerty keymap, and I'm sure other things that I
+can't think of.  But qwerty vs. dvorak is a whole other argument
+altogether.
+
+<h2>Chording - I don't know</h2>
+
+Chording is a really nifty concept, but I don't know if the perfect
+keyboard should use it.  It would likely complicate the design a lot, and I
+don't know whether I would even like using a chording keyboard on a day to
+day basis.
+
+<h2>Hands apart</h2>
+
+I think this is pretty important.  I think the best way to go is to have
+the keyboard split into two parts; this would also let you stick your mouse
+in the middle (I'm not sure if I'd like that or not), and have a comfortable
+stance while typing.
+
+<h2>Keys</h2>
+
+The keys should be like laptop keys -- really nice laptop keys.  Very
+solid feeling; not plasticky or rubbery feeling, not floppy feeling.  And a
+quiet but nice sound.  They need to be durable: anyone who cares this much
+about a computer keyboard will probably be using them a lot.
+
+For labels, I like the <a href="http://timtyler.org/keyboard/">Kinesis guy</a>'s idea: do
+what cash registers do (at least I think it's cash registers that do it).  The
+top of the key would be transparent plastic, and you would slide little pieces
+of paper/plastic/whatever into the side/top/bottom/whatever of the keys, which
+would then show through the top.  The letters become immune to wear; they are
+very easy to change; and when you do change them, they don't look like crap
+(like magic marker or labels do); and you don't have the key size compatability
+problems you have when you try to physically move keys around.  The downsides
+could possibly be: added complexity/cost to the keys themselves, and
+limitations on key design/shape/etc (they might need to be thicker, for
+example).
+
+<h2>Layout of modifier and whitespace keys</h2>
+
+It's fairly obvious how to lay out the alpha (and to a lesser extent,
+numeric) keys, but where to put modifier and whitespace keys is not so
+obvious, and IMO, has been screwed up over and over.
+
+First off, the only duplicate modifier key should be the shift key, since
+there is a legitimate need to shift with one hand while typing a letter with
+the other hand.  But two tab keys (typematrix)?  Two backspaces (typematrix)?
+Two controls, alts, and supers?  A space bar that is the size of 5+ keys?
+
+Each thumb should have its own job -- or better yet, multiple jobs.  For
+example, one thumb could handle space, tab, and enter, and the other thumb
+could handle control, alt, super, etc. (this is just one of nearly infinite
+possible examples.)  In fact, the keys that bug my left pinky the most are
+control, tab, and shift.  I think it's pretty stupid for me to stress my
+pinky by reaching over to them, while my right thumb just sits there doing
+*nothing*.
+
+<h2>Colors</h2>
+
+Colors should definitely be used for distinguishing key "types" or key
+"groups."  But no stupid colors, like the ugly blue on the kinesis, or the
+ridiculous red on the typematrix's delete key.  And the keyboard should be
+grey, or silver, or black, or something other than the boring and fairly
+butt-ugly white or off-white used on most keyboards.  Wood or metal would
+also rock (aesthetically as well as "feel"-wise), but that might not be
+feasible.
+
+Another problem with the typematrix is the wimpy orange used for the
+dvorak labels -- it's nearly impossible to read them in many normal lighting
+conditions.  Even in good lighting, they are still harder to read than dark
+labels.
+
+<h1>Links</h1>
+
+ <li><a href="http://incise.org/typematrix.html">my review of the typematrix keyboard</a></li>
+ <li><a href="http://www.keyalt.com/kkeybrdp.htm">keyalt keyboards</a></li>

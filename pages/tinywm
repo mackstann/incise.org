@@ -1,0 +1,333 @@
+<h2>What it is</h2>
+
+<a href="tinywm.html">tinywm</a> is a tiny window manager that I created as an exercise in minimalism.  It is also maybe helpful in learning some of the very basics of creating a window manager.  It is only around 50 lines of C.  There is also a Python version using python-xlib.
+
+It lets you do 4 basic things:
+
+ 1. Move windows interactively with Alt+Button1 drag (left mouse button)
+ 2. Resize windows interactively with Alt+Button3 drag (right mouse button)
+ 3. Raise windows with Alt+F1 (not high on usability I know, but I needed a keybinding in there somewhere)
+ 4. Focus windows with the mouse pointer (X does this on its own)
+
+<h2>Download</h2>
+
+ <li>http://incise.org/files/dev/tinywm-1.3.tgz</li>
+ <li>http://incise.org/files/dev/tinywm-1.2.tgz</li>
+ <li>http://incise.org/files/dev/tinywm-1.1.tgz</li>
+ <li>http://incise.org/files/dev/tinywm-1.0.tgz</li>
+
+<h2>Known to be packaged in</h2>
+
+ <li>Debian</li>
+ <li>Ubuntu</li>
+ <li>FreeBSD</li>
+ <li>CRUX</li>
+
+<h2><a href="tinywm.html">tinywm</a> around the web</h2>
+
+ <li><a href="http://omnibus.uni-freiburg.de/~giannone/skatoswm/">SkatOSWM</a></li>
+ <li><a href="http://paste.lisp.org/display/19072">In Lisp</a></li>
+ <li><a href="http://www.linuxforums.org/forum/linux-programming-scripting/33347-xlib-programming-coding-my-own-wm.html">someone hacking it</a></li>
+ <li><a href="http://tigerdyr.wheel.dk/ctwm-archive/1328.html">Is this cool, or what?</a></li>
+ <li><a href="http://forums.blagblagblag.org/viewtopic.php?t=1724">In a car PC</a></li>
+ <li><a href="http://www.darkarts.co.za/projects/unwimp/wiki">This guy is doing something or another with it</a></li>
+
+<h2>See Also</h2>
+
+ <li><a href="not-so-tiny-window-managers.html">not so tiny window managers</a></li>
+ <li><a href="whimsy.html">whimsy</a></li>
+ <li><a href="flypper.html">flypper</a></li>
+
+
+<h2>The source</h2>
+
+Here is tinywm.c from the most recent release, 1.3:
+<pre>
+/* <a href="tinywm.html">tinywm</a> is written by Nick Welch <mack@incise.org>, 2005.
+ *
+ <li>This software is in the public domain</li>
+ <li>and is provided AS IS, with NO WARRANTY. */</li>
+
+#include <X11/Xlib.h>
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int main()
+{
+    Display * dpy;
+    Window root;
+    XWindowAttributes attr;
+    XButtonEvent start;
+    XEvent ev;
+
+    if(!(dpy = XOpenDisplay(0x0))) return 1;
+
+    root = DefaultRootWindow(dpy);
+
+    XGrabKey(dpy, XKeysymToKeycode(dpy, XStringToKeysym("F1")), Mod1Mask, root,
+            True, GrabModeAsync, GrabModeAsync);
+    XGrabButton(dpy, 1, Mod1Mask, root, True, ButtonPressMask, GrabModeAsync,
+            GrabModeAsync, None, None);
+    XGrabButton(dpy, 3, Mod1Mask, root, True, ButtonPressMask, GrabModeAsync,
+            GrabModeAsync, None, None);
+
+    for(;;)
+    {
+        XNextEvent(dpy, &ev);
+        if(ev.type == KeyPress && ev.xkey.subwindow != None)
+            XRaiseWindow(dpy, ev.xkey.subwindow);
+        else if(ev.type == ButtonPress && ev.xbutton.subwindow != None)
+        {
+            XGrabPointer(dpy, ev.xbutton.subwindow, True,
+                    PointerMotionMask|ButtonReleaseMask, GrabModeAsync,
+                    GrabModeAsync, None, None, CurrentTime);
+            XGetWindowAttributes(dpy, ev.xbutton.subwindow, &attr);
+            start = ev.xbutton;
+        }
+        else if(ev.type == MotionNotify)
+        {
+            int xdiff, ydiff;
+            while(XCheckTypedEvent(dpy, MotionNotify, &ev));
+            xdiff = ev.xbutton.x_root - start.x_root;
+            ydiff = ev.xbutton.y_root - start.y_root;
+            XMoveResizeWindow(dpy, ev.xmotion.window,
+                attr.x + (start.button==1 ? xdiff : 0),
+                attr.y + (start.button==1 ? ydiff : 0),
+                MAX(1, attr.width + (start.button==3 ? xdiff : 0)),
+                MAX(1, attr.height + (start.button==3 ? ydiff : 0)));
+        }
+        else if(ev.type == ButtonRelease)
+            XUngrabPointer(dpy, CurrentTime);
+    }
+}
+
+</pre>
+
+Here is annotated.c, which is just tinywm.c with a lot of comments explaining what is going on.  This should give you a reasonable idea of how everything works.
+
+<pre>
+/* <a href="tinywm.html">tinywm</a> is written by Nick Welch <mack@incise.org>, 2005.
+ *
+ <li>This software is in the public domain</li>
+ <li>and is provided AS IS, with NO WARRANTY. */</li>
+
+/* much of tinywm's purpose is to serve as a very basic example of how to do X
+ <li>stuff and/or understand window managers, so i wanted to put comments in the</li>
+ <li>code explaining things, but i really hate wading through code that is</li>
+ <li>over-commented -- and for that matter, tinywm is supposed to be as concise</li>
+ <li>as possible, so having lots of comments just wasn't really fitting for it.</li>
+ <li>i want tinywm.c to be something you can just look at and go "wow, that's</li>
+ <li>it?  cool!"  so what i did was just copy it over to annotated.c and comment</li>
+ <li>the hell out of it.  ahh, but now i have to make every code change twice!</li>
+ <li>oh well.  i could always use some sort of script to process the comments out</li>
+ <li>of this and write it to tinywm.c ... nah.</li>
+ */
+
+/* most X stuff will be included with Xlib.h, but a few things require other
+ <li>headers, like Xmd.h, keysym.h, etc.</li>
+ */
+#include <X11/Xlib.h>
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int main()
+{
+    Display * dpy;
+    Window root;
+    XWindowAttributes attr;
+
+    /* we use this to save the pointer's state at the beginning of the
+     <li>move/resize.</li>
+     */
+    XButtonEvent start;
+
+    XEvent ev;
+
+
+    /* return failure status if we can't connect */
+    if(!(dpy = XOpenDisplay(0x0))) return 1;
+
+    /* you'll usually be referencing the root window a lot.  this is a somewhat
+     <li>naive approach that will only work on the default screen.  most people</li>
+     <li>only have one screen, but not everyone.  if you run multi-head without</li>
+     <li>xinerama then you quite possibly have multiple screens. (i'm not sure</li>
+     <li>about vendor-specific implementations, like nvidia's)</li>
+     *
+     <li>many, probably most window managers only handle one screen, so in</li>
+     <li>reality this isn't really *that* naive.</li>
+     *
+     <li>if you wanted to get the root window of a specific screen you'd use</li>
+     <li>RootWindow(), but the user can also control which screen is our default:</li>
+     <li>if they set $DISPLAY to ":0.foo", then our default screen number is</li>
+     <li>whatever they specify "foo" as.</li>
+     */
+    root = DefaultRootWindow(dpy);
+
+    /* you could also include keysym.h and use the XK_F1 constant instead of
+     <li>the call to XStringToKeysym, but this method is more "dynamic."  imagine</li>
+     <li>you have config files which specify key bindings.  instead of parsing</li>
+     <li>the key names and having a huge table or whatever to map strings to XK_*</li>
+     <li>constants, you can just take the user-specified string and hand it off</li>
+     <li>to XStringToKeysym.  XStringToKeysym will give you back the appropriate</li>
+     <li>keysym or tell you if it's an invalid key name.</li>
+     *
+     <li>a keysym is basically a platform-independent numeric representation of a</li>
+     <li>key, like "F1", "a", "b", "L", "5", "Shift", etc.  a keycode is a</li>
+     <li>numeric representation of a key on the keyboard sent by the keyboard</li>
+     <li>driver (or something along those lines -- i'm no hardware/driver expert)</li>
+     <li>to X.  so we never want to hard-code keycodes, because they can and will</li>
+     <li>differ between systems.</li>
+     */
+    XGrabKey(dpy, XKeysymToKeycode(dpy, XStringToKeysym("F1")), Mod1Mask, root,
+            True, GrabModeAsync, GrabModeAsync);
+
+    /* XGrabKey and XGrabButton are basically ways of saying "when this
+     <li>combination of modifiers and key/button is pressed, send me the events."</li>
+     <li>so we can safely assume that we'll receive Alt+F1 events, Alt+Button1</li>
+     <li>events, and Alt+Button3 events, but no others.  You can either do</li>
+     <li>individual grabs like these for key/mouse combinations, or you can use</li>
+     <li>XSelectInput with KeyPressMask/ButtonPressMask/etc to catch all events</li>
+     <li>of those types and filter them as you receive them.</li>
+     */
+    XGrabButton(dpy, 1, Mod1Mask, root, True, ButtonPressMask, GrabModeAsync,
+            GrabModeAsync, None, None);
+    XGrabButton(dpy, 3, Mod1Mask, root, True, ButtonPressMask, GrabModeAsync,
+            GrabModeAsync, None, None);
+
+    for(;;)
+    {
+        /* this is the most basic way of looping through X events; you can be
+         <li>more flexible by using XPending(), or ConnectionNumber() along with</li>
+         <li>select() (or poll() or whatever floats your boat).</li>
+         */
+        XNextEvent(dpy, &ev);
+
+        /* this is our keybinding for raising windows.  as i saw someone
+         <li>mention on the ratpoison wiki, it is pretty stupid; however, i</li>
+         <li>wanted to fit some sort of keyboard binding in here somewhere, and</li>
+         <li>this was the best fit for it.</li>
+         *
+         <li>i was a little confused about .window vs. .subwindow for a while,</li>
+         <li>but a little RTFMing took care of that.  our passive grabs above</li>
+         <li>grabbed on the root window, so since we're only interested in events</li>
+         <li>for its child windows, we look at .subwindow.  when subwindow</h2></li>
+         <li>None, that means that the window the event happened in was the same</li>
+         <li>window that was grabbed on -- in this case, the root window.</li>
+         */
+        if(ev.type == KeyPress && ev.xkey.subwindow != None)
+            XRaiseWindow(dpy, ev.xkey.subwindow);
+        else if(ev.type == ButtonPress && ev.xbutton.subwindow != None)
+        {
+            /* now we take command of the pointer, looking for motion and
+             <li>button release events.</li>
+             */
+            XGrabPointer(dpy, ev.xbutton.subwindow, True,
+                    PointerMotionMask|ButtonReleaseMask, GrabModeAsync,
+                    GrabModeAsync, None, None, CurrentTime);
+
+            /* we "remember" the position of the pointer at the beginning of
+             <li>our move/resize, and the size/position of the window.  that way,</li>
+             <li>when the pointer moves, we can compare it to our initial data</li>
+             <li>and move/resize accordingly.</li>
+             */
+            XGetWindowAttributes(dpy, ev.xbutton.subwindow, &attr);
+            start = ev.xbutton;
+        }
+        /* the only way we'd receive a motion notify event is if we already did
+         <li>a pointer grab and we're in move/resize mode, so we assume that. */</li>
+        else if(ev.type == MotionNotify)
+        {
+            int xdiff, ydiff;
+
+            /* here we "compress" motion notify events.  if there are 10 of
+             <li>them waiting, it makes no sense to look at any of them but the</li>
+             <li>most recent.  in some cases -- if the window is really big or</li>
+             <li>things are just acting slowly in general -- failing to do this</li>
+             <li>can result in a lot of "drag lag."</li>
+             *
+             <li>for window managers with things like desktop switching, it can</li>
+             <li>also be useful to compress EnterNotify events, so that you don't</li>
+             <li>get "focus flicker" as windows shuffle around underneath the</li>
+             <li>pointer.</li>
+             */
+            while(XCheckTypedEvent(dpy, MotionNotify, &ev));
+
+            /* now we use the stuff we saved at the beginning of the
+             <li>move/resize and compare it to the pointer's current position to</li>
+             <li>determine what the window's new size or position should be.</li>
+             *
+             <li>if the initial button press was button 1, then we're moving.</li>
+             <li>otherwise it was 3 and we're resizing.</li>
+             *
+             <li>we also make sure not to go negative with the window's</li>
+             <li>dimensions, resulting in "wrapping" which will make our window</li>
+             <li>something ridiculous like 65000 pixels wide (often accompanied</li>
+             <li>by lots of swapping and slowdown).</li>
+             *
+             <li>even worse is if we get "lucky" and hit a width or height of</li>
+             <li>exactly zero, triggering an X error.  so we specify a minimum</li>
+             <li>width/height of 1 pixel.</li>
+             */
+            xdiff = ev.xbutton.x_root - start.x_root;
+            ydiff = ev.xbutton.y_root - start.y_root;
+            XMoveResizeWindow(dpy, ev.xmotion.window,
+                attr.x + (start.button==1 ? xdiff : 0),
+                attr.y + (start.button==1 ? ydiff : 0),
+                MAX(1, attr.width + (start.button==3 ? xdiff : 0)),
+                MAX(1, attr.height + (start.button==3 ? ydiff : 0)));
+        }
+        /* like motion notifies, the only way we'll receive a button release is
+         <li>during a move/resize, due to our pointer grab.  this ends the</li>
+         <li>move/resize.</li>
+         */
+        else if(ev.type == ButtonRelease)
+            XUngrabPointer(dpy, CurrentTime);
+    }
+}
+
+</pre>
+
+And here's tinywm.py.  XCheckT<em>'</em>'ypedEvent has no equivalent in python-xlib, so it is commented out.  It doesn't affect functionality, except that responsiveness is worse when you are moving/resizing (especially resizing a large window).
+
+<pre>
+# <a href="tinywm.html">tinywm</a> is written by Nick Welch <mack@incise.org>, 2005.
+#
+# This software is in the public domain
+# and is provided AS IS, with NO WARRANTY.
+
+from Xlib.display import Display
+from Xlib import X, XK
+
+dpy = Display()
+root = dpy.screen().root
+
+root.grab_key(XK.string_to_keysym("F1"), X.Mod1Mask, 1,
+        X.GrabModeAsync, X.GrabModeAsync)
+root.grab_button(1, X.Mod1Mask, 1, X.ButtonPressMask,
+        X.GrabModeAsync, X.GrabModeAsync, X.NONE, X.NONE)
+root.grab_button(3, X.Mod1Mask, 1, X.ButtonPressMask,
+        X.GrabModeAsync, X.GrabModeAsync, X.NONE, X.NONE)
+
+while 1:
+    ev = root.display.next_event()
+
+    if ev.type == X.KeyPress and ev.child != X.NONE:
+        ev.window.circulate(X.RaiseLowest)
+    elif ev.type == X.ButtonPress and ev.child != X.NONE:
+        ev.child.grab_pointer(1, X.PointerMotionMask|X.ButtonReleaseMask,
+                X.GrabModeAsync, X.GrabModeAsync, X.NONE, X.NONE, X.CurrentTime)
+        attr = ev.child.get_geometry()
+        start = ev
+    elif ev.type == X.MotionNotify:
+        #while(XCheckTypedEvent(dpy, MotionNotify, &ev));
+        xdiff = ev.root_x - start.root_x
+        ydiff = ev.root_y - start.root_y
+        ev.window.configure(
+            x = attr.x + (start.detail == 1 and xdiff or 0),
+            y = attr.y + (start.detail == 1 and ydiff or 0),
+            width = max(1, attr.width + (start.detail == 3 and xdiff or 0)),
+            height = max(1, attr.height + (start.detail == 3 and ydiff or 0)))
+    elif ev.type == X.ButtonRelease:
+        dpy.ungrab_pointer(X.CurrentTime)
+
+</pre>
