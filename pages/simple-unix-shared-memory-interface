@@ -20,8 +20,8 @@ PDIE() is left as an exercise to the reader...
 <pre>
 /* This code written by Nick Welch <mack@incise.org>, 2006.
  *
- <li>This code is in the public domain</li>
- <li>and is provided AS IS, with NO WARRANTY. */</li>
+ * This code is in the public domain
+ * and is provided AS IS, with NO WARRANTY. */
 
 static key_t get_shm_key(void)
 {
@@ -54,8 +54,8 @@ static void * open_shm(size_t bytes, int justreading)
     if(!justreading)
     {
         /* we need to delete it in case we need to allocate more memory this
-         <li>time than last time.  if we try that without first deleting it, we</li>
-         <li>will get EINVAL.</li>
+         * time than last time.  if we try that without first deleting it, we
+         * will get EINVAL.
          */
 
         id = shmget(key, get_shm_min(), 0644|IPC_CREAT);
