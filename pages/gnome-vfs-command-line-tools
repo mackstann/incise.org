@@ -24,4 +24,3 @@ This is pretty cool.  The only thing that sucks is that they are pretty crude an
 
 Also I found that if you use the sftp protocol, you need to use key auth.  If password auth is needed, it just fails.
 
-Check out the source code here: http://cvs.gnome.org/viewcvs/gnome-vfs/programs/
