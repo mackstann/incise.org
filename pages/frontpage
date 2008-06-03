@@ -1,3 +1,4 @@
+<ul>
  <li><a href="py-libmpdclient2.html">py libmpdclient2</a></li>
  <li><a href="whimsy.html">whimsy</a></li>
  <li><a href="http://incise.org/images/screenshots/">Screenshots</a></li>
@@ -28,15 +29,18 @@
  <li><a href="statiki.html">statiki</a></li>
  <li><a href="http://incise.org/sigh">sigh, a unix signal handling library</a></li>
  <li><a href="spook-window-manager.html">spook window manager</a></li>
- <li><a href="http://incise.org/files/dev">Releases of stuff and stuff</a></li>
- <li><a href="http://incise.org/files/conf">Conf files and whatnot</a></li>
- <li><a href="http://incise.org/images/tigermp">Tiger MPs get toasty</a></li>
- <li><a href="http://incise.org/images/fw">Cardboard computers are fancy</a></li>
- <li><a href="<img src="/images/nametag.jpg">">Credentials</a></li>
+ <li><a href="http://incise.org/files/dev">releases of stuff and stuff</a></li>
+ <li><a href="http://incise.org/files/conf">config files and whatnot</a></li>
+ <li><a href="http://incise.org/images/tigermp">toasty tiger mp motherboard</a></li>
+ <li><a href="http://incise.org/images/fw">cardboard computers are fancy</a></li>
+ <li><a href="/images/nametag.jpg">credentials</a></li>
  <li><a href="old-ass-stuff.html">old ass stuff</a></li>
+</ul>
 
 <h2>offsite</h2>
+<ul>
  <li><a href="http://freshmeat.net/~mackstann">Freshmeat</a></li>
  <li><a href="http://kahakai.sourceforge.net">Kahakai</a></li>
  <li><a href="http://lnuxlab.ath.cx/~khromy/mcd_report.txt">McD report</a></li>
  <li><a href="http://software.newsforge.com/article.pl?sid=05/01/19/166244">Kahakai mentioned in NewsForge article</a></li>
+</ul>
