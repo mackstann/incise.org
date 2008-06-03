@@ -1,4 +1,4 @@
-all:
+all: clean
 	mkdir -p output
 	sh buildall.sh
 
