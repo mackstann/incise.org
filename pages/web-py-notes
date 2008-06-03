@@ -7,4 +7,4 @@ render(template, terms=None, asTemplate=False, base=None, isString=False):  : Re
  the caller's local variables are used instead, plus context, if it's not 
  already set, is set to `context`. <strong>Meaning: explicitly pass terms=locals() to reduce the amount of magic going on.</strong>
 
-update: I like Cherry<em>'</em>'Py and Mako better than web.py now.
+update: I like CherryPy and Mako better than web.py now.
