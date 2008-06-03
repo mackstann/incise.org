@@ -1,22 +1,26 @@
 This is just some brainstorming on my ideal programming language.
 
 <h2>Some key features</h2>
+<ul>
  <li>Prototype-based object-orientation -- meaning: no classes.</li>
+</ul>
 
 <h2>Biggest Influences</h2>
+<ul>
  <li>Python</li>
- <li>Io</li>
-  <li>no reserved keywords, extremely simple/minimalist approach to syntax.</li>
- <li>Lisp</li>
-  <li>More as inspiration than any specific features</li>
- <li>Smalltalk</li>
-  <li>arbitrary-base numeric literals - i.e. 16rdeadbeef and 8r01234567 instead of 0xdeadbeef and 001234567.  This also allows for binary (1r0110100) and anything else you might want (36rheyguy)</li>
+ <li>Io - no reserved keywords, extremely simple/minimalist approach to syntax.</li>
+ <li>Lisp - More as inspiration than any specific features</li>
+ <li>Smalltalk - arbitrary-base numeric literals - i.e. 16rdeadbeef and 8r01234567 instead of 0xdeadbeef and 001234567.  This also allows for binary (1r0110100) and anything else you might want (36rheyguy)</li>
+</ul>
 
 <h2>Syntax brainstorming</h2>
 
+<pre>
 mylist = List.clone
 mylist.append(5)
 mylist.extend([1,2,3,4,5])
 
 string = " one, two, three "
 splitup = string.strip()
+</pre>
+
