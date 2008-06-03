@@ -6,4 +6,4 @@ clean:
 	rm -rf output
 
 install: all
-	rsync -vza --delete -P -e ssh output/ nwelch@bsd3.quadrahosting.com:incise.org/newsite/
+	rsync -vza --delete -e ssh output/ nwelch@bsd3.quadrahosting.com:incise.org/newsite/
