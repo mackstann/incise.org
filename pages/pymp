@@ -1,7 +1,7 @@
 <h1>Writing an mp3 Player in Python</h1>
 
-'''This page is old.  <a href="pymp.html">pymp</a> changed to <a href="thump.html">thump</a>. This page is still a good
-read, though.'''
+<strong>This page is old.  pymp changed to thump. This page is still a good
+read, though.</strong>
 
 Lately I have been working on writing my own mp3 player in Python, because I
 found most mp3 players too stuffy and inflexible.  I also enjoy coding things
@@ -23,17 +23,22 @@ immediately deciding that I am an idiot : )
 
 The goal is to have an mp3 player that is:
 
- 1. <strong>Written in python</strong>.  Biased, yes, but that's ok ; )
- 1. Is <strong>text-based</strong>.  XMMS does alot of the things, if not all of the things that I want, but I don't like graphical stuff very much.  It reduces the ease of interaction with text that makes unix so wonderful, and it won't run on a machine without X installed (which is a requirement).
- 1. Is <strong>extremely extendable, interoperable, etc</strong>.  I want to be able to control it from other python scripts, control it from the command line, control it with bash scripts, get information from it in python, get information from it with bash scripts, etc etc.  <strong>I want to be able to "ask it questions", and "give it instructions", from anywhere.</strong>
- 1. Is <strong>modular</strong>.  I want a daemon of sorts, that runs behind the scenes, playing the music.  I want to have another program that accesses information about songs playing, I want another program that lets my type commands to the player interactively.  I want another program which lets me control the player via the command line.  (last two will possibly be one in the same)
- 1. Is not a dog performance-wise: <strong>doesn't suck up tons of ram or cpu.</strong> This is fairly moot as mp3 decoding is not really all that intensive of a task for a computer, and python is plenty fast for the task measured it at about 2.7% avg cpu usage, mpg321 is about the same).
- 1. Fairly <strong>portable</strong>.  It is being developed on linux and will be running on NetBSD once I am satisfied with it.
+<ul>
+ <li><strong>Written in python</strong>.  Biased, yes, but that's ok ; )</li>
+ <li>Is <strong>text-based</strong>.  XMMS does alot of the things, if not all of the things that I want, but I don't like graphical stuff very much.  It reduces the ease of interaction with text that makes unix so wonderful, and it won't run on a machine without X installed (which is a requirement).</li>
+ <li>Is <strong>extremely extendable, interoperable, etc</strong>.  I want to be able to control it from other python scripts, control it from the command line, control it with bash scripts, get information from it in python, get information from it with bash scripts, etc etc.  <strong>I want to be able to "ask it questions", and "give it instructions", from anywhere.</strong></li>
+ <li>Is <strong>modular</strong>.  I want a daemon of sorts, that runs behind the scenes, playing the music.  I want to have another program that accesses information about songs playing, I want another program that lets my type commands to the player interactively.  I want another program which lets me control the player via the command line.  (last two will possibly be one in the same)</li>
+ <li>Is not a dog performance-wise: <strong>doesn't suck up tons of ram or cpu.</strong> This is fairly moot as mp3 decoding is not really all that intensive of a task for a computer, and python is plenty fast for the task measured it at about 2.7% avg cpu usage, mpg321 is about the same).</li>
+ <li>Fairly <strong>portable</strong>.  It is being developed on linux and will be running on NetBSD once I am satisfied with it.</li>
+</ul>
 
 I also have some goals for the code itsef:
 
- 1.#7 The <strong>number of files should be minimized</strong>, but not if it means affecting other aspects negatively.  I am a <strong>minimalist</strong>, not for the sake of performance, but for the sake of <strong>simplicity, coherency</strong>, and <strong>aiding the learning process</strong>.  For example, I don't use KDE.  This is not because I am afraid of my dual 1.3Ghz machine being too slow, or my 60GB hard drive filling up, it's because KDE is visually and conceptually humongous, gets in my way, and basically just does way more stuff than I wish to delegate to software, while at the same time, provides little flexibility to me unless I learn C++ and QT, which is a huge task that I have no intention of undertaking.  As simple as it may be for a windows user to navigate, it makes it very difficult to get at it's innards and really play with it, and understand what's going on.
- 1. <strong>All code related to the player</strong> should be included in the player's code, and that code should be <strong>in the form of a Python module </strong> that I can import from other programs to easily control the player.  Currently I have mid-level functions for controlling the player, which still expose the underpinnings of how it works.  Example: {{{
+<ul>
+ <li>The <strong>number of files should be minimized</strong>, but not if it means affecting other aspects negatively.  I am a <strong>minimalist</strong>, not for the sake of performance, but for the sake of <strong>simplicity, coherency</strong>, and <strong>aiding the learning process</strong>.  For example, I don't use KDE.  This is not because I am afraid of my dual 1.3Ghz machine being too slow, or my 60GB hard drive filling up, it's because KDE is visually and conceptually humongous, gets in my way, and basically just does way more stuff than I wish to delegate to software, while at the same time, provides little flexibility to me unless I learn C++ and QT, which is a huge task that I have no intention of undertaking.  As simple as it may be for a windows user to navigate, it makes it very difficult to get at it's innards and really play with it, and understand what's going on.</li>
+ <li><strong>All code related to the player</strong> should be included in the player's code, and that code should be <strong>in the form of a Python module </strong> that I can import from other programs to easily control the player.  Currently I have mid-level functions for controlling the player, which still expose the underpinnings of how it works.
+
+  Example: <pre>
 death@two ~/shplay % python
 Python 2.2.2 (#1, Mar 21 2003, 23:01:54)
 <a href="GCC">3.2.3 20030316 (Debian prerelease)</a> on linux2
@@ -41,7 +46,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> import <a href="pymp.html">pymp</a>
 >>> remote = <a href="pymp.html">pymp</a>.<a href="pymp.html">pymp</a>Ctl()
 >>> remote.hupPlayer()
-}}} The player currently skips to the next song when it receives SIGHUP, and the method for doing that reflects in the name of the method.  Eventually I want methods such as "nextSong()" or "prevSong()" or "stopPlayer()", etc.
+</pre>
+    The player currently skips to the next song when it receives SIGHUP, and the method for doing that reflects in the name of the method.  Eventually I want methods such as "nextSong()" or "prevSong()" or "stopPlayer()", etc.
+    </li>
+</ul>
 
 When you get down to it, the main goal is to have the <strong>perfect balance</strong> of
 <strong>power, flexibility, and simplicity</strong>.  The unix ideal, basically. : )
@@ -127,11 +135,13 @@ logic.
 I have decided against creating a dedicated user interface, for two
 reasons:
 
+<ul>
  <li>Curses suck[s?].</li>
  <li>It would only lower flexibility, rewarding the novice and punishing</li>
  the advanced user.  This is backwards logic, the more you learn and know, the
  more you should be rewarded with power and flexibility (again, the unix ideal
  :)
+</ul>
 
 I currently plan to have two user interface components.  The original concept
 was an irc-like interface, with one line at the bottom for entering commands,
@@ -194,7 +204,7 @@ and likely may change, but for now that's all I can really think of.
 I expect this to simply be a python script running a loop of raw_input()s, with
 appropriate actions taken for commands.
 
-----
+<hr>
 
 <h2>pyao and pymad on NetBSD</h2>
 
@@ -209,16 +219,18 @@ the pymad webpage, but they are identical to pyao's), using
 <code>--prefix /usr/pkg</code>, or whatever other directory you install your packages to.  No
 further tweaking should be needed.
 
-----
+<hr>
 
 <h2>Update, May 12 2003</h2>
 
 Ok, quite a bit has been done.  There are now 3 files.  Current source is
 <a href="http://incise.org/files/dev/pymp-may12-2002/">here</a>.
 
- 1. <a href="pymp.html">pymp</a>.py - The main module containing all of the common code for the player, controller, and any other possible parts.  Contains a class of filenames, a decoder class, a controller class, and a file operations class.
- 1. play.py - The player itself, code here is less general, more specific to the exact way we want our player to act.  The player has lots of options for debugging output, including printing out a nested display of method calls as they are made.  There are a few different kinds of output and you can individually turn these on or off, and choose whether to print them to stdout, to the logfile, both, or neither.  You can turn the interactive time clock on or off (er, will be able to : ), you can have it go either to stderr, stdout (not yet), or a file, which you can then tail.
- 1. Ctl.py - The controller.  The behind the scenes work in it is done by the <code><a href="pymp.html">pymp</a>.<a href="pymp.html">pymp</a>Ctl</code> class, with Ctl.py having code specific to how we want our controller to act.  It has two modes, interactive and non-interactive. Non-interactive use would be something like <code>./Ctl.py -n</code>, to skip to the next song, or <code>./Ctl.py -p</code>, to print out info about the song currently playing (bitrate, filename).  Interactive use is, well, interactive.  Lots of improvements are planned for interactive mode.  If you type a letter which is a command (n for next song, z for pause, etc), it will execute that command right away without having to hit enter.  The forward slash ("/") character will correspond to longer, typed out commands.  I plan to have it so that you can do perhaps "<code>/d+ /some/directory</code>" to add a directory to the playlist, or <code>/d-</code> to remove a directory.  <code>/g+</code> could add a glob of files, with corresponding <code>/g-</code>.  A slash with a typed out word after it could be a search, that narrowed down the list to files that match the search.  Lots of neat stuff is possible. : )
+<ul>
+ <li><a href="pymp.html">pymp</a>.py - The main module containing all of the common code for the player, controller, and any other possible parts.  Contains a class of filenames, a decoder class, a controller class, and a file operations class.</li>
+ <li>play.py - The player itself, code here is less general, more specific to the exact way we want our player to act.  The player has lots of options for debugging output, including printing out a nested display of method calls as they are made.  There are a few different kinds of output and you can individually turn these on or off, and choose whether to print them to stdout, to the logfile, both, or neither.  You can turn the interactive time clock on or off (er, will be able to : ), you can have it go either to stderr, stdout (not yet), or a file, which you can then tail.</li>
+ <li>Ctl.py - The controller.  The behind the scenes work in it is done by the <code><a href="pymp.html">pymp</a>.<a href="pymp.html">pymp</a>Ctl</code> class, with Ctl.py having code specific to how we want our controller to act.  It has two modes, interactive and non-interactive. Non-interactive use would be something like <code>./Ctl.py -n</code>, to skip to the next song, or <code>./Ctl.py -p</code>, to print out info about the song currently playing (bitrate, filename).  Interactive use is, well, interactive.  Lots of improvements are planned for interactive mode.  If you type a letter which is a command (n for next song, z for pause, etc), it will execute that command right away without having to hit enter.  The forward slash ("/") character will correspond to longer, typed out commands.  I plan to have it so that you can do perhaps "<code>/d+ /some/directory</code>" to add a directory to the playlist, or <code>/d-</code> to remove a directory.  <code>/g+</code> could add a glob of files, with corresponding <code>/g-</code>.  A slash with a typed out word after it could be a search, that narrowed down the list to files that match the search.  Lots of neat stuff is possible. : )</li>
+</ul>
 
 <h3>Interface, again</h3>
 
@@ -260,7 +272,7 @@ screens, <code>^A &lt;number&gt;</code> goes to screen &lt;number&gt;, etc.
 in the upper-lower window, and screen 3 at the very bottom.  Now I have
 something like this:
 
-pymp/img/screen1.png
+<img src="pymp/img/screen1.png">
 
 Now, in the top window, I want a list of the files being played, as they are
 played.  The player writes this info (including bitrate) to the file
@@ -282,28 +294,32 @@ and all of this other confusing stuff. : )
 
 Now I have this:
 
-pymp/img/screen2.png
+<img src="pymp/img/screen2.png">
 
 Ok, that's it for now, I still need to do quite a bit of work, but it's usable
 now.
 
 <h4>Unresolved Issues / TODO</h4>
- 1. Interface is a bit of a kludge to get up and running.
- 1. Is there any way to get rid of those "status" bars that screen puts there?
- 1. Song searching and advanced commands need implemented - this includes the backend functions for adding and removing things from the playlist by various methods (directory, glob, string matching, regex?), resetting the playlist, saving (?) the playlist, etc.
- 1. Stopping and playing needs implemented.  Stopping right now just kills the player and you have to go start it again manually.
- 1. I'm not sure that using a regular file and using CR's to go to the beginning of the line for the <code>pymp.live</code> is a great idea, it seems to choke if you stop tailing it, or if you try to open the file from somewhere else, it appears empty, etc.  Not really sure how to go about this.
- 1. play.py needs docstrings.  Ctl.py does too, but it is going to be changing alot so it'd be a bit pointless right now.
- 1. Ctl.py will probably need to be structured more properly as it grows, it's a bit of a quick hack right now, with no classes of its own.
- 1. Needs a new name.  It's pymp for now, but there is already a project called <a href="pymp.html">pymp</a>s.
- 1. A ton of other little things that I can't think of right now.
+<ol>
+ <li>Interface is a bit of a kludge to get up and running.</li>
+ <li>Is there any way to get rid of those "status" bars that screen puts there?</li>
+ <li>Song searching and advanced commands need implemented - this includes the backend functions for adding and removing things from the playlist by various methods (directory, glob, string matching, regex?), resetting the playlist, saving (?) the playlist, etc.</li>
+ <li>Stopping and playing needs implemented.  Stopping right now just kills the player and you have to go start it again manually.</li>
+ <li>I'm not sure that using a regular file and using CR's to go to the beginning of the line for the <code>pymp.live</code> is a great idea, it seems to choke if you stop tailing it, or if you try to open the file from somewhere else, it appears empty, etc.  Not really sure how to go about this.</li>
+ <li>play.py needs docstrings.  Ctl.py does too, but it is going to be changing alot so it'd be a bit pointless right now.</li>
+ <li>Ctl.py will probably need to be structured more properly as it grows, it's a bit of a quick hack right now, with no classes of its own.</li>
+ <li>Needs a new name.  It's pymp for now, but there is already a project called <a href="pymp.html">pymp</a>s.</li>
+ <li>A ton of other little things that I can't think of right now.</li>
+</ol>
 
-----
+<hr>
 
 <h3>Update, May 16 2003</h3>
 
 More notes.
 
- 1. Curses client
- 1. Playlist management
- 1. Name.  Zu?
+<ul>
+ <li>Curses client</li>
+ <li>Playlist management</li>
+ <li>Name.  Zu?</li>
+</ul>
