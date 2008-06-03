@@ -1,6 +1,8 @@
-<h1>Why?</h1>
-Copied from http://www.cobcottage.com/whatwedo :
+<h2>Why?</h2>
 
+Copied from <a href="http://www.cobcottage.com/whatwedo">http://www.cobcottage.com/whatwedo</a>:
+
+<ul>
  <li>A new house costs $100,000 and takes a lifetime to pay for. As real earnings decline, housing costs continue to rise, trapping people into 30-year mortgages. Homeowners take jobs they can't stand to pay for houses that don't suit them. We research and teach how to build very low cost, personalized houses that an owner can pay for in a year.</li>
  <li>As family size drops, new houses continue to get bigger -- huge boxes unsuited to their occupants' needs, costly to maintain, and inefficient in space, energy and materials. In contrast to the building industry's emphasis on size, we demonstrate quality -- of materials, craftsmanship and spaces. We believe your house should be of moderate size but a work of art, a daily inspiration and a joy to live in.</li>
  <li>Modern building materials are increasingly toxic to builders and residents. We explore durable, cheap, natural materials which won't make you ill.</li>
@@ -9,11 +11,12 @@ Copied from http://www.cobcottage.com/whatwedo :
  <li>Most US housing uses immense amounts of energy for heating and lighting. All our buildings are solar oriented to be snug in winter and cool in summer. They need no air conditioning, no daytime lighting, and minimal heating.</li>
  <li>Industrial cartels, the building industry and government have all conspired to prevent most people from building their own homes. We help people to take charge of creating their own housing. We research and teach construction techniques anyone can learn rapidly.</li>
  <li>As resources diminish, the reuse of building materials becomes urgent. Mainstream construction shows little concern for how its products will be re-used and is a massive creator of waste, impoverishing future generations. We work with organic materials which can be reused or composted, especially earth, rock, straw and unwanted parts of trees.</li>
+</ul>
 
-<h1>Water</h1>
+<h2>Water</h2>
+<ul>
  <li>Pumps are to be avoided in all cases</li>
-
- <li>Rainwater</li>
+ <li>Rainwater<ul>
   <li>Can contain parasites from bird & animal waste, and in urban areas, various pollutants</li>
   <li>can be used directly for toilets and outdoor stuff (irrigation, washing the car)</li>
   <li>should be filtered for any use where humans will come in contact with it (drinking water, shower, dish/clothes washing)</li>
@@ -24,41 +27,51 @@ Copied from http://www.cobcottage.com/whatwedo :
  <li>Greywater</li>
   <li>Filtering out particles is messy business</li>
   <li>Probably best to only use for <a href="http://www.oasisdesign.net/greywater/buildersguide/index.htm#brancheddrain">branched-drain mulch basins</a></li>
+ </ul>
+ </li>
+</ul>
 
-<h1>Landscaping</h1>
+<h2>Landscaping</h2>
 On using trees/bushes for shade:
 
  <em>Here in the Pacific Northwest, I use Oregon White Oak farther away from the house and red-twigged dogwood (a large shrub) closer to the house, where I don't want a huge root ball destroying the foundation. I don't use evergreen plants to shade windows because I want the light in winter.</em> -- <a href="http://www.treehugger.com/files/2006/08/lower_your_air.php#comment-33012">comment on treehugger</a>
 
-<h1>Appliances</h1>
+<h2>Appliances</h2>
 <h3>Dishwasher</h3>
- <li>ref: http://www.joe.org/joe/2003february/rb3.shtml</li>
+<ul>
+ <li>ref: http://www.joe.org/joe/2003february/rb3.shtml<ul>
   <li><em>The average water use per dishwasher cycle decreased from a range of 11-15 gallons per normal cycle in 1978 (Garrett, 1978) to 6-10 gallons per normal cycle in 2000 (Soap and Detergent Association [SDA], 2000).</em></li>
   <li><em>If dishes are pre-rinsed using a dishwasher pre-rinse cycle, approximately one gallon of water is used. Pre-rinsing in the sink under running water, however, uses up to 25 gallons of water for 5 minutes of pre-rinsing--a substantial difference.</em>  <strong>25 gallons in 5 minutes is 5gpm, which seems suspect.  And what about energy use?</strong></li>
- <li>ref: <a href="http://www.mtprog.com/ApprovedBriefingNotes/BriefingNoteTemplate.aspx?intBriefingNoteID=286">http://www.mtprog.com/...intBriefingNoteID=286</a></li>
+ </ul></li>
+ <li>ref: <a href="http://www.mtprog.com/ApprovedBriefingNotes/BriefingNoteTemplate.aspx?intBriefingNoteID=286">http://www.mtprog.com/...intBriefingNoteID=286</a><ul>
   <li><strong>On water usage:</strong> <em>So even a conservative estimate means that washing the same load by hand uses at least three times more water.</em></li>
   <li><strong>On electricity usage:</strong> <em>From the energy consumption graph above the cross-over between manual washing up and dishwasher appliance is nine place settings.  The argument for using an appliance to save energy is therefore weaker especially when considering that most dishwashers are only loaded to about 7 place settings [7].  A dishwasher either looks full from not being loaded efficiently or has a few larger “cookware” items which take space or the dishwasher is run part full simply because the user would like to use some items fairly soon and does not have two sets of crockery to fill the dishwasher to the full 12 place setting capacity.</em>  <strong>It is unclear to me whether this study used the dishwasher's electric dry cycle or not.  Air drying at least halves the electricity usage (according to a quick internet search).</strong></li>
+ </ul></li>
  <li>This leaves the issue of power usage still a bit unclear.  Also, space usage and general consumption of materials are issues to consider.  Personally I feel that these two issues are definitely justified, considering that one dishwasher means at least a decade or so of dishwashing misery is avoided.</li>
- <li>All things considered, I would theorize that:</li>
-  1. Using the pre-rinse cycle when needed,
-  1. Using an economy cycle to wash,
-  1. Waiting until the machine is as full as you can stuff it,
-  1. and using air dry
- would result in overall less water and power usage, while actually getting dishes generally cleaner than handwashing.  But this is only a slightly educated guess.
- <li>ref: <a href="http://environment.about.com/od/greenlivingdesign/a/dishwashers.htm">http://environment.about.com/...dishwashers.htm</a></li>
+ <li>All things considered, I would theorize that:<ol>
+  <li>Using the pre-rinse cycle when needed,</li>
+  <li>Using an economy cycle to wash,</li>
+  <li>Waiting until the machine is as full as you can stuff it,</li>
+  <li>and using air dry</li>
+  </ol>
+ would result in overall less water and power usage, while actually getting dishes generally cleaner than handwashing.  But this is only a slightly educated guess.</li>
+ <li>ref: <a href="http://environment.about.com/od/greenlivingdesign/a/dishwashers.htm">http://environment.about.com/...dishwashers.htm</a><ul>
   <li>This article, citing the American Council for an Energy-Efficient Economy, and the EPA, seeems to agree with me, except that it recommends <strong>against</strong> the pre-rinse cycle, apparently for energy consumption reasons.  It seems to recommend against pre-rinsing of any kind.</li>
- <li>Some other steps you can take to make sure your dishwasher is resource efficient:</li>
+  </ul></li>
+ <li>Some other steps you can take to make sure your dishwasher is resource efficient:<ul>
   <li>Might be obvious, but look for energy star labels and efficiency ratings if you buy a new dishwasher.</li>
   <li>Clean it when needed (check the manual if you have it).</li>
   <li>Use less soap than directed (do a little experimenting).</li>
+  </ul></li>
  <li><a href="http://www.treehugger.com/files/2005/08/eco-tip_dishwas.php">Efficient dishwashing tips from treehugger</a></li>
  <li><a href="http://www.treehugger.com/files/2005/08/dishwasher_vs_h.php">Apparently the dishwasher is officially more green than handwashing.</a></li>
+</ul>
 
 <h4>Dishwasher: Conclusion</h4>
 
 Given the information dug up, it appears that a dishwasher can be more green than handwashing; however, there are steps you must take to make this happen.  In theory you will have lower bills all around, except the bill for the big honking machine.  It is unclear how the resources taken to build a dishwasher affect its total resource efficiency.
 
-<h1>Green additions</h1>
+<h2>Green additions</h2>
 <h3>Solar hot water heater</h3>
 
 Heating water is one of the biggest (the second biggest, apparently) uses of energy in a home.  And while photovoltaic cells are a long-term investment at best, heating water with the sun is quite effective, <a href="http://www.thesietch.org/projects/solarthermalpanel2/index.htm">even with cheap and relatively primitive materials</a>.
@@ -67,7 +80,10 @@ There are two basic types of solar hot water heaters: batch heaters and panel he
 
 The problem with some of these simpler setups is that they can be badly damaged by freezing temperatures.  One solution is to run antifreeze through the panel and isolate this from the actual water it is heating.  You use a heat exchanger to transfer heat from the antifreeze circuit to the water.  This also means you'll probably need to use a pump to circulate the antifreeze, although you can get a fairly small (not sure on amount of power needed and the price) photovoltaic panel and a DC pump that will run off of it.
 
-<h1>Misc. Links</h1>
+<h2>Misc. Links</h2>
+<ul>
  <li><a href="http://www.i4at.org/library.html">Institute for Appropriate Technology Library</a></li>
  <li><a href="http://www.i4at.org/lib2/rotate.htm">Wally Minto's Wonder Wheel</a></li>
  <li><a href="http://www.rotarystirlingengines.com/rotacola.htm">RotoColaSola Engine</a></li>
+</ul>
+
