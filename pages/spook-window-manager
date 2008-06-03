@@ -1,19 +1,18 @@
-(fyi: this is yet another defunct project of mine)
-
-[[TableOfContents]]
+(this is yet another defunct project of mine)
 
 <h2>See also</h2>
 
- <li><a href="http://wq.ath.cx:82/archzoom.cgi/mack@incise.org--2004/spook--mainline--1.0--patch-7/doc/DESIGN">doc/DESIGN</a></li>
+<ul>
  <li><a href="http://freshmeat.net/projects/spookwm">freshmeat project page</a></li>
+</ul>
 
 <h2>Introduction</h2>
 
 <h3>What?</h3>
 
-Spook is an <a href="http://www.plig.org/xwinman/intro.html">X11 Window Manager</a>,
-focusing on modularity, and clean, well designed, object-oriented code.  It is
-written in C++.
+Spook is an <a href="http://www.plig.org/xwinman/intro.html">X11 Window
+Manager</a>, focusing on modularity, and clean, well designed, object-oriented
+code.  It is written in C++.
 
 Spook is licensed under an unrestrictive X/MIT license.  Basically, you just
 have to retain the license text.
@@ -34,18 +33,19 @@ event types.  The X event handler itself is simply a callback registered with
 the main loop.  This stuff works right now.  And of course there are a ton of
 ideas in my head of where to go.
 
-Modules will be used, somewhat similar to <a href="http://gaim.sf.net">gaim</a>'s plugins
-(or those of many other apps).  Basically, compiled dynamic objects which the
-window manager will load and then communicate with.  It is through this
-interface that you can register your callbacks and do whatever else you want.
-The window manager itself will have no "configuration files" or other such
-end-user-ish things; they will be implemented as modules.  There could be a
-module which reads a text configuration file and registers key and mouse
-bindings based on what it parses.  There could be modules which wrap scripting
-language interpreters so that you could script things in your favorite
-scripting language, just as you can do in <a href="http://kahakai.sf.net">Kahakai</a>
-(python &amp; ruby) and <a href="http://sawmill.sf.net">Sawfish</a> (lisp).  This is still
-being hashed out -- it works, but I still want to do some more reworking.
+Modules will be used, somewhat similar to <a
+href="http://gaim.sf.net">gaim</a>'s plugins (or those of many other apps).
+Basically, compiled dynamic objects which the window manager will load and then
+communicate with.  It is through this interface that you can register your
+callbacks and do whatever else you want.  The window manager itself will have
+no "configuration files" or other such end-user-ish things; they will be
+implemented as modules.  There could be a module which reads a text
+configuration file and registers key and mouse bindings based on what it
+parses.  There could be modules which wrap scripting language interpreters so
+that you could script things in your favorite scripting language, just as you
+can do in <a href="http://kahakai.sf.net">Kahakai</a> (python &amp; ruby) and
+<a href="http://sawmill.sf.net">Sawfish</a> (lisp).  This is still being hashed
+out -- it works, but I still want to do some more reworking.
 
 <h3>Who?</h3>
 
@@ -71,70 +71,69 @@ though it is often out of sync with my local copy.  The arch archive itself is
 
 <h3>Why?</h3>
 
-
+<ul>
  <li>To become a better programmer, including:</li>
-
  <li>Improving C++ skills (was pretty new to it)</li>
  <li>Improving Xlib skills (ditto)</li>
  <li>Learning to design things well</li>
  <li>Learning to deal with managing a C/C++ project: libraries, build system, etc.</li>
-
  <li>To have fun coding!</li>
  <li>And of course - to build the perfect window manager that I've always wanted but has not existed.  For some reason I've always been really intrigued by window managers; I've spent a lot of time going through different ones, I hacked a couple before having any real idea what I was doing, and even helped launch and develop <a href="http://kahakai.sf.net">one</a> for a while.  But they all had shortcomings.  I finally figured that the only way I could really get the exact window manager I wanted was to <em>write</em> the exact one I wanted, so I am.</li>
+</ul>
 
 <h2>Hot Screenshot Action</h2>
 
 I stripped out all of the Xlib drawing stuff that aewm had, and have not
-replaced it with anything, so right now you just get a random-colored
-titlebar with no text or buttons. :P  Left mouse button moves the window,
-and right mouse button resizes it.  Eventually I'll <a href="#decor">implement decor</a>.
+replaced it with anything, so right now you just get a random-colored titlebar
+with no text or buttons. :P  Left mouse button moves the window, and right
+mouse button resizes it.  Eventually I'll <a href="#decor">implement decor</a>.
 
 <img src="/images/spook/sexy.png">
 
 <h2>Major Hurdles</h2>
 
 <h3>X Error Handling (solved, implemented)</h3>
-One thing I want to absolutely avoid in Spook is global variables, and
-the general habit of "grabbing things out of the sky," as I call it.  It
-just feels wrong to me.  I feel that it can make encapsulation a
-<em>lot</em> more difficult.  Something I've noticed a lot in C++ (window
-managers specifically) is the usage of singletons as syntactically-sugared
-up global variables.  If a global variable is an F, then this is probably a
-D, IMO.  I realize that singletons have their uses; I think they're
-possibly overused.
+One thing I want to absolutely avoid in Spook is global variables, and the
+general habit of "grabbing things out of the sky," as I call it.  It just feels
+wrong to me.  I feel that it can make encapsulation a <em>lot</em> more
+difficult.  Something I've noticed a lot in C++ (window managers specifically)
+is the usage of singletons as syntactically-sugared up global variables.  If a
+global variable is an F, then this is probably a D, IMO.  I realize that
+singletons have their uses; I think they're possibly overused.
 
 The problem with X event handling comes in when you consider that you
-essentially <em>have</em> to handle X errors, and they're called via a
-function pointer that you pass to xlib.  This means that you can't really
-access the running program data from inside of the error handler, unless
-you have some global variables, singletons, or functions in the sky to use
-to grab onto the rest of the running program.
+essentially <em>have</em> to handle X errors, and they're called via a function
+pointer that you pass to xlib.  This means that you can't really access the
+running program data from inside of the error handler, unless you have some
+global variables, singletons, or functions in the sky to use to grab onto the
+rest of the running program.
 
 So after quite a bit of thinking (I may be a bit slow), and after seeing
 Metacity's error handling scheme, I realized that it was pretty simple, and
 allowed me to handle X errors without resorting to global variables, and in
 fact, presented a solution somewhat similar to the <code>try/catch</code>
-pattern for exception handling used in many languages.  How it works is simple: when you
-expect an X error may occur, you instantiate an <code>xerror_catch</code>.
-You then do whatever it is you think might cause an error, and afterwards,
-you check your <code>xerror_catch</code> instance and see if it caught
-anything during that time.  You can then retrieve the error and do whatever
-is appropriate with it.  You can nest them, and you can also use a traditional
-X error handling function on the "outside" to catch unexpected X errors.
+pattern for exception handling used in many languages.  How it works is simple:
+when you expect an X error may occur, you instantiate an
+<code>xerror_catch</code>.  You then do whatever it is you think might cause an
+error, and afterwards, you check your <code>xerror_catch</code> instance and
+see if it caught anything during that time.  You can then retrieve the error
+and do whatever is appropriate with it.  You can nest them, and you can also
+use a traditional X error handling function on the "outside" to catch
+unexpected X errors.
 
 <h3>Signal Handling (solved, implemented)</h3>
-A somewhat similar problem is handling of unix signals.  Normally you do
-this by registering handlers for whichever signal(s) you want to catch, and
-then they're called, with no access to anything but the signal number, and
-any global data you have.  Well, if we want no global data, then that's not
-very helpful.  Signal handlers also have significant restrictions on what
-they can do.  You can only call a small number of C standard library
-functions (re-entrancy problems), and you are only "supposed" to modify
-<code>sig_atomic_t</code>s.  You have no idea when your signal handler will
-be called, so to be safe, you have to resort to things like blocking
-signals at various parts of your code.  A lot of people just ignore those
-restrictions (it'll usually compile and run fine), which can cause
-extremely sporadic and hard to detect bugs.
+A somewhat similar problem is handling of unix signals.  Normally you do this
+by registering handlers for whichever signal(s) you want to catch, and then
+they're called, with no access to anything but the signal number, and any
+global data you have.  Well, if we want no global data, then that's not very
+helpful.  Signal handlers also have significant restrictions on what they can
+do.  You can only call a small number of C standard library functions
+(re-entrancy problems), and you are only "supposed" to modify
+<code>sig_atomic_t</code>s.  You have no idea when your signal handler will be
+called, so to be safe, you have to resort to things like blocking signals at
+various parts of your code.  A lot of people just ignore those restrictions
+(it'll usually compile and run fine), which can cause extremely sporadic and
+hard to detect bugs.
 
 The solution is also similar to <code>xerror_catch</code>, but a little
 different.  Basically you set up a super simple signal handler that just
@@ -148,8 +147,7 @@ Ok, as often happens, I found out that my "solution" was flawed.  My new
 "perfect" (the old solution was perfect, until I found out it wasn't, so now
 this one is perfect ;) solution is to block signals with sigprocmask, and then
 check them with sigwaitinfo/sigtimedwait.  I split this off into its own
-library called sigh, which is in
-<a href="http://wq.ath.cx:82/archzoom.cgi/mack@incise.org--2004?expanded">arch</a>.
+library called sigh.
 And of course, nothing is ever final.
 
 <h3>Extensiblity (somewhat solved, somewhat implemented)</h3>
