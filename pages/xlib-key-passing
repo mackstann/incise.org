@@ -19,8 +19,8 @@ Example:
 <pre>
 /* Written by Nick Welch <mack@incise.org>, 2005.
  *
- <li>This software is in the public domain</li>
- <li>and is provided AS IS, with NO WARRANTY.</li>
+ * This software is in the public domain
+ * and is provided AS IS, with NO WARRANTY.
  */
 
 #include <stdio.h>
@@ -50,7 +50,7 @@ int main(void)
     F1 = XKeysymToKeycode(dpy, XStringToKeysym("F1"));
 
     /* grab our key combo -- we use AnyModifier because of caps lock/num lock
-     <li>complexity.  just grab every F1 press.</li>
+     * complexity.  just grab every F1 press.
      */
     XGrabKey(dpy, F1, AnyModifier, DefaultRootWindow(dpy), 1, GrabModeSync,
             GrabModeSync);
@@ -62,7 +62,7 @@ int main(void)
         if(ev.type == KeyPress </td><td> ev.type == KeyRelease)
         {
             /* again the lock key issues -- we just fire if alt is being
-             <li>pressed, regardless if other modifiers are being pressed or not.</li>
+             * pressed, regardless if other modifiers are being pressed or not.
              */
             if(ev.xkey.keycode == F1 && ev.xkey.state & Mod1Mask)
             {
@@ -82,18 +82,18 @@ int main(void)
 
 /* a simpler pseudo-code version showing only the logic:
  *
- <li>handle_key_event()</li>
- <li>{</li>
- <li>    if key event is alt+f1 keypress:</li>
- <li>        print "got alt+f1!"</li>
- <li>        swallow key event</li>
+ * handle_key_event()
+ * {
+ *     if key event is alt+f1 keypress:
+ *         print "got alt+f1!"
+ *         swallow key event
  *
- <li>    elif key event is alt+f1 keyrelease:</li>
- <li>        swallow key event</li>
+ *     elif key event is alt+f1 keyrelease:
+ *         swallow key event
  *
- <li>    else:</li>
- <li>        pass through key event</li>
- <li>        xflush</li>
- <li>}</li>
+ *     else:
+ *         pass through key event
+ *         xflush
+ * }
  */
 </pre>
