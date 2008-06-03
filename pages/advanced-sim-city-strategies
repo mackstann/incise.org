@@ -1,7 +1,5 @@
 <img src="/images/simcity/simcity-logo-trans.png">
 
-[[TableOfContents]]
-
 <h2>Intro</h2>
 
 The information on this page applies to the SNES version of Sim City
@@ -67,6 +65,7 @@ it much less useful than it seems at first.
 The following is a list of the best maps I know of, ordered by their amount of
 water (less water is better):
 
+<table>
 <tr><td><strong>map #</strong></td><td><strong>water</strong></td></tr>
 <tr><td>61      </td><td> 1740</td></tr>
 <tr><td>728     </td><td> 1830</td></tr>
@@ -75,29 +74,32 @@ water (less water is better):
 <tr><td>714     </td><td> 2134</td></tr>
 <tr><td>921     </td><td> 2153</td></tr>
 <tr><td>default </td><td> 2197</td></tr>
+</table>
 
 <h2>The Money Trick</h2>
 
 You can easily find this on google but I'll try to sum it up as concisely as
 possible:
 
- 1. set fire/police/transportation funding levels to 0%
- 1. build something that has an annual tax cost -- fire/police dept., road, or rail.  one is enough.
- 1. spend all of your money
- 1. make sure you have auto-$ off, and wait until the tax screen pops up
- 1. press and hold L -- don't let go!
- 1. exit the tax screen, and then immediately re-access it via the menu
- 1. raise all funding levels to 100%, exit tax screen
- 1. let go of L
+<ol>
+ <li>set fire/police/transportation funding levels to 0%</li>
+ <li>build something that has an annual tax cost -- fire/police dept., road, or rail.  one is enough.</li>
+ <li>spend all of your money</li>
+ <li>make sure you have auto-$ off, and wait until the tax screen pops up</li>
+ <li>press and hold L -- don't let go!</li>
+ <li>exit the tax screen, and then immediately re-access it via the menu</li>
+ <li>raise all funding levels to 100%, exit tax screen</li>
+ <li>let go of L</li>
+</ol>
 
-The morality of using this trick is debatable, but personally I think it's
-fine.  Trying to actually build a city the expected way is really slow, and a
-total pain in the ass.  There are other ways to jack up your cash, like
-reaching profitabiliy and then leaving the game running for a few days.  I
-wouldn't really call that cheating either, and I just look at the money trick
-as a faster method.  Fighting economics and taxes is boring to me - getting the
-highest population is a more exciting challenge to focus on.  And that is what
-Sim City is all about, right?  Making your own goals?
+You will now have $999,999.
+
+I'm sure some people think this is just lame cheating, but personally I think
+it's more fun.  Trying to actually build a city the expected way is really
+slow, and a pain in the ass.  Fighting the in-game economics and taxes is
+boring to me; getting the highest population is a more exciting challenge to
+focus on.  And that is what Sim City is all about, right?  Making your own
+goals?
 
 <h2>Easy Pausing</h2>
 
@@ -107,12 +109,12 @@ from growing back while you're trying to bulldoze and build things.
 
 <h2>The Startup Bug</h2>
 
-<a href="http://home.twcny.rr.com/petersplace/supernes.htm">Here</a> is another page with a
-couple useful bits -- most notably a fix for the "startup bug."  This refers to
-how for the first few moments after loading a city, the power is out, crime is
-extremely high, etc.  The fix is to immediately set the speed to paused, wait a
-minute (maybe even just 10, 20, 30 seconds or so -- I didn't test it
-extensively), and then resume.
+<a href="http://www.pnaw10.com/peters-simcity-for-super-nes-guide">Here</a> is
+another page with a couple useful bits -- most notably a fix for the "startup
+bug." This refers to how for the first few moments after loading a city, the
+power is out, crime is extremely high, etc.  The fix is to immediately set the
+speed to paused, wait a minute (maybe even just 10, 20, 30 seconds or so -- I
+didn't test it extensively), and then resume.
 
 I disagree with a thing or two on that page (big cities should have more
 industrials than commercials, not vice versa -- and donuts suck), but the gifts
@@ -127,14 +129,18 @@ seemed more dense to me, and to find out the truth, I've done a test.  But
 before I get to that, I should explain the various conditions that a block
 arrangement needs to meet:
 
- <li>Each zone needs transportation; this means directly touching at least one</li>
- square of road or railroad.
- <li>A block needs to be some sort of shape that is repeatable, usually a square</li>
- or rectangle.  The idea is to take the best block arrangement and repeat it
- over the whole map, to use space in the most efficient manner possible.
- <li>A block should try to minimize the amount of land used by road or railroad,</li>
- thereby raising the density of the zones contained in the block, and lowing
- transportation upkeep costs.
+<ul>
+<li>Each zone needs transportation; this means directly touching at least one
+square of road or railroad.</li>
+
+<li>A block needs to be some sort of shape that is repeatable, usually a square
+or rectangle.  The idea is to take the best block arrangement and repeat it
+over the whole map, to use space in the most efficient manner possible.</li>
+
+<li>A block should try to minimize the amount of land used by road or railroad,
+thereby raising the density of the zones contained in the block, and lowing
+transportation upkeep costs.</li>
+</ul>
 
 Now, what do these two arrangements look like?  The donut is a 9x9 square of
 zones, with the middle zone cut out and usually used for a police department,
@@ -158,50 +164,52 @@ strips.  The area was 31x31 squares, which means 3x3 donut blocks, or 9 strips.
 
 <img src="/images/simcity/donut-density.png">
 
+<table>
 <tr><td></td><td>Statistics</td></tr>
 <tr><td>Number of zones</td><td>72</td></tr>
 <tr><td>Amount of rails/roads</td><td>23.2km</td></tr>
+</table>
 
 <h4>Strip Results</h4>
 
 <img src="/images/simcity/strip-density.png">
 
+<table>
 <tr><td></td><td>Statistics</td></tr>
 <tr><td>Number of zones</td><td>90</td></tr>
 <tr><td>Amount of rails/roads</td><td>12.0km</td></tr>
+</table>
 
-It now becomes quite clear that the donut layout wastes a considerable
-amount of space on roads.  In fact, if we examine the layout, we can find
-that each corner block is completely covered in roads on two sides.  That's
-six times more than we need on those zones!  The roads on the corners also go
-to waste, as they aren't even touching any zones.  These are low in number
-enough to not be a big concern, but they're still wasteful.  The third
-problem regarding their use of roads is the fact that each block needs to be
-surrounded by roads.  Ideally, roads belong on the inside edge of any
-pattern, not the outside.  Putting them on the outside is the entire reason
-we have so much of them, but the donut layout doesn't leave us with much
-other choice.  This also causes problems when you reach the end of the map
-and are one block short; the center zone on that edge will either have to be
-left out, or you'll have to somehow attempt some zone stacking to get a piece
-of road in there.
+It now becomes quite clear that the donut layout wastes a considerable amount
+of space on roads.  In fact, if we examine the layout, we can find that each
+corner block is completely covered in roads on two sides.  That's six times
+more than we need on those zones!  The roads on the corners also go to waste,
+as they aren't even touching any zones.  These are low in number enough to not
+be a big concern, but they're still wasteful.  The third problem regarding
+their use of roads is the fact that each block needs to be surrounded by roads.
+Ideally, roads belong on the inside edge of any pattern, not the outside.
+Putting them on the outside is the entire reason we have so much of them, but
+the donut layout doesn't leave us with much other choice.  This also causes
+problems when you reach the end of the map and are one block short; the center
+zone on that edge will either have to be left out, or you'll have to somehow
+attempt some zone stacking to get a piece of road in there.
 
-The two-wide strip solves all of these problems.  Each zone is touching
-exactly three squares of road on one side.  Corners and intersections are
-reduced to almost nothing.  You can build your entire city of strips, with no
-connecting streets on the ends of the strips.  Even if you do want to have
-connecting streets on the ends (to keep the game more realistic, if you
-care), they would be insignificant in number.  The strip layout also allows
-roads to be on the "inside" of the pattern; instead of imagining this pattern
-as two zone-wide strips, imagine it as two single strips, with a road down
-the middle.  When repeated, it tends to have the appearance of two zone-wide
-strips, and in the middle of a big city, the difference is irrelevant.  But
-on the edges it's important.  Having a road up against the edge of the map is
-a waste; the goal for any piece of road should be to provide to as many zones
-as possible.  When you put a road up against the edge of the map, it becomes
-incapable of providing transportation to that edge.  The difference between
-the two is probably not huge, but it's one of the many little things that you
-can do to tip yourself over the 500k population mark.  Every little thing
-counts.
+The two-wide strip solves all of these problems.  Each zone is touching exactly
+three squares of road on one side.  Corners and intersections are reduced to
+almost nothing.  You can build your entire city of strips, with no connecting
+streets on the ends of the strips.  Even if you do want to have connecting
+streets on the ends (to keep the game more realistic, if you care), they would
+be insignificant in number.  The strip layout also allows roads to be on the
+"inside" of the pattern; instead of imagining this pattern as two zone-wide
+strips, imagine it as two single strips, with a road down the middle.  When
+repeated, it tends to have the appearance of two zone-wide strips, and in the
+middle of a big city, the difference is irrelevant.  But on the edges it's
+important.  Having a road up against the edge of the map is a waste; the goal
+for any piece of road should be to provide to as many zones as possible.  When
+you put a road up against the edge of the map, it becomes incapable of
+providing transportation to that edge.  The difference between the two is
+probably not huge, but it's one of the many little things that you can do to
+tip yourself over the 500k population mark.  Every little thing counts.
 
 <h4>But the strips don't have places for gifts, police, and fire stations!</h4>
 
@@ -219,30 +227,30 @@ When you place a gift in one of the strips, it raises the land values for the
 same pattern of zones around it as it would in a donut - the road on one side
 does not have a significant negative impact.
 
-Even assuming you wanted the same number of police, fire, and gifts within
-a given area, the strips still are the obvious choice.  Given the layout in
-the test, we have nine such open spots in our donut layout.  If we we
-destroyed that many zones in our strip layout, we would be at 81 zones -
-still 9 more than the donut layout, and still with half of the roads.  We can
-even do a pseudo-donut layout within the strips if we want. This image does a
-good job of visually comparing the two layouts, and showing you the row of 9
-"free" zones at the bottom:
+Even assuming you wanted the same number of police, fire, and gifts within a
+given area, the strips still are the obvious choice.  Given the layout in the
+test, we have nine such open spots in our donut layout.  If we we destroyed
+that many zones in our strip layout, we would be at 81 zones - still 9 more
+than the donut layout, and still with half of the roads.  We can even do a
+pseudo-donut layout within the strips if we want. This image does a good job of
+visually comparing the two layouts, and showing you the row of 9 "free" zones
+at the bottom:
 
 <img src="/images/simcity/donut-like-strips.png">
 
 <h2>Bare Minimum Transportation</h2>
 
-There is something that you can do no matter how your city is laid out, to
-cut costs, pollution, and raise land values:  destroying roads and rails.
-Remember how each zone only needs to touch one square of road or rail?  Well,
-the game also doesn't care whether any given piece of road touches any other
-piece of road (hooray for late eighties technology).  We can get away with
-something like this:
+There is something that you can do no matter how your city is laid out, to cut
+costs, pollution, and raise land values:  destroying roads and rails.  Remember
+how each zone only needs to touch one square of road or rail?  Well, the game
+also doesn't care whether any given piece of road touches any other piece of
+road (hooray for late eighties technology).  We can get away with something
+like this:
 
 <img src="/images/simcity/cut-up-roads.png">
 
-I put parks in the blank spaces, but you can put that space to use by
-stacking other things in:
+I put parks in the blank spaces, but you can put that space to use by stacking
+other things in:
 
 <img src="/images/simcity/cut-up-roads-stacked.png">
 
@@ -252,17 +260,17 @@ Stacking is a bit of a hack which exploits the fact that residential zones
 allow you to bulldoze individual houses, before the zone turns into a large
 building.  You can then put other buildings in the gap.
 
-You probably already knew that, but you might not know all of the
-possibile things you can do by stacking zones.  Temporary residential zones
-can be used as sacrificial lambs to shave down other buildings.  The
-interesting thing is that the only buildings that do not really benefit from
-stacking are residential zones themselves; since they need to develop from
-little houses first, they can't ever grow up if some of the individual houses
-are covered by something else.  Thus, the only time you should ever employ
-residential stacking is when the land would otherwise go unused, such as in
-the example directly above.  The house which gets "priority" (is allowed to
-develop past little houses) is the one which has more likelyhood to develop
-into a nicer property and/or possibly become a top.
+You probably already knew that, but you might not know all of the possibile
+things you can do by stacking zones.  Temporary residential zones can be used
+as sacrificial lambs to shave down other buildings.  The interesting thing is
+that the only buildings that do not really benefit from stacking are
+residential zones themselves; since they need to develop from little houses
+first, they can't ever grow up if some of the individual houses are covered by
+something else.  Thus, the only time you should ever employ residential
+stacking is when the land would otherwise go unused, such as in the example
+directly above.  The house which gets "priority" (is allowed to develop past
+little houses) is the one which has more likelyhood to develop into a nicer
+property and/or possibly become a top.
 
 So basically anything other than residential zones is a good candidate for
 stacking.  Gifts, police stations, fire stations, power plants, stadiums, air
@@ -270,19 +278,19 @@ and sea ports, etc.  You can really go off the deep end with stacking and
 essentially stack everything to maximum capacity; this is how you get to the
 super-high populations (this is how I got to 600,000).
 
-Here are some pictures to show you how to stack, and
-some neat stuff you can do with it.
+Here are some pictures to show you how to stack, and some neat stuff you can do
+with it.
 
 <h3>The Basics</h3>
 
-Build some residentials, let them grow all of their little houses, but
-don't let them form into big buildings
+Build some residentials, let them grow all of their little houses, but don't
+let them form into big buildings
 
 <img src="/images/simcity/stack1.png">
 
-Now bulldoze some of the little houses to make space.  Don't bulldoze the
-R!  Turning the speed to paused helps here, so the houses don't spring right
-back to life while you're working.
+Now bulldoze some of the little houses to make space.  Don't bulldoze the R!
+Turning the speed to paused helps here, so the houses don't spring right back
+to life while you're working.
 
 <img src="/images/simcity/stack2.png">
 
@@ -299,20 +307,20 @@ Maybe I changed my mind and want some commercials.
 
 But notice that now I can't grow it any more.  You can only stack with
 residential zones, so if you want to stack other types of zones, you need to
-build temporary residentials, as we did here.  Of course, most of the time
-you will do more than just 5 zones, but this was just an example.
+build temporary residentials, as we did here.  Of course, most of the time you
+will do more than just 5 zones, but this was just an example.
 
 <img src="/images/simcity/stack6.png">
 
 <h3>Fitting In</h3>
 
-You need a space of 3x3 to build a zone, but sometimes you have something
-close to this, but are blocked by some other zones, and/or are in a tight
-space, like on a coastline.  In that case, you can often squeeze in a zone
-with stacking.  It's important to make sure that you always route
-transportation to them somehow (train/roads over water are just fine, even if
-only one little square.  you can build a whole line out there and then
-bulldoze all but the one little square you need)
+You need a space of 3x3 to build a zone, but sometimes you have something close
+to this, but are blocked by some other zones, and/or are in a tight space, like
+on a coastline.  In that case, you can often squeeze in a zone with stacking.
+It's important to make sure that you always route transportation to them
+somehow (train/roads over water are just fine, even if only one little square.
+you can build a whole line out there and then bulldoze all but the one little
+square you need)
 
 <img src="/images/simcity/stack7.png">
 
@@ -338,12 +346,11 @@ We had an akward spot over on the left, so let's get that fixed up
 
 <img src="/images/simcity/stack13.png">
 
-Damn, it's annoying when they turn into bigger buildings.  In this case,
-we can just wait a minute and it'll flip back, since there's no real city
-and no transportation.  In a normal situation, you can cut off the zone's
-transportation supply, and it'll slowly shrink back down.  Once it's where
-you want it, put the transportation back, and continue where you left
-off.
+Damn, it's annoying when they turn into bigger buildings.  In this case, we can
+just wait a minute and it'll flip back, since there's no real city and no
+transportation.  In a normal situation, you can cut off the zone's
+transportation supply, and it'll slowly shrink back down.  Once it's where you
+want it, put the transportation back, and continue where you left off.
 
 <img src="/images/simcity/stack14.png">
 
@@ -380,9 +387,9 @@ Let's really pack some stuff together.
 But notice that stacking doesn't work well with residentials.  A few big
 buildings appear, but they prevent the other zones from growing past little
 houses.  So generally you will only want to leave residential zones stacked
-when you're using up otherwise empty space (like our coastline example
-above).  Otherwise, residentials should only be used as temporaries to get
-commercial and industrial zones stacked.
+when you're using up otherwise empty space (like our coastline example above).
+Otherwise, residentials should only be used as temporaries to get commercial
+and industrial zones stacked.
 
 <img src="/images/simcity/stack23.png">
 
@@ -413,21 +420,25 @@ ridiculously more efficient it is.
 
 <img src="/images/simcity/stack28.png">
 
-If you leave air and seaports disconnected from power, they'll still
-satisfy your citizens' desire for them.  They'll still pollute, but your
-seaport won't launch any boats -- no boat crashes!
+If you leave air and seaports disconnected from power, they'll still satisfy
+your citizens' desire for them.  They'll still pollute, but your seaport won't
+launch any boats -- no boat crashes!
 
 <img src="/images/simcity/stack27.png">
 
 
 <h2>Cookie</h2>
 
-Here's my biggest city so far, <a href="advanced-sim-city-strategies:-cookie.html">cookie</a>.
+Here's my biggest city so far, <a
+href="advanced-sim-city-strategies%3a-cookie.html">cookie</a>.
 
 <h2>Links</h2>
 
 Some other cool pages about SNES Sim City:
 
- <li>http://www.chebwa.com/chebwa.php?stage=thoughts&sub=reviews&num=2</li>
- <li>http://home.twcny.rr.com/petersplace/supernes.htm</li>
- <li>http://pjrp.unleashed.ws/interests_games/simcity.html</li>
+<ul>
+ <li><a href="http://www.chebwa.com/chebwa.php?stage=thoughts&amp;sub=reviews&num=2">http://www.chebwa.com/chebwa.php?stage=thoughts&amp;sub=reviews&num=2</a></li>
+ <li><a href="http://www.pnaw10.com/peters-simcity-for-super-nes-guide">http://www.pnaw10.com/peters-simcity-for-super-nes-guide</a></li>
+ <li><a href="http://pjrp.unleashed.ws/interests_games/simcity.html">http://pjrp.unleashed.ws/interests_games/simcity.html</a></li>
+</ul>
+
