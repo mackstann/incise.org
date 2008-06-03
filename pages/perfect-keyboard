@@ -26,21 +26,25 @@ with:
 <h2>Kinesis Contoured Keyboard</h2>
 
 <h3>Links</h3>
- <li>http://www.kinesis-ergo.com/contoured.htm</li>
- <li>http://timtyler.org/keyboard/</li>
- <li>http://sepwww.stanford.edu/sep/jon/sorehand.html</li>
- <li>http://www.spies.com/~josh/kinesis.html</li>
- <li>http://www.koniaris.com/dvorak/dvorak.html</li>
- <li>http://xenia.media.mit.edu/~nelson/misc/kinesis-quickref.html</li>
- <li>http://www.nmt.edu/~shipman/ergo/kinesis.html</li>
+<ul>
+ <li><a href="http://www.kinesis-ergo.com/contoured.htm">http://www.kinesis-ergo.com/contoured.htm</a></li>
+ <li><a href="http://timtyler.org/keyboard/">http://timtyler.org/keyboard/</a></li>
+ <li><a href="http://sepwww.stanford.edu/sep/jon/sorehand.html">http://sepwww.stanford.edu/sep/jon/sorehand.html</a></li>
+ <li><a href="http://www.spies.com/~josh/kinesis.html">http://www.spies.com/~josh/kinesis.html</a></li>
+ <li><a href="http://www.koniaris.com/dvorak/dvorak.html">http://www.koniaris.com/dvorak/dvorak.html</a></li>
+ <li><a href="http://xenia.media.mit.edu/~nelson/misc/kinesis-quickref.html">http://xenia.media.mit.edu/~nelson/misc/kinesis-quickref.html</a></li>
+ <li><a href="http://www.nmt.edu/~shipman/ergo/kinesis.html">http://www.nmt.edu/~shipman/ergo/kinesis.html</a></li>
+</ul>
 
 <h3>Interesting bits</h3>
+<ul>
  <li>hands apart</li>
  <li>keys in straight columns</li>
  <li>color-coded home row keys</li>
  <li>emphasis on DIY layouts, although the implementation (firmware in the keyboard, and some funky real-mode program for manipulating it, I believe) seems cumbersome and problematic</li>
  <li>concave hand "bowls"</li>
  <li>little constellations of buttons for the thumbs; actually letting the thumbs make a significant contribution to typing</li>
+</ul>
 
 <h2>note: many more keyboards will be added eventually, this takes time</h2>
 
@@ -125,5 +129,7 @@ labels.
 
 <h1>Links</h1>
 
+<ul>
  <li><a href="http://incise.org/typematrix.html">my review of the typematrix keyboard</a></li>
  <li><a href="http://www.keyalt.com/kkeybrdp.htm">keyalt keyboards</a></li>
+</ul>
