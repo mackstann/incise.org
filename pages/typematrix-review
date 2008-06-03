@@ -4,7 +4,7 @@
 
 <strong>[http://typematrix.com]</strong>
 
-<a href="http://incise.org/images/typematrix/">A few pictures of my own</a> (The things on
+<a href="/images/typematrix/">A few pictures of my own</a> (The things on
 the sides are the rubber feet; I took them off the bottom so it didn't wobble
 when it was half hanging off the edge of the desk)
 
@@ -15,33 +15,31 @@ thoughts thus far:
 
 <h2>The good</h2>
 
- <li>All of the features touted on their site. If you're reading this page, then</li>
+<ul>
+ <li>All of the features touted on their site. If you're reading this page, then
  you've probably already been to the typematrix site and are familiar with the
- keyboard. If not, <a href="http://typematrix.com">read up!</a>
-
- <li>The keyboard is a lot thinner than I thought; it's probably less than a</li>
- half inch thick.
-
- <li>Very solid feel.  It's essentially a laptop keyboard, and I like the feel</li>
+ keyboard. If not, <a href="http://typematrix.com">read up!</a></li>
+ <li>The keyboard is a lot thinner than I thought; it's probably less than a
+ half inch thick.</li>
+ <li>Very solid feel.  It's essentially a laptop keyboard, and I like the feel
  of laptop keyboards.  It's also structurally strong, and doesn't flex much,
- unlike many keyboards.
-
+ unlike many keyboards.</li>
  <li>The keys and typematrix logo are aesthetically pleasing.</li>
-
- <li>Their staff seems very friendly.  I emailed them with a question</li>
- before ordering, and received a quick response.
+ <li>Their staff seems very friendly.  I emailed them with a question
+ before ordering, and received a quick response.</li>
+</ul>
 
 <h2>The weird or interesting</h2>
 
+<ul>
  <li>What's up with the bright red delete key?</li>
-
- <li>The alt-tab key is kinda spiffy.  I'm not sure if I'll end up actually using</li>
- it or not. (update: actually I hate the thing)
-
- <li>The "00" (double zero) key on the numpad just types a zero. Inspection</li>
+ <li>The alt-tab key is kinda spiffy.  I'm not sure if I'll end up actually using
+ it or not. (update: actually I hate the thing)</li>
+ <li>The "00" (double zero) key on the numpad just types a zero. Inspection
  with xev shows that it's seemingly identical to the numpad zero key, keycode
  and all.  I'm not sure if it types two zeroes in windows, or if it's even
- supposed to.
+ supposed to.</li>
+</ul>
 
 <h2>What could be improved</h2>
 
@@ -50,53 +48,46 @@ they already tell you most of the good things.  You have to figure out the
 bad things by using it.  I decided to call these "what could be improved"
 instead of "the bad," because none of them are really *that* bad.
 
+</ul>
  <li>It's not very sexy.  The area above where the keys are is the ugliest,</li>
  with the little plastic ridges in the middle, and the area with the LEDs is
- ugly too.  The keyboard isn't outright ugly, but it could be improved a bit.
-
+ ugly too.  The keyboard isn't outright ugly, but it could be improved a bit.</li>
  <li>Along the same lines, it would be cool if they had a black version.</li>
-
- <li>It's ps/2 only, and the USB adapter is fifteen bucks!  That's obscene,</li>
+ <li>It's ps/2 only, and the USB adapter is fifteen bucks!  That's obscene,
  especially when the keyboard is already $100.  Not a problem for most people
- though (including myself).
-
-
- <li>The home, end, pgup, and pgdn keys are on the F9 through F12 keys,</li>
+ though (including myself).</li>
+ <li>The home, end, pgup, and pgdn keys are on the F9 through F12 keys,
  and you have to hold the function key to use them.  And to compound the issue,
  the function key is on the other end of the keyboard, requring both hands on
  the keyboard to access these keys.  You can fix this pretty easily with
- xmodmap, though.
-
- <li>The cluster of 6 keys at bottom left could be better arranged.</li>
+ xmodmap, though.</li>
+ <li>The cluster of 6 keys at bottom left could be better arranged.
  Ideally, the Alt and Application keys would be swapped.  This might be
- specific to my hands.
-
- <li>The key layout could be further optimized.  The left backspace</li>
+ specific to my hands.</li>
+ <li>The key layout could be further optimized.  The left backspace
  seems like a total waste to me; I definitely don't imagine that I will be
  using it.  I also wonder whether they could get away with only one of the
  space keys.  I personally only use my right thumb for the space key, but I'm
  guessing some people use their left, or even both.  But maybe forcing people
  to only use one would be a good thing, since they could relocate some keys to
  where the other space key was, and the other thumb could actually become
- useful instead of just sitting there.
-
- <li>I got the dual-labeled dvorak version, but the dvorak labels</li>
+ useful instead of just sitting there.</li>
+ <li>I got the dual-labeled dvorak version, but the dvorak labels
  are <strong>really</strong> hard to see!  They're this wimpy bright orange color, and on
  whitish keys, it's just hard to see.  It's even worse on the darker grey keys
  to the right. Something like dark green or dark red would probably work well
- (the dark blue for function keys is very legible).
-
- <li>I'm used to the arrow keys being easy to identify, but they</li>
+ (the dark blue for function keys is very legible).</li>
+ <li>I'm used to the arrow keys being easy to identify, but they
  somewhat get lost in the other grey keys.  It would be cool if they were a
  different color.  In fact, I think more colors in general would be a good
  thing.  The F-keys could get their own color, numbers could get a color,
  letters could get a color, punctuation a color, modifiers a color, etc etc.
  Locating things by color is much, much faster than reading symbols.  But
  selling a fruit rollup keyboard might be more difficult.  Locating keys will
- also probably get a lot faster as I get used to the keyboard.
-
- <li>Price - $100.  Probably a necessary evil, considering this is a bit of a</li>
- niche product.
+ also probably get a lot faster as I get used to the keyboard.</li>
+ <li>Price - $100.  Probably a necessary evil, considering this is a bit of a
+ niche product.</li>
+</ul>
 
 <h1>Getting used to the layout</h1>
 
@@ -125,7 +116,7 @@ hopefully they can make even cooler keyboards in the future!
 
 <h2>My rating: 9 out of 10</h2>
 
-----
+<hr>
 
 <h1>Hacking</h1>
 
