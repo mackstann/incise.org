@@ -114,10 +114,14 @@ modmask_to_match == Mod1Mask "minus" ControlMask
 </pre>
 
 So basically each modmask specifies 3 "sets" of modifiers:
- 1. Must-be-on modifiers
- 1. Must-be-off modifiers
- 1. Unmentioned modifiers, which can be in any state
+<ol>
+ <li>Must-be-on modifiers</li>
+ <li>Must-be-off modifiers</li>
+ <li>Unmentioned modifiers, which can be in any state</li>
+</ol>
 
 Whereas a normal X modmask is:
- 1. Must-be-on modifiers
- 1. Unmentioned modifiers, which must be off
+<ol>
+ <li>Must-be-on modifiers</li>
+ <li>Unmentioned modifiers, which must be off</li>
+</ol>
