@@ -2,7 +2,8 @@ use strict;
 use warnings;
 
 my @newnames = qw/
-very-simple-google-maps-hack un-bust-your-x-server
+very-simple-google-maps-hack
+un-bust-your-x-server
 typematrix-review
 thump
 statiki
@@ -26,7 +27,13 @@ web-py-notes
 vim-tips
 viewports-and-virtual-desktops
 usb-hard-drive-in-lunix
-tinywm thoughts-while-learning-erlang simple-unix-shared-memory-interface py-libmpdclient2 pygame-patch-thoughts postgres-array-stuff mega-programming-language
+tinywm
+thoughts-while-learning-erlang
+simple-unix-shared-memory-interface
+py-libmpdclient2
+pygame-patch-thoughts
+postgres-array-stuff
+mega-programming-language
 maybe-our-entire-way-of-life-is-a-sham
 green-home-scratch-page
 gnome-vfs-command-line-tools
@@ -51,6 +58,7 @@ my %renames = map {
     $oldname => $_;
 } @newnames;
 
+# page names that didn't get caught by my crude logic -- hard code them
 $renames{'TinyWM'} = 'tinywm';
 $renames{'AdvancedSimCityStrategies(2f)Cookie'} = 'advanced-sim-city-strategies-cookie';
 $renames{'GettingStartedSellingSharewareGames(2f)MyPlan'} = 'getting-started-selling-shareware-games-my-plan';
