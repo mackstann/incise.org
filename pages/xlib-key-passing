@@ -17,25 +17,25 @@ windows, you use <code>XAllowEvents</code> with <code>AsyncKeyboard</code> <stro
 Example:
 
 <pre>
-/* Written by Nick Welch <mack@incise.org>, 2005.
+/* Written by Nick Welch &lt;mack@incise.org&gt;, 2005.
  *
  * This software is in the public domain
  * and is provided AS IS, with NO WARRANTY.
  */
 
-#include <stdio.h>
-#include <X11/Xlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;X11/Xlib.h&gt;
 
 void swallow_keystroke(Display * dpy, XEvent * ev)
 {
-    XAllowEvents(dpy, AsyncKeyboard, ev->xkey.time);
+    XAllowEvents(dpy, AsyncKeyboard, ev-&gt;xkey.time);
     /* burp */
 }
 
 void passthru_keystroke(Display * dpy, XEvent * ev)
 {
     /* pass it through to the app, as if we never intercepted it */
-    XAllowEvents(dpy, ReplayKeyboard, ev->xkey.time);
+    XAllowEvents(dpy, ReplayKeyboard, ev-&gt;xkey.time);
     XFlush(dpy); /* don't forget! */
 }
 

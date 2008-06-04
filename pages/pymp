@@ -43,9 +43,9 @@ death@two ~/shplay % python
 Python 2.2.2 (#1, Mar 21 2003, 23:01:54)
 <a href="GCC">3.2.3 20030316 (Debian prerelease)</a> on linux2
 Type "help", "copyright", "credits" or "license" for more information.
->>> import <a href="pymp.html">pymp</a>
->>> remote = <a href="pymp.html">pymp</a>.<a href="pymp.html">pymp</a>Ctl()
->>> remote.hupPlayer()
+&gt;&gt;&gt; import <a href="pymp.html">pymp</a>
+&gt;&gt;&gt; remote = <a href="pymp.html">pymp</a>.<a href="pymp.html">pymp</a>Ctl()
+&gt;&gt;&gt; remote.hupPlayer()
 </pre>
     The player currently skips to the next song when it receives SIGHUP, and the method for doing that reflects in the name of the method.  Eventually I want methods such as "nextSong()" or "prevSong()" or "stopPlayer()", etc.
     </li>

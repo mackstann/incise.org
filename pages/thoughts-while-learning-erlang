@@ -1,11 +1,11 @@
 <h1>array/string ambiguity is uncomfortable</h1>
 
 <pre>
-6> [1000, 500, 4].
+6&gt; [1000, 500, 4].
 [1000,500,4]
-7> [100, 50, 4].
+7&gt; [100, 50, 4].
 [100,50,4]
-8> [100, 50, 40].
+8&gt; [100, 50, 40].
 "d2("
 </pre>
 
@@ -52,7 +52,7 @@ fun to have it; a refreshing change from python
 
 <pre>
 % silently does nothing forever
-foo() ->
+foo() -&gt;
     foo().
 </pre>
 
