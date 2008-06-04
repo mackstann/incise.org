@@ -2,7 +2,9 @@
 py-libmpdclient2 is a Python library for making <a href="http://musicpd.org">MPD (Music Player Daemon)</a> clients.  It replaces py-libmpdclient and is completely redesigned and written from the ground up.  The result is a much smaller, simpler, more reliable, and more dynamic library.
 
 <h2>Download</h2>
+<ul>
  <li><a href="http://incise.org/files/dev/py-libmpdclient2-1.0.tgz">http://incise.org/files/dev/py-libmpdclient2-1.0.tgz</a></li>
+</ul>
 
 <h2>Using py-libmpdclient2</h2>
 <code>test.py</code> should do a decent job of showing how the module works -- there's not a lot to it -- but if you have more questions, your best bet is to get a hold of me (mackstann) in #mpd on irc.freenode.net (not there so much anymore).  Or you can email me at mack@incise.org .
