@@ -4,10 +4,12 @@ TinyWM is a tiny window manager that I created as an exercise in minimalism.  It
 
 It lets you do 4 basic things:
 
- 1. Move windows interactively with Alt+Button1 drag (left mouse button)
- 2. Resize windows interactively with Alt+Button3 drag (right mouse button)
- 3. Raise windows with Alt+F1 (not high on usability I know, but I needed a keybinding in there somewhere)
- 4. Focus windows with the mouse pointer (X does this on its own)
+<ol>
+ <li>Move windows interactively with Alt+Button1 drag (left mouse button)</li>
+ <li>Resize windows interactively with Alt+Button3 drag (right mouse button)</li>
+ <li>Raise windows with Alt+F1 (not high on usability I know, but I needed a keybinding in there somewhere)</li>
+ <li>Focus windows with the mouse pointer (X does this on its own)</li>
+</ol>
 
 <h2>Download</h2>
 
