@@ -1,0 +1,34 @@
+McData CHANGELOG
+
+0.1
+
+- Initial release (broken (doh))
+
+0.1.1
+
+- bugs fixed
+- lots of documentation added
+- license changed to GPL
+- CSS classes changed/added
+- admin key now easier to change
+- fixed problem where entering a ?mid in the url can result in being able to reply to a child message
+- McTags label now easier to change
+- added ability to turn off "Hello <ipaddress>" message
+- cleaned up html output a bit
+- zip version with DOS format files now added
+
+0.2
+
+- fixed bugs and cleaned up code
+- valid XHTML, CSS2, warning free PHP
+- now uses almost no <br />'s in favor of <p>'s/</p>'s
+- couple more CSS classes
+- clickyurls() added and [L=url]link[/L] McTag removed
+- now recognizes user inputted newlines and converts to html <br />'s
+- 'back' link added on forms in messages
+- admin system revamped and simplified
+- admin system now remembers your name
+- setup.php revamped, now much cleaner and straightforward, also includes admin login/logout
+- AUTHORS and CHANGELOG files added
+
+EOF

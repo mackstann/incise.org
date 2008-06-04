@@ -1,0 +1,25 @@
+#!/usr/pkg/bin/python2.2
+
+import os, string
+
+# edit these
+share_path = "/usr/pkg/share/waimea/styles"
+restart_location = os.environ['HOME'] + "/code/python/waimea_styles_restart.py"
+
+
+def search_dir(dirname):
+  for filename in os.listdir(dirname):
+    full_path = dirname + '/' + filename
+    if os.path.isdir(full_path):
+      search_dir(full_path)
+    else:
+      if filename.find(".style") is not -1:
+        nice_name = filename[:-6]
+        print """[item] (%s) "restart(%s '%s')" """ \
+          % (nice_name, restart_location, full_path)
+
+
+print "[title] (styles)"
+
+search_dir(share_path)
+search_dir(os.environ['HOME'] + "/.waimea/styles")

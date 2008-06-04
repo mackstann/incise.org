@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>incise.org</title>
+  <style type="text/css">
+  body {
+    background: white;
+    font-family: monospace;
+  }
+  li a {
+         text-decoration: none;
+  	 line-height: 1.4em;}
+  div.tree-container a:visited { background: #d6d6ef; }
+  a.dir {
+    text-decoration: underline;
+    color: #008;
+    border: 2px solid #e7e7e7;
+    background: #ddd;
+    font-weight: bold;
+/*    padding: .1em;*/
+  }
+  a.file {
+    color: #666;
+    font-style: italic;
+  }
+  a.php, a.html {
+    color: #080;
+    font-weight: bold;
+    background: #e6f2e6;
+    text-decoration: underline;
+  }
+  a.targz, a.tgz {
+    color:#a60;
+/*    background: #eed;*/
+    font-style: italic;
+  }
+  a.jpg {
+    color: #63c;
+/*    background: #edf;*/
+    font-style: italic;
+  }
+  a.gif {
+    color: #f83;
+/*    background: #fec;*/
+    font-weight: bold;
+    font-style: italic;
+  }
+  a.png {
+    color: #358;
+    font-weight: bold;
+    font-style: italic;
+  }
+  div.tree-container {
+    background: #eee;
+    border: 1px solid #ccc;
+    width: 100%;
+  }
+  div.controls {
+    background: #cde;
+    border: 1px solid #789;
+    width: 100%;
+    padding: 8px;
+  }
+  div.controls a {
+    font-weight: bold;
+    font-family: serif;
+  }
+  div.controls .smaller {
+    font-weight: normal;
+    font-style: italic;
+    font-size: small;
+    margin-left: 2em;
+  }
+  .howmany {
+    font-weight: bold;
+  }
+  .timer-time {
+    font-weight: bold;
+  }
+  </style>
+</head>
+<body>
+<div class="controls"><span class="display">display:</span><br>[ ]<a href="/beta">normal</a><br>[ ]<a href="/beta?show=dirsonly">directories only</a><br>[ ]<a href="/beta?show=filesonly">files only</a><br /></div><h1><a href="/">incise.org/</a> <a href="/beta/">beta/</a> [<a href="..">..</a>]</h1><div class="tree-container"><span style="line-height:1em;font-size:18px"><ul>
+<li class="dir"><a class="dir" href="/beta/c_walk/">c_walk/</a></li>
+	<span style="line-height:0.8em;font-size:16px"><ul>
+	<li class="file"><a class="file" href="/beta/c_walk/2.c">2.c</a></li>
+	<li class="file"><a class="file" href="/beta/c_walk/a.cgi">a.cgi</a></li>
+	<li class="file"><a class="file" href="/beta/c_walk/a.out">a.out</a></li>
+	<li class="file"><a class="file" href="/beta/c_walk/a.out.core">a.out.core</a></li>
+	<li class="file"><a class="file" href="/beta/c_walk/bt.txt">bt.txt</a></li>
+	</ul></span>
+
+<li class="dir"><a class="dir" href="/beta/example/">example/</a></li>
+	<span style="line-height:0.8em;font-size:16px"><ul>
+	<li class="dir"><a class="dir" href="/beta/example/Of/">Of/</a></li>
+		<span style="line-height:0.6em;font-size:14px"><ul>
+		</ul></span>
+
+	<li class="dir"><a class="dir" href="/beta/example/how/">how/</a></li>
+		<span style="line-height:0.6em;font-size:14px"><ul>
+		</ul></span>
+
+	<li class="dir"><a class="dir" href="/beta/example/the/">the/</a></li>
+		<span style="line-height:0.6em;font-size:14px"><ul>
+		<li class="dir"><a class="dir" href="/beta/example/the/font/">font/</a></li>
+			<span style="line-height:0.4em;font-size:12px"><ul>
+			</ul></span>
+
+		<li class="dir"><a class="dir" href="/beta/example/the/gets/">gets/</a></li>
+			<span style="line-height:0.4em;font-size:12px"><ul>
+			</ul></span>
+
+		<li class="dir"><a class="dir" href="/beta/example/the/smaller/">smaller/</a></li>
+			<span style="line-height:0.4em;font-size:12px"><ul>
+			<li class="dir"><a class="dir" href="/beta/example/the/smaller/As/">As/</a></li>
+				<span style="line-height:0.2em;font-size:10px"><ul>
+				</ul></span>
+
+			<li class="dir"><a class="dir" href="/beta/example/the/smaller/You/">You/</a></li>
+				<span style="line-height:0.2em;font-size:10px"><ul>
+				</ul></span>
+
+			<li class="dir"><a class="dir" href="/beta/example/the/smaller/go/">go/</a></li>
+				<span style="line-height:0.2em;font-size:10px"><ul>
+				<li class="dir"><a class="dir" href="/beta/example/the/smaller/go/deeper/">deeper/</a></li>
+					<span style="line-height:0em;font-size:8px"><ul>
+					</ul></span>
+
+				<li class="dir"><a class="dir" href="/beta/example/the/smaller/go/into/">into/</a></li>
+					<span style="line-height:0em;font-size:8px"><ul>
+					</ul></span>
+
+				<li class="dir"><a class="dir" href="/beta/example/the/smaller/go/the/">the/</a></li>
+					<span style="line-height:0em;font-size:8px"><ul>
+					</ul></span>
+
+				<li class="dir"><a class="dir" href="/beta/example/the/smaller/go/tree/">tree/</a></li>
+					<span style="line-height:0em;font-size:8px"><ul>
+					<li class="dir"><a class="dir" href="/beta/example/the/smaller/go/tree/xxxxxxxxxx/">xxxxxxxxxx/</a></li>
+						<span style="line-height:-0.2em;font-size:6px"><ul>
+						<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/xxxxxxxxxx/abcdefg">abcdefg</a></li>
+						<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/xxxxxxxxxx/asdf">asdf</a></li>
+						<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/xxxxxxxxxx/asdf.c">asdf.c</a></li>
+						<li class="file"><a class="gif" href="/beta/example/the/smaller/go/tree/xxxxxxxxxx/bleh.gif">bleh.gif</a></li>
+						<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/xxxxxxxxxx/crap.txt">crap.txt</a></li>
+						<li class="file"><a class="jpg" href="/beta/example/the/smaller/go/tree/xxxxxxxxxx/foo.jpg">foo.jpg</a></li>
+						</ul></span>
+
+					<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/And">And</a></li>
+					<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/Here">Here</a></li>
+					<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/are">are</a></li>
+					<li class="file"><a class="file" href="/beta/example/the/smaller/go/tree/files">files</a></li>
+					</ul></span>
+
+				</ul></span>
+
+			</ul></span>
+
+		</ul></span>
+
+	</ul></span>
+
+<li class="dir"><a class="dir" href="/beta/gradients/">gradients/</a></li>
+	<span style="line-height:0.8em;font-size:16px"><ul>
+	<li class="file"><a class="php" href="/beta/gradients/01.php">01.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/02.php">02.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/03.php">03.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/04.php">04.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/05.php">05.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/06.php">06.php</a></li>
+	<li class="file"><a class="file" href="/beta/gradients/06.phps">06.phps</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/07.php">07.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/08.php">08.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/09.php">09.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/10.php">10.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/11.php">11.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/12.php">12.php</a></li>
+	<li class="file"><a class="file" href="/beta/gradients/12.phps">12.phps</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/13.php">13.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/14.php">14.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/15.php">15.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/16.php">16.php</a></li>
+	<li class="file"><a class="file" href="/beta/gradients/16.phps">16.phps</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/17.php">17.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/18.php">18.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/19.php">19.php</a></li>
+	<li class="file"><a class="php" href="/beta/gradients/binary.php">binary.php</a></li>
+	</ul></span>
+
+<li class="dir"><a class="dir" href="/beta/pywalk/">pywalk/</a></li>
+	<span style="line-height:0.8em;font-size:16px"><ul>
+	<li class="file"><a class="file" href="/beta/pywalk/1.py">1.py</a></li>
+	<li class="file"><a class="file" href="/beta/pywalk/2.py">2.py</a></li>
+	<li class="file"><a class="file" href="/beta/pywalk/3.py">3.py</a></li>
+	<li class="file"><a class="file" href="/beta/pywalk/4.py">4.py</a></li>
+	<li class="file"><a class="file" href="/beta/pywalk/5.py">5.py</a></li>
+	<li class="file"><a class="file" href="/beta/pywalk/README-not-really-readme-just-want-hidden-tmp.py">README-not-really-readme-just-want-hidden-tmp.py</a></li>
+	</ul></span>
+
+<li class="dir"><a class="dir" href="/beta/statistics/">statistics/</a></li>
+	<span style="line-height:0.8em;font-size:16px"><ul>
+	<li class="dir"><a class="dir" href="/beta/statistics/track/">track/</a></li>
+		<span style="line-height:0.6em;font-size:14px"><ul>
+		<li class="file"><a class="php" href="/beta/statistics/track/class.php">class.php</a></li>
+		<li class="file"><a class="file" href="/beta/statistics/track/css.css">css.css</a></li>
+		<li class="file"><a class="php" href="/beta/statistics/track/headbody.php">headbody.php</a></li>
+		<li class="file"><a class="php" href="/beta/statistics/track/header.php">header.php</a></li>
+		<li class="file"><a class="php" href="/beta/statistics/track/index.php">index.php</a></li>
+		</ul></span>
+
+	<li class="dir"><a class="dir" href="/beta/statistics/ua/">ua/</a></li>
+		<span style="line-height:0.6em;font-size:14px"><ul>
+		<li class="file"><a class="php" href="/beta/statistics/ua/index.php">index.php</a></li>
+		</ul></span>
+
+	<li class="file"><a class="php" href="/beta/statistics/_google.inc.php">_google.inc.php</a></li>
+	<li class="file"><a class="php" href="/beta/statistics/_graph.png.php">_graph.png.php</a></li>
+	<li class="file"><a class="php" href="/beta/statistics/htmlgraphs.php">htmlgraphs.php</a></li>
+	<li class="file"><a class="php" href="/beta/statistics/oldtrack.php">oldtrack.php</a></li>
+	<li class="file"><a class="html" href="/beta/statistics/viewgraphs.html">viewgraphs.html</a></li>
+	</ul></span>
+
+<li class="dir"><a class="dir" href="/beta/walk/">walk/</a></li>
+	<span style="line-height:0.8em;font-size:16px"><ul>
+	<li class="file"><a class="php" href="/beta/walk/1.php">1.php</a></li>
+	<li class="file"><a class="file" href="/beta/walk/1.php.txt">1.php.txt</a></li>
+	<li class="file"><a class="php" href="/beta/walk/2.php">2.php</a></li>
+	<li class="file"><a class="file" href="/beta/walk/2.php.txt">2.php.txt</a></li>
+	<li class="file"><a class="php" href="/beta/walk/3.php">3.php</a></li>
+	<li class="file"><a class="php" href="/beta/walk/4.php">4.php</a></li>
+	<li class="file"><a class="php" href="/beta/walk/5.php">5.php</a></li>
+	</ul></span>
+
+<li class="file"><a class="html" href="/beta/ascii.html">ascii.html</a></li>
+<li class="file"><a class="php" href="/beta/index.php">index.php</a></li>
+<li class="file"><a class="file" href="/beta/tree.php.txt">tree.php.txt</a></li>
+</ul></span>
+
+</div>
+<address><ADDRESS>Apache/1.3.29 Server at incise.org Port 80</ADDRESS>
+</address>
+</body>
+</html>
+

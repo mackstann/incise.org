@@ -1,0 +1,66 @@
+umask 022
+
+PATH=\
+$HOME/sw/bin:\
+/usr/local/bin:\
+/usr/local/sbin:\
+/bin:\
+/sbin:\
+/usr/bin:\
+/usr/sbin:\
+/usr/X11R6/bin:\
+/usr/games
+
+EDITOR=vim
+VISUAL=${EDITOR}
+EXINIT='set autoindent'
+PAGER=less
+CVS_RSH=ssh
+MAIL=/var/mail/$USER
+PYTHONSTARTUP="$HOME/.pythonstartup.py"
+PYTHONPATH=/home/death/sw/lib/python2.2/site-packages
+CDR_DEVICE=0,0,0
+CDR_SPEED=32
+
+export PATH
+export EDITOR
+export VISUAL
+export EXINIT
+export PAGER
+export CVS_RSH
+export MAIL
+export PYTHONSTARTUP
+export PYTHONPATH
+export CDR_DEVICE
+export CDR_SPEED
+
+if [ -x /usr/local/kahakai/bin/kahakai ]
+then
+  PATH=/usr/local/kahakai/bin:$PATH
+  export PATH
+fi
+
+if [ `uname` = "NetBSD" ]
+then
+
+  PATH=/usr/pkg/bin:/usr/pkg/sbin:/usr/pkg/games:$PATH
+  export PATH
+
+  if [ -x `which sudo` ]
+  then
+    sudo mixerctl -n -w inputs.dac.mute=off
+    sudo mixerctl -n -w outputs.master.mute=off
+  fi
+
+fi
+
+if [ -x `which sudo` -a -x `which aumix` ]
+then
+  sudo aumix -q -v 80 -c 0 -i 0 -l 0 -p 0 -w 80 -1 0 -2 0 -3 0 > /dev/null 2>&1
+fi
+
+if [ -r $HOME/.bashrc ]
+then
+  . $HOME/.bashrc
+fi
+

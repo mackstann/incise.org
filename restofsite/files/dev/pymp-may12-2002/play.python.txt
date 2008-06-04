@@ -1,0 +1,232 @@
+#!/usr/pkg/bin/python2.2
+
+import os, sys, glob, random, operator, signal, Pymp, time, traceback
+
+class Player:
+  def __init__(self, dirs):
+    self.dirs = dirs
+
+    self.lastsong         = str()
+    self.currentsong      = str()
+
+    self.songs            = list()
+
+    self.conffilecontents = list()
+
+    self.infofile_written = int()
+
+    self.depth            = int()
+
+    self.FORMAT_BYARTIST = "%byartist%"
+    self.FORMAT_SONGLIST = "%songlist%"
+
+    self.LOG_NONE = 0
+    self.LOG_STDOUT = 1
+    self.LOG_LOGFILE = 2
+    self.LOG_BOTH = 3
+
+    self.DEBUG = 1
+    self.INFO = 2
+
+    self.INTERACTIVE = 1
+    self.NON_INTERACTIVE = 0
+
+    self.debug_log_level = self.LOG_BOTH
+    self.info_log_level = self.LOG_BOTH
+    self.interactivity = self.NON_INTERACTIVE
+
+    self.fileops = Pymp.PympFileOps()
+    self.filenames = Pymp.PympFiles()
+    self.decoder = Pymp.PympDecoder()
+    self.ctl = Pymp.PympCtl()
+
+    self.fileops.writePidFile(self.fileops.autoNewline(str(os.getpid())))
+
+    self.debug()
+
+  def log(self, text, level, preformatted=0):
+    if level is self.DEBUG:
+      if preformatted == 0:
+        text = ((len(traceback.extract_stack())-2)*"  " + "  " + text)
+      if self.debug_log_level in [ self.LOG_STDOUT, self.LOG_BOTH ]:
+        print text
+      if self.debug_log_level in [ self.LOG_LOGFILE, self.LOG_BOTH ]:
+        self.fileops.appendLogFile(self.fileops.autoNewline(text))
+
+    elif level is self.INFO:
+      if self.debug_log_level == self.info_log_level or self.debug_log_level is self.LOG_BOTH:
+        text = ((len(traceback.extract_stack())-2)*"  " + "  " + text)
+      if self.info_log_level in [ self.LOG_STDOUT, self.LOG_BOTH ]: 
+        print text
+      if self.debug_log_level in [ self.LOG_STDOUT, self.LOG_BOTH ]:
+        self.fileops.appendLogFile(self.fileops.autoNewline(text))
+
+  def debug(self):
+    tb = traceback.extract_stack()
+    self.log(((len(tb)-2)*"  " + tb[-2][2]), self.DEBUG, 1)
+
+  def handle_hup(self, sig, frame):
+    raise "Hupped"
+    return
+
+### build list, method 2.1
+
+  def buildListByArtist(self):
+    self.debug()
+    artist = self.conffilecontents[1].strip()
+    for directory in self.dirs:
+      self.songs.extend(glob.glob(self.fileops.correctGlob(directory, self.fileops.NARROW_BYARTIST, artist)))
+
+### build list, method 2.2
+
+  def buildSongListFromInstfileSongList(self):
+    self.debug()
+    for line in self.conffilecontents[1:]:
+      if line.strip() != "":
+        self.songs.append(line.strip())
+
+### build list, method 1
+
+  def buildSongListFromArgv(self):
+    self.debug()
+    argvdirs = []
+    for arg in sys.argv[1:]:
+      if self.fileops.isUseableMp3(arg):
+        self.songs.append(arg)
+      elif os.path.isdir(arg):
+        argvdirs.append(arg)
+
+    if len(argvdirs) > 0:
+      self.buildSongListFromDirs(argvdirs)
+
+### build list, method 2
+
+  def buildSongListFromInstfile(self):
+    self.debug()
+    self.conffilecontents = self.fileops.readInstfile()
+
+    if self.conffilecontents[0].strip() == self.FORMAT_BYARTIST:
+      self.buildSongListByArtist()
+    elif self.conffilecontents[0].strip() == self.FORMATSONGLIST:
+      self.buildSongListFromInstfileSongList()
+
+### build list, method 3
+
+  def buildSongListFromDirs(self, dirs):
+    self.debug()
+    for directory in dirs:
+      self.songs.extend(glob.glob(self.fileops.correctGlob(directory)))
+
+### pick a song, make sure it doesn't repeat
+
+  def setNewSong(self):
+    self.debug()
+    if len(self.songs) > 1:
+      while 1:
+        self.currentsong = self.songs[random.randrange(0, len(self.songs))]
+        if self.currentsong != self.lastsong:
+          break
+    else:
+      self.currentsong = songs[0]
+
+    self.lastsong = self.currentsong
+    self.bitrate = self.decoder.bitrate(self.currentsong)/1000
+
+    self.log("Selected file: %s"%self.currentsong, self.INFO)
+
+### build list, via one of three methods
+
+  def buildSongList(self):
+    self.debug()
+    self.songs = []
+    beg = time.time()
+    if len(sys.argv) > 1:
+      self.buildSongListFromArgv()
+
+    if os.path.isfile(self.filenames.instfile):
+      self.buildSongListFromInstfile()
+
+    if len(self.songs) == 0:
+      if len(self.dirs) > 0:
+        self.buildSongListFromDirs(self.dirs)
+
+    self.log("%d ms" % ((time.time() - beg)*1000), self.DEBUG)
+    if len(self.songs) == 0:
+      sys.exit(0)
+
+### file i/o for each song
+
+  def perSongFileOps(self):
+    self.debug()
+    self.fileops.writeInfoFile(
+      self.fileops.autoNewline(str(self.bitrate)),
+      self.fileops.autoNewline(self.currentsong)
+    )
+    self.fileops.appendTailFile("%s %s\n" % (self.bitrate, self.currentsong))
+
+### set things up for a new song
+
+  def perSongSetup(self):
+    self.debug()
+    signal.signal(signal.SIGHUP, self.handle_hup)
+    self.setNewSong()
+    self.perSongFileOps()
+
+    if self.ctl.checkFeForLife():
+      self.ctl.hupFe()
+
+  def playFile(self, filename):
+    self.debug()
+    self.decoder._setMadFile(filename)
+    foo = 0
+
+    while self.decoder._getBuf():
+      foo = foo + 1
+      if(foo % 38) == 0: 
+        secs = int(foo/38)
+        minute = 0
+        while secs > 59:
+          secs = secs - 60
+          minute = minute + 1
+        thetime = "%s:%s" % (minute, (len(str(secs))==1 and "0"+str(secs) or secs))
+
+        live_print_string = "%s" % thetime
+        if self.interactivity is self.NON_INTERACTIVE:
+          self.fileops.updateLiveFile("%s" % (thetime))
+        elif self.interactivity is self.INTERACTIVE:
+          sys.stderr.write("\r"+live_print_string)
+      self.decoder._outputFrame()
+    else:
+      print
+
+### main loop, one per song
+
+  def perSongMainLoop(self):
+    self.debug()
+    try:
+      beg = time.time()
+      self.perSongSetup()
+      self.log("%d ms" % ((time.time() - beg)*1000), self.DEBUG)
+      self.playFile(self.currentsong)
+    except KeyboardInterrupt:
+      self.log("Caught KeyboardInterrupt, exiting.", self.INFO)
+      sys.exit(0)
+    except "Hupped":
+      self.buildSongList()
+      return
+
+### main function
+
+  def main(self):
+    self.debug()
+    self.buildSongList()
+    while 1:
+      self.perSongMainLoop()
+
+if __name__ == "__main__":
+
+  my_mp3_directories = [ "/music" ]
+
+  player = Player(my_mp3_directories)
+  player.main()
+

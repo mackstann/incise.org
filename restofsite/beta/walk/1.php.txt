@@ -1,0 +1,23 @@
+<font size=-6>
+<?php
+
+$pos=45;
+
+for($y=0; $y<40; $y++) {
+  if(rand(0,1)==1 && $pos<89)
+    $pos++;
+  elseif($pos>0)
+    $pos--;
+  else
+    $pos++;
+
+  echo str_repeat('&nbsp;', $pos+1);
+  echo 'X';
+  echo str_repeat('&nbsp;', 90-$pos);
+  echo '<br>';
+
+}
+
+
+
+?>

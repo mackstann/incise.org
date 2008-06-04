@@ -1,0 +1,316 @@
+#!/usr/pkg/bin/python2.2
+
+import os, signal, ao, mad, types, sys, time
+
+# 2.7% cpu
+
+class PympFiles:
+  """Filenames used by Pymp"""
+  pidfile = "/tmp/pymp.pid"
+  fepidfile = "/tmp/pymp.fepid"
+  infofile = "/tmp/pymp.info"
+  instfile = "/tmp/pymp.inst"
+  tailfile = "/tmp/pymp.tail"
+  logfile = "/tmp/pymp.log"
+  livefile = "/tmp/pymp.live"
+
+class PympDecoder:
+  """Simple wrapper for playing mp3's with mad"""
+
+  def __init__(self, output_type="oss", bits=16, rate=44100):
+    """
+    __init__(output_type="oss", bits=16, rate=44100) -> None
+
+    Initializes audio device.
+    """
+    self.dsp = ao.AudioDevice(output_type, bits, rate)
+
+  def bitrate(self, filename):
+    """
+    bitrate(filename) -> int(bitrate)
+
+    Returns bitrate of $filename mp3, in the form of 128000 or 160000, etc.
+    """
+    return mad.MadFile(filename).bitrate()
+
+  def _getBuf(self):
+    """
+    _getBuf() -> int(eof)
+
+    Grabs a chunk of audio data from the mp3, returns 1, or 0 if at eof.
+    """
+    self.buf = self.madfile.read()
+    if self.buf is None:
+      return 0
+    else:
+      return 1
+
+  def _outputFrame(self):
+    """
+    _outputFrame() -> int(success)
+
+    Sends the next chunk of audio data to the dsp.
+    """
+    self.dsp.play(self.buf, len(self.buf))
+
+  def _setMadFile(self, filename):
+    """
+    _setMadFile(filename) -> None
+
+    Takes $filename and assigns it as the current mp3 file.
+    """
+    self.madfile = mad.MadFile(filename)
+
+  def playFile(self, filename):
+    """
+    playFile(filename) -> int(success)
+
+    Takes $filename and plays it, calling _setMadFile, _getBuf(), and
+    _decodeFrame() along the way.
+    """
+    self._setMadFile(filename)
+
+    while self._getBuf():
+      self._decodeFrame()
+    else:
+      print
+      return 1
+      # we made it!
+
+
+class PympCtl:
+  """Interface for controlling Pymp player, pseudo-remotely"""
+
+  def __init__(self):
+    """
+    __init__() -> None
+
+    Set up internal vars pointing to some other Pymp classes that we need.
+    """
+    self.fileactions = PympFileOps()
+    self.files = PympFiles()
+
+  def getPlayerPid(self):
+    """
+    getPlayerPid() -> int(pid)
+
+    Returns pid of Pymp player script, as found in pidfile.
+    """
+    if os.path.exists(self.files.pidfile):
+      pidfile = open(self.files.pidfile, "r")
+      pid = pidfile.readline().strip()
+      try:
+        pid = int(pid)
+      except ValueError:
+        pid = None
+    else:
+      pid = None
+
+    pidfile.close()
+    return pid
+
+  def getFePid(self):
+    """
+    getFePid() -> int(pid)
+
+    Returns pid of Pymp frontend script, as found in fepidfile.
+    """
+    if os.path.exists(self.files.fepidfile):
+      fepidfile = open(self.files.fepidfile, "r")
+      pid = fepidfile.readline().strip()
+      fepidfile.close()
+      try: 
+        pid = int(pid)
+      except ValueError:
+        pid = None
+    else:
+      pid = None
+
+    return pid
+
+  def checkFeForLife(self):
+    """
+    checkFeForLife() -> int(life)
+
+    Returns 1 if frontend is still alive, 0 if not.
+    """
+    pid = self.getFePid()
+    if pid:
+      try:
+        os.kill(self.getFePid(), 0)
+        return 1
+      except OSError:
+        return 0
+    else:
+      return 0
+
+  def checkForLife(self):
+    """
+    checkForLife() -> int(life)
+
+    Returns 1 if player is still alive, 0 if not.
+    """
+    pid = self.getPlayerPid()
+    if pid:
+      try:
+        os.kill(self.getPlayerPid(), 0)
+        return 1
+      except OSError:
+        return 0
+    else:
+      return 0
+
+  def getSongInfo(self):
+    """
+    getSongInfo() -> { name: str(), bitrate: int() }
+
+    Returns dictionary containing filename and bitrate of currently playing song,
+    or None if player is dead.
+    """
+    if not self.checkForLife():
+      return None
+
+    infofile = open(self.files.infofile)
+    info = []
+
+    for i in range(0, 2):
+      info.append(infofile.readline().strip())
+
+    infofile.close()
+    return info
+
+  def _sendSignal(self, the_signal, pid):
+    """
+    _sendSignal(the_signal, pid) -> None
+
+    Sends $signal to $pid, if $pid is not alive, exits silently with no action.
+    """
+    if not self.checkForLife():
+      return
+    else:
+      os.kill(pid, the_signal)
+
+  def hupPlayer(self):
+    """
+    hupPlayer() -> None
+
+    Send SIGHUP to player.
+    """
+    self._sendSignal(signal.SIGHUP, self.getPlayerPid())
+
+  def killPlayer(self):
+    """
+    killPlayer() -> None
+
+    Send SIGINT to player.
+    """
+    self._sendSignal(signal.SIGINT, self.getPlayerPid())
+
+  def pausePlayer(self):
+    """
+    pausePlayer() -> None
+
+    Send SIGSTOP to player.
+    """
+    self._sendSignal(signal.SIGSTOP, self.getPlayerPid())
+
+  def resumePlayer(self):
+    """
+    resumePlayer() -> None
+
+    Send SIGCONT to player.
+    """
+    self._sendSignal(signal.SIGCONT, self.getPlayerPid())
+
+  def hupFe(self):
+    """
+    hupFe() -> None
+
+    Send SIGHUP to frontend.
+    """
+    self._sendSignal(signal.SIGHUP, self.getFePid())
+
+
+class PympFileOps:
+
+  def __init__(self):
+    self.files = PympFiles()
+    self.NARROW_BYARTIST = 1
+
+    self.livefile = open(self.files.livefile, "w")
+
+  def __del__(self):
+    self.livefile.close()
+    os.unlink(self.files.livefile)
+
+  def rm(self, filename):
+    try:
+      os.unlink(filename)
+      return 1
+    except OSError:
+      return 0
+
+  def rmPidFile(self):
+    return self.rm(self.files.pidfile)
+
+  def rmInfoFile(self):
+    return self.rm(self.files.infofile)
+
+  def rmInstFile(self):
+    return self.rm(self.files.instfile)
+
+  def rmAllFiles(self):
+    returncodes = []
+    for filename in [ self.files.pidfile, self.files.infofile, self.files.instfile ]:
+      returncodes.append(self.rm(filename))
+    return returncodes
+
+  def correctGlob(self, mp3dir, narrow_selection_by=None, match="*"):
+    if narrow_selection_by is None:
+      return "%s/*mp3" % mp3dir.rstrip("/")
+    elif narrow_selection_by is self.NARROW_BYARTIST:
+      return "%s/%s - *mp3" % (mp3dir.rstrip("/"), match)
+
+  def isUseableMp3(self, filename):
+    if filename.endswith("mp3") and os.path.isfile(filename):
+      return 1
+    else:
+      return 0
+
+  def readInstfile(self):
+    instfile = open(self.files.instfile, "r")
+    lines = instfile.readlines()
+    instfile.close()
+    return lines
+
+  def writeToFile(self, filename, mode, line_or_lines):
+    try:
+      thefile = open(filename, mode)
+      if isinstance(line_or_lines, types.ListType):
+        thefile.writelines(line_or_lines)
+      elif isinstance(line_or_lines, types.StringType):
+        thefile.write(line_or_lines)
+      thefile.close()
+      return 1
+    except IOError:
+      print "Permission denied for %s" % filename
+      return 0
+
+  def appendTailFile(self, line):
+    return self.writeToFile(self.files.tailfile, "a", line)
+
+  def appendLogFile(self, line):
+    return self.writeToFile(self.files.logfile, "a", line)
+
+  def writePidFile(self, pid):
+    return self.writeToFile(self.files.pidfile, "w", pid)
+
+  def writeInfoFile(self, bitrate, song):
+    return self.writeToFile(self.files.infofile, "w", [bitrate, song])
+
+  def autoNewline(self, mystring):
+    return mystring.endswith("\n") and mystring or mystring+"\n"
+
+  def updateLiveFile(self, text):
+    self.livefile.write("\r"+text)
+    self.livefile.flush()

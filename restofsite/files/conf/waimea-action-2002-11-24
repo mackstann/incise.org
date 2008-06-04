@@ -1,0 +1,180 @@
+DEF globalKeyBindings {
+
+  restart                      : keypress = R & Control_L & Alt_L,
+
+  TaskSwitcher                 : KeyPress = Tab & Alt_L,
+  
+  {xterm}                      : KeyPress = X & Control_L & Alt_L,
+
+  {xmms --fwd}                 : KeyPress = XF86Forward & !Control_L & !Alt_L,
+  {xmms --rew}                 : KeyPress = XF86Back & !Control_L & !Alt_L,
+  {xmms --stop}                : KeyPress = XF86Stop & !Control_L & !Alt_L,
+  {xmms --play-pause}          : KeyPress = XF86Mail & !Control_L & !Alt_L,
+  {aumix -w -}                 : KeyPress = XF86Favorites & !Control_L & !Alt_L,
+  {aumix -w +}                 : KeyPress = XF86HomePage & !Control_L & !Alt_L,
+  {xset dpms force standby}    : KeyPress = XF86Sleep & !Control_L & !Alt_L,
+  
+  StartViewportMove            : ButtonPress = Button2 & Alt_L,
+  EndMoveResize                : ButtonRelease = Button2 & MoveResizeMask,
+
+  ViewportRight                : KeyPress = Right & Control_L & !Alt_L,
+  ViewportLeft                 : KeyPress = Left & Control_L & !Alt_L,
+  ViewportUp                   : KeyPress = Up & Control_L & !Alt_L,
+  ViewportDown                 : KeyPress = Down & Control_L & !Alt_L,
+
+  ViewportRight                : KeyPress = L & Control_L & !Alt_L,
+  ViewportLeft                 : KeyPress = H & Control_L & !Alt_L,
+  ViewportUp                   : KeyPress = K & Control_L & !Alt_L,
+  ViewportDown                 : KeyPress = J & Control_L & !Alt_L,
+   
+  viewportfixedmove(+0+0)      : KeyPress = U & Control_L & !Alt_L,
+  viewportfixedmove(+1024+0)   : KeyPress = I & Control_L & !Alt_L,
+  viewportfixedmove(+2048+0)   : KeyPress = O & Control_L & !Alt_L,
+
+  viewportfixedmove(+0+768)    : KeyPress = J & Control_L & !Alt_L,
+  viewportfixedmove(+1024+768) : KeyPress = K & Control_L & !Alt_L,
+  viewportfixedmove(+2048+768) : KeyPress = L & Control_L & !Alt_L,
+
+  viewportfixedmove(+0+1536)   : KeyPress = M & Control_L & !Alt_L,
+  viewportfixedmove(+1024+1536): KeyPress = comma & Control_L & !Alt_L,
+  viewportfixedmove(+2048+1536): KeyPress = period & Control_L & !Alt_L
+      
+}
+
+DEF defaultAllWindows {
+  StartOpaqueMove        : ButtonPress = Button1 & Alt_L,
+  StartOpaqueResizeRight : ButtonPress = Button3 & Alt_L,
+  Raise                  : ButtonPress = Button5 & Alt_L,
+  Lower                  : ButtonPress = Button4 & Alt_L,
+  EndMoveResize          : ButtonRelease = Button1 & MoveResizeMask,
+  EndMoveResize          : ButtonRelease = Button3 & MoveResizeMask,
+  DecorHandleOff         : MapRequest,
+  decortitletoggle       : keypress = E & Control_L & Alt_L
+}
+
+DEF defaultAllDecor {
+	defaultAllWindows,
+  Raise             : ButtonPress = Button5 & !Alt_L,
+  Lower             : ButtonPress = Button4 & !Alt_L,
+  MenuRemap(window) : ButtonPress = Button3 & !Alt_L,
+  MenuUnmap(window) : ButtonPress = Button1 & !Alt_L,
+  MenuUnmap(window) : ButtonPress = Button2 & !Alt_L
+}
+
+DEF defaultAllTitle {
+  defaultAllDecor,
+  ToggleShade     : DoubleClick = Button1 & !Alt_L,
+  StartopaqueMove        : ButtonPress = Button1 & !Alt_L,
+  endmoveresize      : buttonrelease = button1 & !Alt_L
+    
+}
+
+window.frame { 
+  defaultAllDecor,
+  Focus : EnterNotify
+}
+window.title { defaultAllTitle }
+window.label { defaultAllTitle }
+window.handle { defaultAllDecor }
+
+window.button0 { 
+  defaultAllWindows, 
+  Close : ButtonRelease = Button1
+}
+window.button1 {
+  defaultAllWindows,
+  ToggleMaximize : ButtonRelease = Button1
+}
+window.passiveclient { 
+  defaultAllWindows,
+  MoveToSmartPlace : MapRequest & !Control_L,
+  Raise            : MapRequest,
+  Focus            : MapRequest
+}
+window.activeclient {
+  defaultAllWindows,
+  ToggleShade              : KeyPress = S & Control_L & Alt_L,
+  ToggleMaximize           : KeyPress = M & Control_L & Alt_L,
+  Close                    : KeyPress = F4 & Alt_L,
+  globalKeyBindings
+}
+
+DEF rootbindings {
+  MenuRemap(rootmenu) : ButtonPress = Button3,
+  MenuUnmap(rootmenu) : ButtonPress = Button1,
+  
+  globalKeyBindings,
+
+  {xterm}             : DoubleClick = Button1 & !Alt_L,
+  {xterm -e vi}       : ButtonPress = Button2 & !Alt_L
+}
+
+root { rootbindings }
+
+westedge { 
+  rootbindings, 
+  ViewportLeft : EnterNotify & Alt_L,
+  viewportleft : Buttonpress = Button4 & !Alt_L,
+  viewportleft : Buttonpress = Button5 & !Alt_L
+}
+eastedge { 
+  rootbindings, 
+  ViewportRight : EnterNotify & Alt_L,
+  viewportright : buttonpress = button4 & !Alt_L,
+  viewportright : buttonpress = button5 & !Alt_L
+}
+northedge { 
+  rootbindings, 
+  ViewportUp : EnterNotify & Alt_L,
+  viewportup : buttonpress = button4 & !Alt_L,
+  viewportup : buttonpress = button5 & !Alt_L
+}
+southedge { 
+  rootbindings, 
+  ViewportDown : EnterNotify & Alt_L,
+  viewportdown : buttonpress = button4 & !Alt_L,
+  viewportdown : buttonpress = button5 & !Alt_L
+}
+
+DEF allMenuWindows {
+  Raise           : EnterNotify,
+
+  StartMove : ButtonPress = Button1 & Alt_L,
+  EndMoveResize   : ButtonRelease = Button1 & Alt_L,
+   
+  UnLink          : ButtonPress = Button1 & Alt_L,
+  UnmapTree       : ButtonRelease = Button3
+}
+
+DEF allMenuItems {
+  allMenuWindows,
+  Exec         : ButtonRelease = Button1,
+  Func         : ButtonRelease = Button1
+} 
+
+menu.title {
+  allMenuWindows,
+  UnLink          : ButtonPress = Button2 & !Alt_L,
+
+  StartMove : ButtonPress = Button2 & !Alt_L,
+  EndMoveResize   : ButtonRelease = Button2 & !Alt_L,
+
+  UnmapSubs       : ButtonPress = Button3,
+  Unmap           : ButtonPress = Button3
+}
+menu.item {
+   allMenuItems,
+   UnmapSubs    : EnterNotify,
+   UnmapTree    : ButtonRelease = AnyButton,
+   UnmapFocused : KeyRelease = Alt_L,
+   Func         : KeyRelease = Alt_L,
+}
+menu.checkbox {
+   allMenuItems,
+   UnmapSubs : EnterNotify,
+}
+menu.sub {
+   allMenuItems,
+   MapSubOnly      : EnterNotify,
+   RemapSub        : ButtonPress = AnyButton,
+}

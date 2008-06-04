@@ -1,0 +1,49 @@
+
+<html><head><title>computer art</title>
+<style type="text/css">
+body { background: #bbb; }
+</style>
+</head><body>
+<form action="/beta/gradients/19.php" method="get">
+<h3>if you are lazy, just hit the button, the defaults work ok</h3>
+<hr>
+width: <input type="text"  name="width" size="5" value="44"></input>
+height: <input type="text"  name="height" size="5" value="44"></input>
+
+<hr>
+<input type="checkbox" name="rndfg" checked="checked">random fg color</input><br>
+
+if not, what values for R/G/B?  this is what the color is multiplied by, so you should
+use numbers like 0.5, 0.8, 1.2, 1.5, 2, etc.  anything over 2-5 is going to produce extreme results.
+if the above box is checked, these are ignored.<br>
+r <input type="text"  name="fgr" size="5" value="0.7"></input><br>
+g <input type="text"  name="fgg" size="5" value="0.8"></input><br>
+b <input type="text"  name="fgb" size="5" value="1"></input><br>
+
+<hr>
+<input type="checkbox" name="rndbg">random bg color</input> 
+<hr>
+shape? <input type="checkbox" name="rect">checked=rectangle, unchecked=circle</input>
+<hr>
+<input type="checkbox" name="specklyfg" checked="checked">speckly fg colors? (looks better than it sounds)</input>
+if so, then what values for min/max?  the color is multiplied by a random number in between
+these two numbers - divided by 10.  so anything from 1 to 20 or 30 probably.<br>
+  min <input type="text"  name="fgmin" size="5" value="5"></input><br>
+  max <input type="text"  name="fgmax" size="5" value="15"></input>
+<hr>
+
+choose one or the other. if you choose them both, you'll get the first one.<br>
+<input type="checkbox" name="strangeedge">want a weird cut-off edge?  its hard to explain, try and see.</input><br>
+<input type="checkbox" name="strangeouterregion">a strange, tv-snow like outer region?  again, hard to explain.</input>
+<hr>
+
+what letter(s) do you want repeated?  you probably should only put one or two letters here, or the page will be freaking huge.
+you can put a space if you want.  the best looking letters tend to be really big or really small.  i.e. Q's, 8's, periods, backticks, etc.<br>
+<input type="text"  name="letter" size="5" value="Q"></input>
+<hr>
+
+<input type="checkbox" name="extraspace" checked="checked">pad each letter with a space next to it?  it tends to
+offset the tall shape of letters, and makes things more square.  or something.</input>
+<hr>
+<input name="submitted" type="submit" value="ok, i'm ready, i guess"></input>
+</body></html>

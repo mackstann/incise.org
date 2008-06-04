@@ -1,0 +1,121 @@
+print "Loading configuration from userconfig.py...",
+
+from actions import install
+from macros import *
+
+from myK import *
+
+init()
+
+##### window behavior #########################################################
+
+sloppyFocus()
+
+focusNewWindows()
+smartWindowPlacement()
+
+wheelStacking( raiseButton=5, lowerButton=4, modifier=Alt )
+
+windowSnapping( pixels=45 ) # argument is snapping distance, in pixels
+
+##### viewport stuff ##########################################################
+
+viewportSurf( modifier=-Ctrl+Alt )
+viewportKnock( button=1, modifier=-Ctrl-Alt )
+
+##### desktops too
+
+desktopKeys( modifier=-Ctrl+Shift+Alt, keys="d,f" )
+
+##### menu stuff ##############################################################
+
+mouseMenuNavigation()
+keyboardMenuNavigation()
+
+rootMenuClick( buttons=[3] )   # [0]
+rootMenuUnmap( buttons=[1,2] ) # [0]
+
+windowMenuClick( buttons=[3] )   # [0]
+windowMenuUnmap( buttons=[1,2] ) # [0]
+
+##### window stuff ############################################################
+
+moveWindowWithModifier( Alt )
+resizeWindowWithModifier( Alt )
+
+moveByTitlebar( buttons=[1] ) # [0]
+
+doubleClickTitlebarShade( buttons=[1] ) # [0]
+resizeWithGrips( buttons=[1] )      # [0]
+
+windowButtons()
+
+altTab( action="PreviousTask" )
+
+##### MY OWN CRAP #############################################################
+
+##### uiojklm,. grid
+
+gridKeys = ( "u", "i", "o", "j", "k", "l", "m", "comma", "period" )
+#gridKeys = ( "g", "c", "r", "h", "t", "n", "m", "w", "v" )
+gridArgs = [ geom(w*x, h*y) for y in range(3) for x in range(3) ]
+
+gridbindings = []
+
+for i in range(9):
+  key = gridKeys[i]
+  coord = gridArgs[i]
+  gridbindings.extend(k( C +A, key, [("ViewportFixedMove", coord), focusBiggest]))
+
+#####
+
+aterm = "{aterm -geometry 110x36}"
+
+screenActions([ (DoubleClick("Button1"), aterm) ])
+
+globalActions(
+
+    gridbindings
+
+  + k( C  +A, "r",     ["Restart"] )
+  + k( C  +A, "x",     [aterm] )
+
+  + k(-C-S+A, "Tab",   ["PreviousTask"] )
+  + k(-C+S+A, "Tab",   ["TaskSwitcher"] )
+
+  + k( C  -A, "Up",    [("ViewportRelativeMove", geom( 0,-h)), focusBiggest] )
+  + k( C  -A, "Down",  [("ViewportRelativeMove", geom( 0, h)), focusBiggest] )
+  + k( C  -A, "Left",  [("ViewportRelativeMove", geom(-w, 0)), focusBiggest] )
+  + k( C  -A, "Right", [("ViewportRelativeMove", geom( w, 0)), focusBiggest] )
+)
+
+allWindowActions(
+
+    k( W -C -A, "Up",    [maximizeV] )
+  + k( W -C -A, "Right", [maximizeH] )
+
+  + k( W -C -A, "F11",   [halfScreenWidth, maximizeV, moveToLeft] )
+  + k( W -C -A, "F12",   [halfScreenWidth, maximizeV, moveToRight] )
+
+  + k( W -C -A, "k",     [(directionalFocus, "Up")] )
+  + k( W -C -A, "j",     [(directionalFocus, "Down")] )
+  + k( W -C -A, "h",     [(directionalFocus, "Left")] )
+  + k( W -C -A, "l",     [(directionalFocus, "Right")] )
+
+  + k( W -C -A, "equal", [grow] )
+  + k( W -C -A, "minus", [shrink] )
+
+  + k( W -C -A, "0",     ["Raise"] )
+
+  + k( W -C -A, "x",     ["Close"] )
+
+  + k( W -C -A, "e",     ["DecorAllToggle"] )
+
+  + k( W -C -A, "space", [("MenuRemapFocused", "window")])
+)
+
+
+finish()
+
+print "Done."
+

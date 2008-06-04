@@ -1,0 +1,78 @@
+/*
+unix: move to ~/.mozilla/<profile>/xxxxxxxx.slt/chrome/userContent.css
+
+windows: move to x:\Documents and Settings\<username>\Application Data\Mozilla\Profiles\<profile>\xxxxxxxx.slt\chrome\userContent.css
+
+<profile> is the name of your profile.  If you're not sure, then it is most
+likely "default".
+
+The xxxxxxxx.slt is all random characters and will vary.  There should only be
+one directory there anyways so you can't miss it.
+
+if you're using phoenix/firebird/firefox/netscape, then change the "mozilla" in
+the file paths to whatever is appropriate for your browser.
+
+anything inside the slash-asterisk pairs is a comment.  there's a comment above
+each set of blocked stuff.  if you don't want to block a given thing, then just
+comment it out or delete it.  make sure you don't mess up the commas!  and
+beware that you can't nest comments inside of other comments.
+*/
+
+/* blocks the big table on the left holding the ads */
+body.ftbody td[width="1%"] table[bgcolor="#eeeeee"],
+
+/* blocks the big table at top holding ads */
+body.ftbody > center > table[cellpadding="3"],
+
+/* yellow bars in between posts */
+body.ftbody td.ftalternatingbarseparater,
+body.ftbody td.ftalternatingbarseparater > img[height="7"],
+
+/* captions under topic links (ugh, these are messy to get rid of) */
+body.ftbody td[width="86%"] span.ftalternatingbartextsmall img[src="i/icons/arrow.gif"]
+{
+    display: none !important;
+    visibility: hidden !important;
+    width: 0px !important;
+    height: 0px !important;
+}
+
+/* captions under topic links (messiness cont'd) */
+body.ftbody td[width="86%"] span.ftalternatingbartextsmall
+{
+    font-size: 0px !important;
+}
+body.ftbody td[width="86%"] span.ftalternatingbartextsmall a
+{
+    /* this is the best compromise i could work out.  the number links are bold
+     * with no underline. feel free to make them non-bold, but if you put the
+     * underline back, it'll just be one big underline that runs together (and
+     * that looks bad) */
+    font-size: small !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+}
+body.ftbody td[width="86%"] span.ftalternatingbartextsmall a:before
+{
+    content: ' ' !important;
+}
+
+/* forums should take up the whole width of the page */
+body.ftbody > table {
+    width: 100% !important;
+}
+
+/* i like my text boxes real big - feel free to change/remove this (it makes it
+ * so you have to resize pm windows to see the bottom of them, and maybe other
+ * side effects*/
+textarea.ftformtext {
+    height: 500px !important;
+    min-width: 400px !important;
+}
+
+/* get rid of that green crap in focused form fields */
+.ftforminput:focus,.ftformtext:focus {
+    border: 1px solid #666 !important;
+    background-color: white !important;
+}
+

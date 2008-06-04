@@ -1,0 +1,95 @@
+/*
+ unix: move to ~/.mozilla/<profile>/xxxxxxxx.xxx/chrome/userContent.css
+ windows: move to x:\Documents and Settings\<username>\Application Data\Mozilla\Profiles\<profile>\xxxxxxxx.xxx\chrome\userContent.css
+ <profile> is the name of your profile.  If you're not sure, then it is most likely "default".
+ The xxxxxxxx.xxx is all random characters and will vary.  There should only be one directory there anyways so you can't miss it.
+ phoenix users:  substitute "phoenix" for "mozilla" in the file paths.
+*/
+
+/*body.ftbody table tr td[width="1%"],
+body.ftbody table tr td[width="20%"],*/
+
+/* block polls link */
+body.ftbody a.ftbackgroundlink[href="polls.cfm?type=forum"],
+
+/* i think this blocks the big table on the left holding the google ads */
+body.ftbody td[width="1%"] table[bgcolor="#eeeeee"],
+
+/* don't remember what this does */
+body.ftbody tr td a > font.ftbodytext > img[align="middle"]
+
+/* blocks Powered by Mushkin image */
+body.ftbody tr td a img[alt="AnandTech Forums Servers run on Mushkin Memory"],
+
+/* blocks Powered by Mushkin text */
+body.ftbody tr td div[align="center"] a font[face="arial, helvetica, sans serif",
+
+/* blocks poll/pm icons */
+body.ftbody center > table[cellpadding="3"] tr > td > table[cellpadding="0"] tr td a img[align="middle"],
+
+/* flash ads*/
+body.ftbody table[cellpadding="0"] tr td center object,
+body.ftbody table[cellpadding="0"] tr td center object embed,
+
+/* misc ads in iframes */
+body.ftbody table[cellpadding="0"] tr td iframe,
+
+  /* blocks fusetalk text at bottom, but also blocks forum dropdown box */
+  /*body.ftbody center font.ftbackgroundtext, */
+
+  /* blocks the light blue boxes (thread title area, polls, top area of pm page) */
+  /*body.ftbody td font.ftmessageheaderbartext */
+
+td[valign="center"] > font.ftbodytext > a > img
+{
+  display: none !important;
+  visibility: hidden !important;
+  width: 0px !important;
+  height: 0px !important;
+}
+body.ftbody {
+  margin-top: 0px !important;
+}
+body.ftbody > table {
+  width: 100% !important;
+}
+
+/* the following two sections affect the pm button, feel free to change, delete, or comment them out */
+
+/* normal */
+body.ftbody table tr td[valign="center"] a.ftbackgroundlink[href="viewprivatemessagenew.cfm"] {
+  display: block !important;
+  padding: 2px !important;
+  margin-left: 3px !important;
+  border: 2px solid #9cbacd !important;
+  background: #f6f6ff !important;
+  vertical-align: center !important;
+}
+
+/* when you hover over with the mouse */
+body.ftbody table tr td[valign="center"] a.ftbackgroundlink[href="viewprivatemessagenew.cfm"]:hover {
+  color: black !important;
+  text-decoration: none !important;
+  background: #9cbacd !important;
+}
+
+/* no underline on links, makes forum listing easier to read*/
+/*
+body.ftbody td[width="86%"] a {
+  text-decoration: none !important;
+}
+*/
+
+/* ..but underline links when you hover */
+/*
+body.ftbody td[width="86%"] a:hover {
+  text-decoration: underline !important;
+}
+*/
+
+/* makes visited links greyed */
+/*
+body.ftbody td[width="86%"] a:v/isited {
+  background: #d4d4d4 !important;
+}
+*/

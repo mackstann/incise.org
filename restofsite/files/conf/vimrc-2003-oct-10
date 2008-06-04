@@ -1,0 +1,28 @@
+set nocompatible 
+"set smartindent " fucks up commenting in python
+set number
+"set list
+set ts=2
+set sw=2
+set backspace=indent,eol,start
+set expandtab
+set showcmd
+set showmatch
+syntax on
+set ruler
+set showmode
+set wildchar=<TAB>
+map Q gq
+com Q q
+com Wq wq
+com WQ wq
+com W w
+
+if has("autocmd")
+  filetype plugin indent on
+  autocmd FileType text setlocal textwidth=78
+endif " has("autocmd")
+
+let python_highlight_all = 1
+hi ModeMsg term=bold cterm=underline
+

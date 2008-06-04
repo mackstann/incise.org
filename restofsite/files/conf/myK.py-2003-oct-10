@@ -1,0 +1,92 @@
+from actions import *
+from events import *
+
+w, h = screen.width, screen.height
+
+sign = lambda num: num>=0 and "+%d"%num or str(num)
+
+geom = lambda x=0,y=0: "%s%s" % (sign(x), sign(y))
+
+# easy way to assign more than one action to an event
+k = lambda mods,key,funcs: [ (KeyPress(mods,key), func) for func in funcs ]
+
+##############################
+
+def focusBiggest(curWin, event, action):
+
+  """
+  Focuses the biggest window onscreen, but only if it is > 40% larger
+  than the second largest window onscreen.  Most useful when triggered
+  by viewport/desktop changes, imo.
+  """
+
+  mapper = dict()
+
+  for window in screen.kawindow_list:
+    if window.IsVisible() and window.flags.tasklist:
+      windowSize = window.GetFrameWidth() * window.GetFrameHeight()
+      mapper[windowSize] = window
+
+  if not mapper: return
+
+  if len(mapper) == 1:
+    mapper.values()[0].Focus()
+    return
+
+  scores = mapper.keys()
+  scores.sort()
+
+  winner = scores[-1]
+  runnerUp = scores[-2]
+
+  if (float(winner) / runnerUp) > 1.4:
+    # focus only if the winner has >40% more area than the runner up
+    mapper[winner].Focus()
+
+##############################
+
+def maximizeV(curWin, event, action):
+  """
+  Not a true maximize -- doesn't play with any toggles, it just moves
+  the window to the top of the screen and sets the window's height to
+  the height of the screen.
+  """
+  curWin.SetFrameTop(0)
+  curWin.SetFrameHeight(screen.height)
+  curWin.RedrawWindow()
+
+def maximizeH(curWin, event, action):
+  """Same deal as maximizeV, only a horizontal version"""
+  curWin.SetFrameLeft(0)
+  curWin.SetFrameWidth(screen.width)
+  curWin.RedrawWindow()
+
+def halfScreenWidth(curWin, event, action):
+  """Sets the window's width to ((screen width / 2) - 1)"""
+  curWin.SetFrameWidth((screen.width/2)-1)
+  curWin.RedrawWindow()
+
+def moveToLeft(curWin, event, action):
+  """Moves window to left screen edge"""
+  curWin.SetFrameLeft(0)
+  curWin.RedrawWindow()
+
+def moveToRight(curWin, event, action):
+  """Moves window to right screen edge"""
+  curWin.SetFrameRight(screen.width)
+  curWin.RedrawWindow()
+
+def grow(win, ev, act):
+  win.SetFrameLeft(win.GetFrameLeft()-20)
+  win.SetFrameTop(win.GetFrameTop()-20)
+  win.SetFrameWidth(win.GetFrameWidth()+40)
+  win.SetFrameHeight(win.GetFrameHeight()+40)
+  win.RedrawWindow()
+
+def shrink(win, ev, act):
+  win.SetFrameLeft(win.GetFrameLeft()+20)
+  win.SetFrameTop(win.GetFrameTop()+20)
+  win.SetFrameWidth(win.GetFrameWidth()-40)
+  win.SetFrameHeight(win.GetFrameHeight()-40)
+  win.RedrawWindow()
+

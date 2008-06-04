@@ -1,0 +1,75 @@
+# pretty boring, standard config.
+# matrox g400 video card, standard 104 key usb keyboard,
+# 2 button + wheel usb mouse.
+
+Section "Module"
+  Load  "GLcore"
+  Load  "bitmap"
+  Load  "dbe"
+  Load  "ddc"
+  Load  "dri"
+  Load  "extmod"
+  Load  "freetype"
+  Load  "glx"
+  Load  "int10"
+  Load  "record"
+  Load  "speedo"
+  Load  "type1"
+  Load  "vbe"
+EndSection
+
+Section "InputDevice"
+  Identifier "Generic Keyboard"
+  Driver     "keyboard"
+  Option     "CoreKeyboard"
+  Option     "XkbRules"     "xfree86"
+  Option     "XkbModel"     "pc104"
+  Option     "XkbLayout"    "us"
+EndSection
+
+Section "InputDevice"
+  Identifier "Configured Mouse"
+  Driver     "mouse"
+  Option     "CorePointer"
+  Option     "Device"       "/dev/input/mice"
+  Option     "Protocol"     "ImPS/2"
+  Option     "ZAxisMapping" "4 5"
+EndSection
+
+Section "Device"
+  Identifier "Matrox G400"
+  Driver     "mga"
+EndSection
+
+Section "Monitor"
+  Identifier  "Generic Monitor"
+  HorizSync   30-150
+  VertRefresh 75
+  #in inches: 16.25 11.6 - below is in mm
+  DisplaySize 413 295
+  Option      "DPMS"
+EndSection
+
+Section "Screen"
+  Identifier "Default Screen"
+  Device     "Generic Video Card"
+  Monitor    "Generic Monitor"
+  DefaultDepth 24
+  DefaultFbBpp 32
+  SubSection "Display"
+    Depth 24
+    Modes "1400x1050" "1280x960" "1152x864" "1024x768" "800x600" "640x480"
+  EndSubSection
+EndSection
+
+Section "ServerLayout"
+  Identifier   "Default Layout"
+  Screen       "Default Screen"
+  InputDevice  "Generic Keyboard"
+  InputDevice  "Configured Mouse"
+  Option       "DontZap"
+EndSection
+
+Section "DRI"
+  Mode 0666
+EndSection

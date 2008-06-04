@@ -1,0 +1,75 @@
+#!/usr/pkg/bin/python2.2
+
+import sys, curses, traceback
+
+from Pymp import PympCtl
+
+def getActionFromArgv():
+  if len(sys.argv) == 1:
+    if len(sys.argv[0]) == 1:
+      action = sys.argv[0]
+    elif len(sys.argv[0]) == 3:
+      action = sys.argv[0][2]
+  elif len(sys.argv) == 2:
+    if len(sys.argv[1]) == 2:
+      action = sys.argv[1][1]
+  else:
+    print "?"
+    sys.exit(1)
+  return action
+
+
+def doAction(action):
+  global controller
+  if action == "n":
+    controller.hupPlayer()
+  elif action == "s":
+    controller.killPlayer()
+  elif action == "z":
+    controller.pausePlayer()
+  elif action == "w":
+    controller.resumePlayer()
+  elif action == "p":
+    info = controller.getSongInfo()
+    print info[0], info[1]
+  elif action == "/":
+    endCurses()
+    sys.stdout.write("/")
+    sys.stdout.flush()
+    search = raw_input()
+    sys.stdout.write(search.strip())
+    sys.stdout.flush()
+    startCurses()
+  else:
+    print "?"
+    return 1
+  return 0
+  
+def startCurses():
+  global screen
+  screen = curses.initscr()
+  curses.noecho()
+
+def endCurses():
+  curses.echo()
+  curses.endwin()
+  global screen
+  del screen
+
+
+controller = PympCtl()
+
+if len(sys.argv) > 1:
+  action = getActionFromArgv()
+  sys.exit(doAction(action))
+
+else:
+  startCurses()
+  try:
+    while 1:
+      action = chr(screen.getch())
+      doAction(action)
+  except:
+    endCurses()
+    traceback.print_exc()
+

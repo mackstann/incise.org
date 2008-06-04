@@ -1,0 +1,55 @@
+!XTerm*charClass: 33:48,37:48,45-47:48,64:48
+!XTerm*charClass: 33:48,37:48,43:48,45-47:48,64:48,126:48,95:48
+XTerm.charClass: 33:48,35:48,37:48,43:48,45-47:48,58:48,64:48,95:48,126:48,35:48
+!black
+XTerm.color0:   rgb:00/00/00
+XTerm.color8:   rgb:60/60/60
+!red
+XTerm.color1:   rgb:a7/82/71
+XTerm.color9:   rgb:87/62/51
+!green
+XTerm.color2:   rgb:a2/bc/8d
+XTerm.color10:  rgb:6b/7c/5d
+!yellow
+XTerm.color3:   rgb:80/80/50
+XTerm.color11:  rgb:a0/a0/70
+!blue
+XTerm.color4:   rgb:61/7b/aa
+XTerm.color12:  rgb:5b/73/a0
+!magenta
+XTerm.color5:   rgb:a0/70/a0
+XTerm.color13:  rgb:a8/78/a8
+!cyan
+XTerm.color6:   rgb:52/88/8e
+XTerm.color14:  rgb:66/aa/b2
+!white
+XTerm.color7:   rgb:b0/b0/b0
+XTerm.color15:  rgb:b0/b0/b0
+
+Xterm.cursorColor: gray
+
+xterm.Font: -misc-fixed-medium-r-normal-*-*-110-*-*-c-*-iso8859-1
+xterm.boldMode: false
+xterm.background: black
+xterm.foreground: gray
+xterm.SimpleMenu*background:  #c5c2c5
+xterm.SimpleMenu*foreground:  #000000
+
+!aterm.font: -misc-fixed-medium-r-normal-*-*-110-*-*-c-*-iso8859-1
+aterm.font: -schumacher-clean-medium-r-normal-*-*-130-*-*-c-*-iso646.1991-irv
+aterm.scrollBar: false
+aterm.foreground: grey
+aterm.background: black
+aterm.fading: 88
+aterm.cursorColor: rgb:66/77/99
+aterm.cursorColor2: rgb:18/18/18
+aterm.colorUL: rgb:d0/90/70
+aterm.colorBD: rgb:70/80/a0
+
+XTerm*saveLines:  1536
+*scrollTtyOutput: False
+
+xterm.metaSendsEscape:	True
+XTerm*modifier: alt
+XTerm*eightBitInput:    true
+XTerm*eightBitOutput:   true

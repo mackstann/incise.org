@@ -1,0 +1,399 @@
+# LEGAL
+#
+# All code in this patch is either from or based on GPLed code; thus this patch
+# is distributed under the GPL.
+#
+# A few "backported" features for waimea, from kahakai
+# Copyright (C) Nick Welch and others
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+# 
+# USAGE
+#
+# $ cd waimea-0.4.0/src
+# $ patch -p0 < /path/to/this/patch
+# <build/install as usual>
+#
+# INFO
+#
+# This patch adds a few things to Waimea that I have "backported" or converted
+# from Kahakai.  The code is really ugly.  Waimea's code is ugly, and this
+# stuff is hacked in without much concern for cleanliness.  But it works. :)
+#
+# -- Directional Focus --
+#
+# Adds an action called DirectionalFocus action that takes an argument, which
+# can be any one of: Up, Down, Left, Right, UpLeft, UpRight, DownLeft,
+# DownRight.  I use it like this:
+#
+# DEF globalKeyBindings {
+#     ....
+#     DirectionalFocus(Up)    : KeyPress = K & Super_L,
+#     DirectionalFocus(Down)  : KeyPress = J & Super_L,
+#     DirectionalFocus(Left)  : KeyPress = H & Super_L,
+#     DirectionalFocus(Right) : KeyPress = L & Super_L,
+#     ....
+# }
+#
+# The implementation was adapted from the python one in Kahakai.
+#
+# -- MaxLeft and MaxRight --
+#
+# Adds two actions called MaxLeft and MaxRight which will "half-maximize" a
+# window to the left or right side of the screen.  They don't actually use the
+# maximization toggle, they just resize the window.
+#
+# -- Focus biggest windows --
+#
+# When you change viewports, the biggest window onscreen will be focused
+# automatically.  If you don't want this behavior, go about 2/3 of the way down
+# in this file to see how to get rid of it.
+#
+# -- Event discarding --
+#
+# I added WaScreen::DiscardEventsOfType() and WaScreen::DiscardEnterNotifies(),
+# and I added a call to DiscardEnterNotifies in MoveViewportTo, so that when
+# you change viewports, you don't get that annoying "focus flicker" which
+# happens due to all of the EnterNotify events that happen when the windows are
+# shifted around.  DirectionalFocus also calls it to avoid the same problem.
+#
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Menu.cc ./Menu.cc
+--- /home/death/tmp/waimea-0.4.0-orig/src/Menu.cc	2002-11-06 05:55:10.000000000 -0600
++++ ./Menu.cc	2004-03-08 18:41:42.000000000 -0600
+@@ -1181,6 +1181,10 @@
+     menu->Unmap(focus);
+ }
+ 
++void WaMenuItem::DirectionalFocus(XEvent * ev, WaAction * act) {
++    menu->wascreen->DirectionalFocus(ev, act);
++}
++
+ /**
+  * @fn    MapSubmenu(XEvent *, WaAction *, bool focus, bool only)
+  * @brief Maps Submenu
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Menu.hh ./Menu.hh
+--- /home/death/tmp/waimea-0.4.0-orig/src/Menu.hh	2002-11-06 05:55:10.000000000 -0600
++++ ./Menu.hh	2004-03-08 18:40:52.000000000 -0600
+@@ -101,6 +101,8 @@
+     void RemapSubmenu(XEvent *, WaAction *, bool);
+     void UnmapMenu(XEvent *, WaAction *, bool);
+     
++    void DirectionalFocus(XEvent *, WaAction *);
++
+     void UnLinkMenu(XEvent *, WaAction *);
+     inline void MapSubmenu(XEvent *e, WaAction *ac) {
+         MapSubmenu(e, ac, false);
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Resources.cc ./Resources.cc
+--- /home/death/tmp/waimea-0.4.0-orig/src/Resources.cc	2002-11-06 05:55:10.000000000 -0600
++++ ./Resources.cc	2004-03-08 18:40:39.000000000 -0600
+@@ -205,7 +205,13 @@
+     wacts.push_back(new StrComp("restart", &WaWindow::Restart));
+     wacts.push_back(new StrComp("exit", &WaWindow::Exit));
+     wacts.push_back(new StrComp("nop", &WaWindow::Nop));
++    wacts.push_back(new StrComp("maxleft", &WaWindow::MaxLeft));
++    wacts.push_back(new StrComp("maxright", &WaWindow::MaxRight));
+     
++    racts.push_back(new StrComp("directionalfocus", &WaScreen::DirectionalFocus));
++    wacts.push_back(new StrComp("directionalfocus", &WaWindow::DirectionalFocus));
++    macts.push_back(new StrComp("directionalfocus", &WaMenuItem::DirectionalFocus));
++
+     racts.push_back(new StrComp("focus", &WaScreen::Focus));
+     racts.push_back(new StrComp("menumap", &WaScreen::MenuMap));
+     racts.push_back(new StrComp("menuremap", &WaScreen::MenuRemap));
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Screen.cc ./Screen.cc
+--- /home/death/tmp/waimea-0.4.0-orig/src/Screen.cc	2002-11-06 05:55:10.000000000 -0600
++++ ./Screen.cc	2004-03-08 19:00:21.000000000 -0600
+@@ -45,6 +45,7 @@
+ #endif // HAVE_SIGNAL_H
+ }
+ 
++#include <vector>
+ #include <iostream>
+ using std::cerr;
+ using std::cout;
+@@ -444,6 +447,17 @@
+         }
+ }
+ 
++void WaScreen::DiscardEnterNotifies() {
++    DiscardEventsOfType(EnterNotify);
++}
++
++void WaScreen::DiscardEventsOfType(int type) {
++    XEvent junk;
++    XSync(display, false);
++    while (XCheckTypedEvent(display, type, &junk));
++}
++
++
+ /**
+  * @fn    WaLowerWindow(Window win)
+  * @brief Lower window
+@@ -1013,6 +1027,97 @@
+     
+ }
+ 
++// directional focusing
++
++void WaScreen::DirectionalFocus(XEvent * ev, WaAction * act) {
++    WaWindow * currentWindow = wawindow_list.front();
++    if(currentWindow->id == id) return; // root window
++
++    int bestScore = -1;
++    WaWindow * bestClient = NULL;
++    std::string direction = act->param;
++
++#define _ISDIAGONAL(d) (d=="UpRight" || d=="UpLeft" || d=="DownRight" || d=="DownLeft")
++#define _ISVERTICAL(d) (d=="Up" || d=="Down" || d=="UpRight" || d=="DownLeft")
++#define _ISHORIZONTAL(d) (d=="Right" || d=="Left" || d=="DownRight" || d=="UpLeft")
++
++    if(direction.empty() || !(_ISDIAGONAL(direction) ||
++                              _ISHORIZONTAL(direction) ||
++                              _ISVERTICAL(direction)))
++    {
++        ERROR << direction << " not a valid direction" << endl;
++        return;
++    }
++
++    // c is for center
++    int my_cx = currentWindow->attrib.x + currentWindow->attrib.width/2;
++    int my_cy = currentWindow->attrib.y + currentWindow->attrib.height/2;
++
++#define _ISONSCREEN(winptr) \
++    (!((winptr)->attrib.x >= current_desktop->workarea.width || \
++       (winptr)->attrib.y >= current_desktop->workarea.height || \
++       (winptr)->attrib.x+(winptr)->attrib.width <= 0 || \
++       (winptr)->attrib.y+(winptr)->attrib.height <= 0))
++
++    list<WaWindow *>::iterator it;
++    for(it = wawindow_list.begin(); it != wawindow_list.end(); it++) {
++        // we want a *different* window
++        if((*it)->id == currentWindow->id) continue;
++
++        // make sure it's on our desktop
++        if (!((*it)->desktop_mask & (1L<<current_desktop->number))) continue;
++
++        // don't display windows not on screen
++        if(!_ISONSCREEN(*it)) continue;
++
++        if(!(*it)->flags.tasklist) continue; // skip windows in the dock, etc
++        if(!(*it)->flags.focusable) continue;
++
++        // center of $win, relative to current window's center
++        int his_cx = ((*it)->attrib.x - my_cx) + ((*it)->attrib.width / 2);
++        int his_cy = ((*it)->attrib.y - my_cy) + ((*it)->attrib.height / 2);
++
++        if(_ISDIAGONAL(direction)) {
++            // rotate 45 degrees
++            int tx = his_cx + his_cy;
++            his_cy = -his_cx + his_cy;
++            his_cx = tx;
++        }
++
++        int offset, distance;
++        if(_ISVERTICAL(direction)) {
++            offset = abs(his_cx);
++            distance = direction.find("Up") != std::string::npos ? -his_cy : his_cy;
++        } else if(_ISHORIZONTAL(direction)) {
++            offset = abs(his_cy);
++            distance = direction.find("Left") != std::string::npos ? -his_cx : his_cx;
++        } else {
++            ERROR << "XXX what happened?  shouldn't have gotten here" << endl;
++            return;
++        }
++
++        // target must be in the requested direction
++        if(distance <= 0) continue;
++
++        // Calculate score for this window.  The smaller the better.
++        int score = distance + offset;
++
++        // windows more than 45 degrees off the direction are heavily penalized
++        // and will only be chosen if nothing else is within a million pixels
++        if(offset > distance) score += 1000000;
++
++        if(bestScore == -1 || score < bestScore) {
++            bestClient = *it;
++            bestScore = score;
++        }
++    }
++
++    if(bestClient)
++        bestClient->FocusVis(NULL, NULL);
++}
++
++// end directional focusing
++
+ /**
+  * @fn    MoveViewportTo(int x, int y)
+  * @brief Move viewport to position
+@@ -1066,6 +1171,33 @@
+             (*it2)->Move(x_move, y_move);
+     }
+     net->SetDesktopViewPort(this);
++    DiscardEnterNotifies();
++
++    // focus biggest
++    WaWindow * biggest = NULL;
++    int biggest_area = 0;
++    int workx, worky, workw, workh;
++    GetWorkareaSize(&workx, &worky, &workw, &workh);
++    for (it = wawindow_list.begin(); it != wawindow_list.end(); ++it) {
++        if((*it)->id == id) continue;
++        if(!(*it)->flags.tasklist) continue;
++        if(!((((*it)->attrib.x + (*it)->attrib.width) > 0 &&
++                        (*it)->attrib.x < workw) &&
++                    (((*it)->attrib.y + (*it)->attrib.height) > 0 &&
++                     (*it)->attrib.y < workh))) continue;
++
++        int area = (*it)->attrib.width * (*it)->attrib.height;
++
++        // if some tie for biggest, the most recently used will be focused
++        if(area > biggest_area) {
++            biggest = *it;
++            biggest_area = area;
++        }
++    }
++    if(biggest) {
++        biggest->Focus(true);
++        biggest->RedrawWindow();
++    }
+ }
+ 
+ /**
+# if you don't want the biggest window to be focused when you change viewport,
+# change the above 'if' statement (the one that says 'if(biggest)') to 'if(0)'.
+# it will still do all the computations, but that shouldn't cause any
+# noticeable difference, and if you aren't familiar with c/c++/diff syntax,
+# it's the easiest way to get around it.
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Screen.hh ./Screen.hh
+--- /home/death/tmp/waimea-0.4.0-orig/src/Screen.hh	2002-11-06 05:55:10.000000000 -0600
++++ ./Screen.hh	2004-03-07 20:00:26.000000000 -0600
+@@ -147,6 +147,9 @@
+     WaMenu *GetMenuNamed(char *);
+     WaMenu *CreateDynamicMenu(char *);
+ 
++    void DiscardEnterNotifies();
++    void DiscardEventsOfType(int);
++
+     void MoveViewportTo(int, int);
+     void MoveViewport(int);
+     void ScrollViewport(int, bool, WaAction *);
+@@ -183,6 +186,7 @@
+     inline void MenuUnmapFocus(XEvent *e, WaAction *wa) {
+         MenuUnmap(e, wa, true);
+     }
++    void DirectionalFocus(XEvent *, WaAction *);
+     void Restart(XEvent *, WaAction *);
+     void Exit(XEvent *, WaAction *);
+     void TaskSwitcher(XEvent *, WaAction *);
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Waimea.hh ./Waimea.hh
+--- /home/death/tmp/waimea-0.4.0-orig/src/Waimea.hh	2002-11-06 05:55:10.000000000 -0600
++++ ./Waimea.hh	2004-03-08 18:44:00.000000000 -0600
+@@ -152,6 +152,8 @@
+ #include "Timer.hh"
+ #include "Net.hh"
+ 
++class Timer;
++
+ class Waimea {
+ public:
+     Waimea(char **, struct waoptions *);
+@@ -203,3 +205,4 @@
+ char *expand(char *, WaWindow *);
+ 
+ #endif // __Waimea_hh
++
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Window.cc ./Window.cc
+--- /home/death/tmp/waimea-0.4.0-orig/src/Window.cc	2002-11-06 05:55:10.000000000 -0600
++++ ./Window.cc	2004-03-07 19:57:24.000000000 -0600
+@@ -28,6 +28,7 @@
+ }
+ 
+ #include "Window.hh"
++#include "Screen.hh"
+ 
+ /**
+  * @fn    WaWindow(Window win_id, WaScreen *scrn) :
+@@ -1218,6 +1219,11 @@
+     }
+ }
+ 
++void WaWindow::DirectionalFocus(XEvent * ev, WaAction * act) {
++    wascreen->DirectionalFocus(ev, act);
++}   
++
++
+ /**
+  * @fn    Lower(XEvent *, WaAction *)
+  * @brief Lowers the window
+@@ -2903,6 +2909,35 @@
+     RedrawWindow();
+ }
+ 
++void WaWindow::MaxLeft(XEvent * e, WaAction *) {
++    int w = 0, h = 0;
++    int total_h = border_w * 2;
++    if (title_w) total_h += border_w + title_w;
++    if (handle_w) total_h += border_w;
++    attrib.x = border_w;
++    attrib.y = border_w*2 + title_w;
++    if(IncSizeCheck(wascreen->width/2 - 1, wascreen->height - total_h, &w, &h)) {
++        attrib.width = w;
++        attrib.height = h;
++    }
++    RedrawWindow();
++    wascreen->DiscardEnterNotifies();
++}
++void WaWindow::MaxRight(XEvent * e, WaAction *) {
++    int w = 0, h = 0;
++    int total_h = border_w * 2;
++    if (title_w) total_h += border_w + title_w;
++    if (handle_w) total_h += border_w;
++    attrib.x = wascreen->width - attrib.width - border_w;
++    attrib.y = border_w*2 + title_w;
++    if(IncSizeCheck(wascreen->width/2 - 1, wascreen->height - total_h, &w, &h)) {
++        attrib.width = w;
++        attrib.height = h;
++    }
++    RedrawWindow();
++    wascreen->DiscardEnterNotifies();
++}
++
+ /**
+  * @fn    MoveWindowToSmartPlace(XEvent *, WaAction *)
+  * @brief Moves window to smart position
+diff -x 'Makefile*' -ur /home/death/tmp/waimea-0.4.0-orig/src/Window.hh ./Window.hh
+--- /home/death/tmp/waimea-0.4.0-orig/src/Window.hh	2002-11-06 05:55:10.000000000 -0600
++++ ./Window.hh	2004-03-08 18:39:34.000000000 -0600
+@@ -155,6 +155,9 @@
+     inline void MenuUnmapFocus(XEvent *e, WaAction *wa) {
+         MenuUnmap(e, wa, true);
+     }
++    void MaxRight(XEvent *, WaAction *);
++    void MaxLeft(XEvent *, WaAction *);
++
+     void Shade(XEvent *, WaAction *);
+     void UnShade(XEvent *, WaAction *);
+     void ToggleShade(XEvent *, WaAction *);
+@@ -215,6 +218,8 @@
+     void Exit(XEvent *, WaAction *);
+     inline void Nop(XEvent *, WaAction *) {}
+ 
++    void DirectionalFocus(XEvent *, WaAction *);
++
+     void EvAct(XEvent *, EventDetail *, list<WaAction *> *, int);
+     
+     char *name, *host, *pid;

@@ -1,0 +1,29 @@
+#!/usr/pkg/bin/python2.2
+
+import os, string, re, sys
+
+rcfile = open(os.environ['HOME']+'/.waimearc', 'r')
+
+rc = []
+fixed_rc = []
+
+for line in rcfile.readlines():
+  rc.append(line)
+
+rcfile.close()
+
+for line in rc:
+  if line.find('screen0.styleFile:') is not -1:
+    fixed_rc.append(re.sub('styleFile:(.*)$', 'styleFile: ' + sys.argv[1], line))
+  else:
+    fixed_rc.append(line)
+
+rcfile = open(os.environ['HOME']+'/.waimearc', 'w')
+
+for line in fixed_rc:
+  print line[:-1]
+  rcfile.write(line)
+
+rcfile.close()
+
+os.system("waimea --stylefile="+sys.argv[1]+" &")

@@ -1,0 +1,7 @@
+if [ $TERM = "kterm" -o $TERM = "rxvt" ]; then
+  export TERM=xterm ; fi
+
+/usr/bin/keychain --quiet ~/.ssh/id_dsa ~/.ssh/id_rsa
+source ~/.keychain/two-sh > /dev/null
+
+

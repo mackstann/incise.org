@@ -1,0 +1,67 @@
+#!/bin/sh
+
+INET_IP=`ifconfig eth0 | grep 'inet addr' | awk '{print $2}' | sed -e 's/addr://'`
+
+LAN_IP=`ifconfig eth1 | grep 'inet addr' | awk '{print $2}' | sed -e 's/addr://'`
+
+IPT="/sbin/iptables"
+
+/sbin/depmod -a
+
+/sbin/modprobe ip_tables
+/sbin/modprobe ip_conntrack
+/sbin/modprobe iptable_filter
+/sbin/modprobe iptable_mangle
+/sbin/modprobe iptable_nat
+/sbin/modprobe ipt_LOG
+/sbin/modprobe ipt_limit
+/sbin/modprobe ipt_state
+/sbin/modprobe ipt_owner
+/sbin/modprobe ipt_REJECT
+/sbin/modprobe ipt_MASQUERADE
+/sbin/modprobe ip_conntrack_ftp
+/sbin/modprobe ip_conntrack_irc
+
+echo 0 > /proc/sys/net/ipv4/ip_forward
+
+
+$IPT -A INPUT -t filter -i lo -j ACCEPT 
+$IPT -A INPUT -t filter -i eth0 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+$IPT -A INPUT -t filter -i eth0 -m state --state NEW,INVALID -j DROP
+
+#from lan
+$IPT -A FORWARD -t filter -i eth1 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+$IPT -A FORWARD -t filter -i eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPT -A FORWARD -t filter -i eth0 -m state --state NEW,INVALID -j DROP
+#nat
+$IPT -A POSTROUTING -t nat -o eth0 -s 192.168.0.0/24 -d 0/0 -j MASQUERADE
+
+#open ports
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 22 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 22 -j ACCEPT
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 25 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 25 -j ACCEPT
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 53 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 53 -j ACCEPT
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 80 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 80 -j ACCEPT
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 81 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 81 -j ACCEPT
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 300 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 300 -j ACCEPT
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 6667 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 6667 -j ACCEPT
+$IPT -A FORWARD -t filter -p tcp -i eth0 --dport 6699 -j ACCEPT
+$IPT -A INPUT -t filter -p tcp -i eth0 --dport 6699 -j ACCEPT
+
+# tried all 3
+#$IPT -A PREROUTING -t nat -p tcp --dport 81 -j DNAT --to 192.168.0.2
+#$IPT -t nat -A PREROUTING -p tcp --dport 81 -i eth0 -j DNAT --to 192.168.0.2:80 
+#$IPT -A PREROUTING -t nat -p tcp --dport 81 -j DNAT --to 192.168.0.2:80
+
+$IPT -A INPUT -p UDP -s 0/0 --source-port 1024:65535 -j ACCEPT
+
+$IPT -A INPUT -t filter -i eth0 -m state --state NEW,INVALID -j DROP
+$IPT -A FORWARD -t filter -i eth0 -m state --state NEW,INVALID -j DROP
+
+echo 1 > /proc/sys/net/ipv4/ip_forward

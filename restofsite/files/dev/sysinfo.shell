@@ -1,0 +1,23 @@
+#!/bin/bash
+KERNEL=`uname -m -s -r`
+OS='Llama Sauce (I didnt edit my OS name!)'
+
+USEDMEM=`free | grep ^- | awk '{print $3}'`
+USEDMEM=`echo scale = 2\; $USEDMEM / 1024 | bc`
+TOTALMEM=`free | grep ^Mem | awk '{print $2}'`
+TOTALMEM=`echo scale = 2\; $TOTALMEM / 1024 | bc`
+PERCENT=`echo $USEDMEM / $TOTALMEM | bc`
+
+CPUMHZ=`cat /proc/cpuinfo | grep MHz | awk '{print $4}' | sed -e 's/....$/''/'`
+CPUTYPE=`cat /proc/cpuinfo | grep '^model name' | awk '{print $4,$5}'`
+CPUUSAGE='100 - '`atsar -u 1 | grep -v Linux | grep all | awk '{print $6}'`
+CPUUSAGE=`echo $CPUUSAGE | bc`
+
+VIDEOCARD=`cat /proc/pci | grep VGA | awk '{print $4, $8, $9}'`
+RES=`xdpyinfo | grep dimensions | awk '{print $2}'`
+BITDEPTH=`xdpyinfo | grep depth | grep root | awk '{print $5}'`
+
+NETIBYTES=`/sbin/ifconfig eth0 | grep bytes | awk '{print $3}' | sed -e 's/^./''/'`
+NETOBYTES=`/sbin/ifconfig eth0 | grep bytes | awk '{print $7}' | sed -e 's/^./''/'`
+
+echo 7os12\(${OS}12\) 7kernel12\(${KERNEL}12\) 7cpu12\(${CPUTYPE} ${CPUMHZ}MHz \@ ${CPUUSAGE}\%12\) 7mem12\(${USEDMEM}MB \/ ${TOTALMEM}MB12\) 7xfree12\(${VIDEOCARD} \- ${RES} \@ ${BITDEPTH} bits12\) 7eth012\(${NETIBYTES}MBrx  ${NETOBYTES}MBtx12\)

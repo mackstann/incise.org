@@ -1,0 +1,18 @@
+screenMask: 0
+screen0.styleFile: '/home/death/.waimea/styles/blueball/blueball.style'
+screen0.menuFile:           ~/.waimea/menu
+screen0.actionFile:         ~/.waimea/actions/action
+screen0.numberOfDesktops:   1
+screen0.desktopNames:       Desktop 1
+screen0.doubleBufferedText: True
+screen0.colorsPerChannel:   8
+screen0.virtualSize:        3x3
+screen0.menuStacking:       Normal
+screen0.transientAbove:     True
+screen0.dock0.geometry:     -0+0
+screen0.dock0.desktopMask:  All
+screen0.dock0.centered:     False
+screen0.dock0.direction:    Vertical
+screen0.dock0.gridSpace:    2
+screen0.dock0.stacking:     AlwaysOnTop
+screen0.lazyTransparency:   False

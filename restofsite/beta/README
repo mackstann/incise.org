@@ -1,0 +1,8 @@
+this is an archive of various web scripting crap i did in the past.  each
+directory has an explanation of what's in it.
+
+tree.html is a php script that basically acts as a file browser.  it
+works/worked a lot better when you used it as the default directory indexer for
+the whole server: you could navigate up and down the hierarchy and things got
+bigger when you descended into them.  the links in it are broken, of course.
+

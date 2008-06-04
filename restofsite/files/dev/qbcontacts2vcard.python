@@ -1,0 +1,133 @@
+#!/usr/bin/env python
+
+"""
+qbcontacts2vcard.py
+
+A script that converts customers exported from quickbooks into vcards, suitable
+for importing into a mail client.
+
+Copyright (c) 2003, Nick Welch
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+* Neither the name of Nick Welch nor the names of contributors may be used to
+  endorse or promote products derived from this software without specific prior
+  written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
+
+import sys, csv # csv module is only in python 2.3 and later
+
+# written to work with:
+# QuickBooks Pro,Version 10.0D,Release R6P
+# may or may not work with others, i don't know.
+
+# written quickly and NOT with good design in mind - ugly, i know.
+
+# reads from stdin and prints to stdout, so just pipe your stuff through it.
+
+reader = csv.reader(sys.stdin, "excel-tab")
+
+fields = ['!CUST', 'NAME', 'REFNUM', 'TIMESTAMP', 'BADDR1', 'BADDR2', 'BADDR3',
+          'BADDR4', 'BADDR5', 'SADDR1', 'SADDR2', 'SADDR3', 'SADDR4', 'SADDR5',
+          'PHONE1', 'PHONE2', 'FAXNUM', 'EMAIL', 'NOTE', 'CONT1', 'CONT2',
+          'CTYPE', 'TERMS', 'TAXABLE', 'SALESTAXCODE', 'LIMIT', 'RESALENUM',
+          'REP', 'TAXITEM', 'NOTEPAD', 'SALUTATION', 'COMPANYNAME', 'FIRSTNAME',
+          'MIDINIT', 'LASTNAME', 'CUSTFLD1', 'CUSTFLD2', 'CUSTFLD3', 'CUSTFLD4',
+          'CUSTFLD5', 'CUSTFLD6', 'CUSTFLD7', 'CUSTFLD8', 'CUSTFLD9',
+          'CUSTFLD10', 'CUSTFLD11', 'CUSTFLD12', 'CUSTFLD13', 'CUSTFLD14',
+          'CUSTFLD15', 'JOBDESC', 'JOBTYPE', 'JOBSTATUS', 'JOBSTART',
+          'JOBPROJEND', 'JOBEND', 'HIDDEN', 'DELCOUNT', 'PRICELEVEL']
+
+# NAME business name
+# BADDR[1-5] lines of address
+# PHONE1 phone
+# FAXNUM fax
+# EMAIL
+# CONT1 contact name
+# FIRSTNAME contact's first name
+# LASTNAME contact's last name
+
+def getField(name, line):
+  return line[fields.index(name)].strip()
+
+def csvLine2vcard(line):
+  addr = ';'.join(filter(str.strip, [ line[fields.index("BADDR%d" % (i+1))]
+                                      for i in range(4) ]))
+  print addr
+  company = getField("NAME", line)
+  phone =   getField("PHONE1", line)
+  fax =     getField("FAXNUM", line)
+  email =   getField("EMAIL", line)
+
+  contact =   getField("CONT1", line)
+  firstname = getField("FIRSTNAME", line)
+  lastname =  getField("LASTNAME", line)
+
+  ret = []
+  ret.append("BEGIN:VCARD")
+
+  if firstname or lastname:
+    ret.append("N:%s;%s" % (lastname, firstname))
+
+  if addr:
+    ret.append("ADR;WORK:%s" % addr)
+    ret.append("LABEL;QUOTED-PRINTABLE;WORK:%s" % addr.replace(";", "=0A"))
+
+  if email: ret.append("EMAIL;INTERNET:%s" % email)
+  if phone: ret.append("TEL;WORK;VOICE:%s" % phone)
+  if fax:   ret.append("TEL;WORK;FAX:%s" % fax)
+
+  if firstname or lastname:
+    ret.append("FN:%s" % " ".join([firstname, lastname]))
+
+  if company:
+    ret.append("ORG:%s" % company)
+
+  ret.append("END:VCARD")
+
+  if len(ret) <= 2:
+    return []
+
+  return ret
+
+
+for line in reader:
+
+  if len(line) and line[0] != "CUST":
+    # line must start with "CUST"
+    print >>sys.stderr, "ignoring `%s' line" % line[0]
+    continue
+  elif not len(line):
+    continue
+
+  try:
+    vcardText = csvLine2vcard(line)
+  except ValueError, err:
+    print '---------------------------------------'
+    print >>sys.stderr, "problems converting line:", line
+    sys.stderr.write(repr(err))
+    print '---------------------------------------'
+  else:
+    if vcardText:
+      for l in vcardText:
+        print l
+      print
+

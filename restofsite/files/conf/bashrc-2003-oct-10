@@ -1,0 +1,36 @@
+if [ "x$BASH" != "x" ]
+then
+  PS1="${USER}@`hostname` \w % "
+else
+  PS1="${USER}@`hostname` % "
+fi
+
+export PS1
+
+alias more=less
+alias ls='ls -F'
+
+if [ "x$EDITOR" = "x" ]
+then
+  alias vi=vim
+else
+  alias vi=$EDITOR
+fi
+
+alias weather=$HOME/scripts/weather.sh
+alias CleanMp3s=$HOME/scripts/cleanmp3s.sh
+alias Lower='rename "y/A-Z/a-z/" *3'
+
+if [ -r $HOME/.bash_keychain_and_TERM.sh ]
+then
+  . $HOME/.bash_keychain_and_TERM.sh
+fi
+
+if [ "x$TERM" = "xxterm" ]
+then
+  pts=`tty | tr -d '/dev'`
+  echo -ne "\033]0;${pts}\007"
+fi
+
+set -o vi
+

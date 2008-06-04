@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# we can pass it a different display number as the argument, otherwise default
+# to :0
+
+DISPLAY=:0
+test "$1" && DISPLAY=$1
+export DISPLAY
+
+X -noreset $DISPLAY &> "$HOME/.my-x-errors-$DISPLAY" &
+
+# wait until X is up
+for try in `seq 10`
+do
+    xdpyinfo &>/dev/null
+
+    if [ x$? != x0 ]
+    then
+        success="false"
+        echo "Couldn't connect to display $DISPLAY, retrying..."
+    else
+        success="true"
+        break
+    fi
+done
+
+if [ x$success != xtrue ]
+then
+    echo "Couldn't connect to display $DISPLAY."
+    exit
+fi
+
+# it's up now
+
+exec >> "$HOME/.my-x-errors-$DISPLAY" 2>&1
+
+# below is essentially the equivelant to what you'd put into an .xinitrc,
+# except you *don't* want the script to hang -- you want it to run things like
+# the wm in the background and then exit.
+
+# crosshatch background and X cursor are teh ugly
+xsetroot -solid black # passing -br to X will also work, but only on xfree 4.3+
+xsetroot -cursor_name left_ptr
+
+sh $HOME/scripts/xmodmap.sh
+
+xset +fp $HOME/.fonts
+xset fp rehash
+
+$HOME/sw/waimeahack/bin/waimea &
+
+# bell off
+xset b off
+
+# i swear my mouse was slower when i didn't have this
+xset m
+
+# needed on old crappy keyboard
+# ax -timeout
+# ax bouncedelay 30
+# ax +bouncekeys
+
+# fast key repeat
+ax +repeatkeys
+ax repeatinterval 12
+ax repeatdelay 210
+
+# no screen blanking / turning off / screensaver / etc - just leave the
+# monitor's state completely alone.  i turn it off manually when i leave the
+# computer.
+
+# still trying to figure out how to disable monitor power management
+# altogether.  this doesn't cut it.
+
+# can you hear me NOW?
+xset s off
+xset s noblank
+

@@ -1,0 +1,6 @@
+figlet is a program that takes normal text as input and outputs the same text
+as ascii art-style text.  figlet.php was my gateway for the world to access
+this awesome power, but it is has been decommissioned.
+
+form.html is the initial page you saw, and result.html is the example output of
+the word "hello".

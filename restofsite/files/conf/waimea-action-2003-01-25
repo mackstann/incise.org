@@ -1,0 +1,198 @@
+DEF globalKeyBindings {
+
+  restart                      : keypress = R & Control_L & Alt_L,
+
+  PreviousTask                 : KeyPress = Tab & Alt_L,
+  
+  {aterm}                      : KeyPress = X & Control_L & Alt_L,
+
+  # little script that SIGTERMs my infinite mpg321 loop, to skip to next song
+  {/home/death/scripts/nextsong.sh} : KeyPress = N & Control_L & Alt_L,
+
+  # Alt+middle drags the desktop around - very cool! not too useful though..
+  StartViewportMove            : ButtonPress = Button2 & Alt_L & Control_L,
+  EndMoveResize                : ButtonRelease = Button2 & MoveResizeMask,
+
+  # viewport L/R/U/D
+  ViewportRelativeMove(+W+0)   : KeyPress = Right & Control_L & !Alt_L,
+  ViewportRelativeMove(-W+0)   : KeyPress = Left & Control_L & !Alt_L,
+  ViewportRelativeMove(+0-H)   : KeyPress = Up & Control_L & !Alt_L,
+  ViewportRelativeMove(+0+H)   : KeyPress = Down & Control_L & !Alt_L,
+
+  # ctrl alt click takes me to mozilla, ctrl alt right click takes me to irc
+  ViewportFixedMove(+0+0)      : ButtonPress = Button1 & Alt_L & Control_L,
+  ViewportFixedMove(+1024+0)   : ButtonPress = Button3 & Alt_L & Control_L,
+
+  # grid of keys corresponding to 3x3 viewports
+  # U I O
+  # J K L
+  # M , .
+  # (with ctrl+alt)
+  ViewportFixedMove(+0+0)      : KeyPress = U & Control_L & Alt_L,
+  ViewportFixedMove(+1024+0)   : KeyPress = I & Control_L & Alt_L,
+  ViewportFixedMove(+2048+0)   : KeyPress = O & Control_L & Alt_L,
+
+  ViewportFixedMove(+0+768)    : KeyPress = J & Control_L & Alt_L,
+  ViewportFixedMove(+1024+768) : KeyPress = K & Control_L & Alt_L,
+  ViewportFixedMove(+2048+768) : KeyPress = L & Control_L & Alt_L,
+
+  ViewportFixedMove(+0+1536)   : KeyPress = M & Control_L & Alt_L,
+  ViewportFixedMove(+1024+1536): KeyPress = comma & Control_L & Alt_L,
+  ViewportFixedMove(+2048+1536): KeyPress = period & Control_L & Alt_L
+      
+}
+
+DEF defaultAllWindows {
+  globalKeyBindings,
+
+  #alt+drag moves window, alt+right drag resizes
+  StartOpaqueMove        : ButtonPress = Button1 & Alt_L & !Control_L,
+  StartResizeRight       : ButtonPress = Button3 & Alt_L & !Control_L,
+
+  EndMoveResize          : ButtonRelease = Button1 & MoveResizeMask,
+  EndMoveResize          : ButtonRelease = Button3 & MoveResizeMask,
+
+  #turn off the dumb handlebar, raise * focus new windows
+  DecorHandleOff         : MapRequest,
+  Raise                  : MapRequest,
+  Focus                  : MapRequest,
+
+  #alt+wheel back to raise, alt+wheel forward to lower.
+  #windows do NOT raise on click or hover.  i hate that :)
+  Raise                  : ButtonPress = Button5 & Alt_L,
+  Lower                  : ButtonPress = Button4 & Alt_L,
+
+  DecorTitleToggle       : KeyPress = E & Control_L & Alt_L,
+
+  #alt+middle click closes a window, ctrl+double click maximizes
+  Close                  : ButtonPress = Button2 & Alt_L & !Control_L,
+  ToggleMaximize         : DoubleClick = Button1 & !Alt_L & Control_L,
+
+  #ctrl alt return closess window
+  Close                  : KeyPress = Return & Control_L & Alt_L,
+}
+
+DEF defaultAllDecor {
+	defaultAllWindows,
+}
+
+DEF defaultAllTitle {
+  defaultAllDecor,
+
+  #same wheel mouse raise/lowering, but let us do it w/o alt on titlebars
+  Raise             : ButtonPress = Button5 & !Alt_L,
+  Lower             : ButtonPress = Button4 & !Alt_L,
+
+  #right click makes the menu pop up..
+  MenuRemap(window) : ButtonPress = Button3 & !Alt_L,
+
+  #middle or left clicking anywhere on the titlebar makes menu go away
+  MenuUnmap(window) : ButtonPress = Button1 & !Alt_L,
+  MenuUnmap(window) : ButtonPress = Button2 & !Alt_L
+
+  #double click to shade, drag w/ titlebar as anyone would expect
+  ToggleShade            : DoubleClick = Button1 & !Alt_L,
+  StartopaqueMove        : ButtonPress = Button1 & !Alt_L,
+  EndMoveResize          : ButtonRelease = Button1 & !Alt_L
+}
+
+window.frame { 
+  defaultAllDecor,
+
+  #sloppy focus, focus the window when the mouse goes over it
+  Focus : EnterNotify,
+}
+
+window.title { defaultAllTitle }
+window.label { defaultAllTitle }
+window.handle { defaultAllDecor }
+
+window.button0 { 
+  defaultAllWindows, 
+  Close : ButtonRelease = Button1
+}
+window.button1 {
+  defaultAllWindows,
+  ToggleMaximize : ButtonRelease = Button1
+}
+window.passiveclient { 
+  defaultAllWindows,
+}
+window.activeclient {
+  defaultAllWindows,
+}
+
+DEF rootbindings {
+  globalKeyBindings,
+
+  #menu on right click of course..
+  MenuRemap(rootmenu) : ButtonPress = Button3 & !Alt_L & !Control_L,
+  {aterm}             : DoubleClick = Button1 & !Alt_L,
+}
+
+root { rootbindings }
+
+#edges - surf around viewports with alt held down, or click at an edge to flip.
+
+westedge { 
+  rootbindings, 
+  ViewportLeft : EnterNotify & Alt_L,
+  ViewportLeft : Buttonpress = Button1 & !Alt_L
+}
+eastedge { 
+  rootbindings, 
+  ViewportRight : EnterNotify & Alt_L,
+  ViewportRight : buttonpress = button1 & !Alt_L
+}
+northedge { 
+  rootbindings, 
+  ViewportUp : EnterNotify & Alt_L,
+  ViewportUp : buttonpress = button1 & !Alt_L
+}
+southedge { 
+  rootbindings, 
+  ViewportDown : EnterNotify & Alt_L,
+  ViewportDown : buttonpress = button1 & !Alt_L
+}
+
+DEF allMenuWindows {
+
+  alwaysontopon     : MapRequest,
+
+  #if we right click anywhere in a menu, kill the whole menu (ala blackbox)
+  UnmapTree       : ButtonPress = Button3 & !Alt_L,
+}
+
+DEF allMenuItems {
+  allMenuWindows,
+  
+  #when we click on something, do what we expect..
+  Exec         : ButtonRelease = Button1 & !Alt_L,
+  Func         : ButtonRelease = Button1 & !Alt_L,
+
+  #and close the menu
+  UnmapTree    : ButtonRelease = Button1 & !Alt_L
+} 
+
+menu.title {
+  allMenuWindows,
+
+  #drag menus when you middle click their title
+  UnLink          : ButtonPress = Button2 & !Alt_L,
+  StartMove       : ButtonPress = Button2 & !Alt_L,
+  EndMoveResize   : ButtonRelease = Button2 & !Alt_L,
+}
+menu.item {
+   allMenuItems,
+   #when we hover over a menu item, close other submenus 
+   UnmapSubs    : EnterNotify,
+}
+menu.checkbox {
+   allMenuItems,
+}
+menu.sub {
+   allMenuItems,
+   #when we enter a submenu, close other submenus on that level
+   MapSubOnly  : EnterNotify
+}
+

@@ -1,0 +1,188 @@
+/* py-sigh is written by Nick Welch <mack@incise.org>, 2005-2006.
+ * 
+ * This software is in the public domain
+ * and is provided AS IS, with NO WARRANTY.
+ */
+
+#include <Python.h>
+#include <sigh/sigh.h>
+#include <signal.h>
+#include <errno.h>
+
+/* TODO: error messages for bad argument patterns might need tweaking. */
+
+/* helper stuff */
+
+static int seqtotuple(PyObject * o, void * p)
+{
+    if(!PySequence_Check(o))
+        return 0;
+    *(PyObject **)p = PySequence_Tuple(o);
+    return 1;
+}
+
+static PyObject * argstotuple(PyObject * args)
+{
+    PyObject * siglist;
+    if(!PyArg_ParseTuple(args, "O&;argument must be a sequence",
+                         seqtotuple, &siglist))
+        return NULL;
+    return siglist;
+}
+
+static int tupletosigset(PyObject * tuple, sigset_t * sigs)
+{
+    int nsigs;
+    int i;
+
+    if(!tuple)
+        return 0;
+
+    nsigs = PyTuple_Size(tuple);
+
+    sigemptyset(sigs);
+    for(i = 0; i < nsigs; ++i)
+    {
+        /* python's signal module checks against NSIGS, so we'll do that too. */
+        int sig = (int)PyInt_AsLong(PyTuple_GET_ITEM(tuple, i));
+        if(sig >= NSIGS)
+        {
+            PyErr_SetString(PyExc_RuntimeError, "invalid signal number(s)");
+            return NULL;
+        }
+        sigaddset(sigs, sig);
+    }
+    return 1;
+}
+
+typedef char (* watch_ignore_func)(const sigset_t *);
+
+static PyObject * watch_ignore_wrapper(PyObject * args, watch_ignore_func func)
+{
+    sigset_t sigs;
+    char sighret;
+
+    if(!tupletosigset(argstotuple(args), &sigs))
+        return NULL;
+
+    if((sighret = func(&sigs)) == EINVAL)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "invalid signal number(s)");
+        return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+/* our python-exposed functions */
+
+static PyObject * sigh__watch(PyObject * noself, PyObject * args)
+{
+    return watch_ignore_wrapper(args, &sigh_watch);
+}
+
+static PyObject * sigh__ignore(PyObject * noself, PyObject * args)
+{
+    return watch_ignore_wrapper(args, &sigh_ignore);
+}
+
+static PyObject * sigh__wait(PyObject * noself, PyObject * args)
+{
+    sigset_t sigs;
+    PyObject * siglist;
+    long timeout;
+
+    if(!PyArg_ParseTuple(args, "O&i;expect a sequence and an integer",
+                seqtotuple, &siglist, &timeout))
+        return NULL;
+
+    tupletosigset(siglist, &sigs);
+
+    return PyInt_FromLong((long)sigh_wait(&sigs, timeout));
+}
+
+static PyObject * sigh__poll(PyObject * noself, PyObject * args)
+{
+    sigset_t sigs;
+
+    if(!tupletosigset(argstotuple(args), &sigs))
+        return NULL;
+
+    return PyInt_FromLong((long)sigh_poll(&sigs));
+}
+
+/* docstrings, python glue, and other miscellany */
+
+PyDoc_STRVAR(ignore_doc,
+"ignore(signal_sequence)\n\
+\n\
+performs the opposite of watch(): unblocks all signals in signal_sequence.");
+
+PyDoc_STRVAR(watch_doc,
+"watch(signal_sequence)\n\
+\n\
+block signals in signal_sequence from being handled via \"normal\" means, so\n\
+that they be checked for on our terms, with poll() and wait().\n\
+\n\
+signal_sequence is a sequence (list, tuple, etc) of signal numbers, like the\n\
+ones in the signal module: signal.SIGINT etc.");
+
+PyDoc_STRVAR(wait_doc,
+"wait(signal_sequence, usec)\n\
+\n\
+wait <usec> microseconds for a signal in signal_sequence to be received.\n\
+\n\
+returns an integer, which is either 0 (no signals were received), or positive\n\
+(the signal number received).");
+
+PyDoc_STRVAR(poll_doc,
+"poll(signal_sequence)\n\
+\n\
+equivalent to wait(signal_sequence, 0).");
+
+static PyMethodDef SighMethods[] =
+{
+    {
+        "watch",
+        sigh__watch,
+        METH_VARARGS,
+        watch_doc
+    },
+    {
+        "ignore",
+        sigh__ignore,
+        METH_VARARGS,
+        ignore_doc
+    },
+    {
+        "wait",
+        sigh__wait,
+        METH_VARARGS,
+        wait_doc
+    },
+    {
+        "poll",
+        sigh__poll,
+        METH_VARARGS,
+        poll_doc
+    },
+
+    { NULL, NULL, 0, NULL }
+};
+
+PyDoc_STRVAR(module_doc,
+"simple, sane, and safe Unix signal handling.\n\
+\n\
+functions:\n\
+\n\
+watch() -- block signals from normal signal handling\n\
+ignore() -- unblock signals from normal signal handling\n\
+wait() -- wait for a signal to be received\n\
+poll() -- check if a signal has been received");
+
+PyMODINIT_FUNC initsigh(void)
+{
+    Py_InitModule3("sigh", SighMethods, module_doc);
+}
+

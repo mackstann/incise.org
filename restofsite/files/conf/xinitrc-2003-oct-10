@@ -1,0 +1,6 @@
+xsetroot -solid grey50
+xmodmap $HOME/.xmodmap
+xset m
+xset +fp $HOME/.fonts
+xset fp rehash
+exec xterm -bg black -fg orange -geometry 80x25+458+360

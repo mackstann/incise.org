@@ -1,0 +1,50 @@
+<pre><font size=-6>
+<?php
+
+$pos[25][50]=TRUE;
+
+for($i=0; $i<15; $i++) {
+  for($y=0; $y<100; $y++) {
+    for($x=0;$x<100;$x++) {
+
+      if(isset($pos[$y][$x]) && $pos[$y][$x]==TRUE) {
+        switch(rand(0,2)) {
+          case 0:
+            $this_y = $y;
+            break;
+          case 1:
+            $this_y = $y-1;
+            break;
+          case 2:
+            $this_y = $y+1;
+            break;
+        }
+        switch(rand(0,2)) {
+          case 0:
+            $this_x = $x;
+            break;
+          case 1:
+            $this_x = $x+1;
+            break;
+          case 2:
+            $this_x = $x-1;
+        }
+
+        $pos[$this_y][$this_x] = TRUE;
+
+      }
+    }
+  }
+}
+
+for($y=0; $y<50; $y++) {
+  for($x=0; $x<100; $x++) {
+    if(isset($pos[$y][$x]))
+      echo 'X ';
+    else
+      echo '  ';
+  }
+  echo "\n";
+}
+
+?>
