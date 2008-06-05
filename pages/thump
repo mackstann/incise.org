@@ -1,9 +1,9 @@
-<strong>note: <a href="thump.html">thump</a> is defunct.</strong>
+<strong>note: thump is defunct.</strong>
 
 <h2>Feedback</h2>
 
-If you have any ideas or opinions regarding <a href="thump.html">thump</a>, playing
-mp3s/music in general, or anything remotely relevant to <a href="thump.html">thump</a>, please
+If you have any ideas or opinions regarding thump, playing
+mp3s/music in general, or anything remotely relevant to thump, please
 let me know.  I like to hear ideas.
 
 <h2>Requirements</h2>
@@ -14,22 +14,24 @@ don't know), install the python2x-pth package, since the default python2x
 packages do not have threading support.
 
 <h2>Source</h2>
-<h3><a href="thump.html">thump</a> 2</h3>
-Version 2 is almost a total rewrite, to make <a href="thump.html">thump</a> much more object-oriented.
+<h3>thump 2</h3>
+Version 2 is almost a total rewrite, to make thump much more object-oriented.
 Work will be split up between the player, the queue manager, possibly another
 controlling process, and various clients.  IRC gateway is the plan, a la
 <a href="http://www.lintux.cx/bitlbee.html">BitlBee</a>.
 
+<ul>
  <li><a href="http://incise.org/files/dev/thump2-2003-08-17-01.tgz">thump2-2003-08-17-01.tgz</a> [ 30 KB ]</li>
  <li><a href="http://incise.org/files/dev/thump2-2003-08-06-01.tgz">thump2-2003-08-06-01.tgz</a> [ 56 KB ]</li>
  <li><a href="http://incise.org/files/dev/thump2-2003-07-06-01.tgz">thump2-2003-07-06-01.tgz</a> [ 17 KB ]</li>
+</ul>
 
+<h3>thump 1</h3>
 
-<h3><a href="thump.html">thump</a> 1</h3>
-
+<ul>
  <li><a href="http://incise.org/files/dev/thump-2003-05-22-2.tgz">thump-2003-05-22-2.tgz</a> [ 6 KB ]</li>
  <li><a href="http://incise.org/files/dev/thump-2003-05-22-1.tgz">thump-2003-05-22-1.tgz</a> [ 12 KB ]</li>
-
+</ul>
 
 <h2>Current status</h2>
 
@@ -54,7 +56,7 @@ yet.
 
 <h2>Overview</h2>
 
-<a href="thump.html">thump</a> stands for <em> <strong>Th</strong>e <strong>U</strong>nix <strong>M</strong>p3 <strong>P</strong>layer</em>, the name
+thump stands for <em> <strong>Th</strong>e <strong>U</strong>nix <strong>M</strong>p3 <strong>P</strong>layer</em>, the name
 reflects the goals of the player, and the philosophies that I believe software,
 and accordingly, software authors, should follow.  These ideas form the
 foundation of Unix-like operating systems.  Basically, things should be
@@ -67,6 +69,7 @@ files that serve various purposes.
 
 <strong>[ This section is out of date ]</strong>
 
+<ul>
  <li>access_log is a formatted file listing what songs were played at what time.  The odd :@@: sequence is used to split the two fields to make it super easy to parse the file.</li>
  <li>error_log has errors and messages from thumpd.</li>
  <li>fe.pid is a list of the pids of clients/frontends currently running.</li>
@@ -75,3 +78,4 @@ files that serve various purposes.
  <li>player.pid has the pid of the player.</li>
  <li>playlist is a standard m3u format file, which is, just a list of files, one per line.</li>
  <li>stderr.out is where stderr gets redirected to.  If thumpd dies mysteriously, check this file.  You can also run thumpd with the -nodaemon option, which stops thumpd from forking and becoming a daemon, and also keeps stdout/stderr directed to your terminal.</li>
+</ul>
