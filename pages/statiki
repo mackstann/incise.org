@@ -13,7 +13,7 @@ of.  Its support for complex wiki markup is limited, and my Perl skills are
 insignificant enough that I couldn't do a lot more than fiddle with regexes.
 
 So ok, I needed to use a larger, more mature piece of wiki software, with a
-more sophisticated parser.  Moin<strong><em>'Moin and M</strong></em>'ediaWiki were the two big ones that
+more sophisticated parser.  MoinMoin and MediaWiki were the two big ones that
 popped into my mind, but looking at the code of their parsers (and a number of
 other wikis), it became obvious that hacking the parser functionality out of
 them was not realistic.
