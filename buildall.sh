@@ -4,7 +4,7 @@ do
     (
         sh header.sh `basename "$i" .html`
         cat "$i" | perl paragraphs.pl
-        cat footer.html
+        sh footer.sh `basename "$i" .html`
     ) > output/`basename "$i"`
 done
 
