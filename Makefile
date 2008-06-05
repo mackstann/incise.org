@@ -1,4 +1,7 @@
-all: clean
+all: clean build
+install: all upload
+
+build:
 	mkdir -p output
 	sh buildall.sh
 	cp redir.cgi.pl output/index.cgi
@@ -7,6 +10,7 @@ all: clean
 clean:
 	rm -rf output
 
-install: all
-	rsync -vza -e ssh output/ nwelch@bsd3.quadrahosting.com:incise.org/
+upload:
+	rsync -vza --checksum -e ssh output/ nwelch@bsd3.quadrahosting.com:incise.org/
+	rsync -vza --checksum -e ssh output/ nwelch@phaeton.dreamhost.com:incise.org/
 
