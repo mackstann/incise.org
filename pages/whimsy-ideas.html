@@ -1,0 +1,127 @@
+<h2>laid back</h2>
+
+Basically I want to try and make this thing as loose and informal as possible.
+I hate having things unnecessarily imposed on me by other programmers, so I try
+to not do it myself.
+
+<h2>no hand holding</h2>
+I am all for simplicity but I am not going to make much of an effort to make it
+easy for non-programmers (or non-Python programmers, or whoever else might need
+some hand holding). I'm not trying to be the next Fluxbox here.
+
+<h2>event handling abstractions</h2>
+The obvious things as far as custom event handling are key and mouse button
+events, but what else?  Anything?  Doesn't seem like it. It's not that you
+won't be able to do anything else, but there  is/will be more convenience code
+for key/mouse stuff.
+
+<h2>event handler coordination</h2>
+One basic part of the event handling system is the ability to add arbitrary
+event handlers and respond to events however you want.  An issue with that is
+different event handlers fighting with each other over the same event -- so I
+think there should be something that allows an event handler to "veto" an
+event, preventing it from being handled any further. There is something similar
+to this with the 'replay' functionality of key/button events, but it's a bit
+different.  Currently the event handlers are stored in a sorted list of tuples,
+each containing <code>(priority_int, handler_function)</code> -- thus allowing a
+"priority" scheme where a handler with a priority of 5 handles an event before
+one with a priority of 30.  Not totally sure how this will play out.
+
+<h2>decor</h2>
+???  Not quite sure about this yet.  I think ideally it should be totally
+flexible, allowing the swapping in/out of different drawing systems and layouts
+-- but how to do that sanely?  I have a vague idea, but haven't ever really
+gone about implementing it.  We'll see.
+
+<h2>key/mouse replaying</h2>
+One important part of flexibly and sanely handling key/mouse events dynamically
+is described in <a href="xlib-key-passing.html">xlib key passing</a>.  The example is in C but it works the same in
+Python.
+
+<h2>window constraints</h2>
+I already have basic handling of window size hints down (min, max, base,
+increments, and aspect ratio), but there should be something smarter for
+coordinating multiple move/resize operations done at once, so they don't step
+on each other -- metacity seems to have a good system for this in its
+constraints.c. Should distill the essentials out of this and implement
+something that will fit into whimsy without being too foreboding (metacity is
+crazy).
+
+<h2>grabbing in advance without duplication</h2>
+Not sure there is a good solution to this, but I'd love to find one.  Say you
+want to make Mod1+X open an xterm.  A normal wm reads a config file, stores the
+bindings in some data structure, does the grabs, and executes an xterm whenever
+Mod1+X arrives.  The problem is basically that we want to simply check incoming
+events for various modifiers/key/whatever, and then do what we want in response
+-- but we're required to set up the grabs in advance.  This means that you
+basically have to state the "Mod1+X" in two different places in the code.
+
+<strong><em>Solution</strong></em>: suck it up and be more strict about how key/mouse bindings
+are set up.  You still <em>can</em> do it in a more complex way if you really want
+to, but it'll be a little more work.
+
+<h2>window db</h2>
+Each window can declare itself as having a certain "label" (possibly more than
+one).  This way we can say, "only do this to titlebars," (windows with the
+label "titlebar") or "only do this for the root window," etc.  Since we will be
+dealing with raw window objects coming out of python-xlib, we can't just assign
+this label to the window objects themselves, so we need a window "database" that
+maps windows to labels.  The labels will simply be strings, such as "title",
+"root", or "frame".
+
+At first I called these "types" instead of labels, but that is less generic of
+a name, and it implies that they're only intended for broad window "types,"
+while in reality there's nothing wrong with using it for tagging individual
+windows for whatever purpose.
+
+<h2>keybinding window sensitivity</h2>
+Should keybindings apply to different raw X windows (i.e., a button, a window
+grip, whatever), or only focusable windows (i.e.  clients and root)?  Waimea
+only lets them apply to focusable windows.  Also, we'd have to query the
+pointer all the time which sucks, and it could also be pretty inconsistent with
+different focus models.  So, at least for now, I think no.
+
+<h2>complex modifiers</h2>
+Taking care of the lock keys is already done, but even with those out of the
+way, we can't do a simple equality check on modifiers, because the modifier
+state in events can also contain things like <code>Button1MotionMask</code>.  So what
+we should do is what Waimea/Kahakai do: allow explicit negation of modifiers --
+and when a certain modifier is <em>not</em> negated, don't require it match.
+
+Currently:
+
+<pre>
+ev.state == Mod1Mask | ControlMask | Button3MotionMask
+modmask_to_match == Mod1Mask | ControlMask
+
+# no match, but we probably wanted it to
+</pre>
+
+It should be something like:
+
+<pre>
+ev.state == Mod1Mask | ControlMask | Button3MotionMask
+modmask_to_match == Mod1Mask "plus" ControlMask
+
+# match
+</pre>
+
+<pre>
+ev.state == Mod1Mask | ControlMask | Button3MotionMask
+modmask_to_match == Mod1Mask "minus" ControlMask
+
+# no match
+</pre>
+
+So basically each modmask specifies 3 "sets" of modifiers:
+<ol>
+ <li>Must-be-on modifiers</li>
+ <li>Must-be-off modifiers</li>
+ <li>Unmentioned modifiers, which can be in any state</li>
+</ol>
+
+Whereas a normal X modmask is:
+<ol>
+ <li>Must-be-on modifiers</li>
+ <li>Unmentioned modifiers, which must be off</li>
+</ol>

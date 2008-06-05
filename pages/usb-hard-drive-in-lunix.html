@@ -1,0 +1,14 @@
+<ul>
+ <li>plug it all in</li>
+ <li>look for which sdX drive it is in /var/log/messages</li>
+ <li>if you don't want to be stuck with fat32's limitations (case insensitivity, etc), then make it, say, ext3:<ul>
+  <li>cfdisk /dev/sdX</li>
+  <li>make it a linux partition, write, quit</li>
+  <li>mkfs.ext3 -m 0 /dev/sdX (-m specifies the % of disk space to reserve for root)</li>
+  <li>twiddle thumbs</li>
+  </ul>
+ </li>
+ <li>mount it</li>
+ <li>edit fstab</li>
+ <li>blammo</li>
+</ul>

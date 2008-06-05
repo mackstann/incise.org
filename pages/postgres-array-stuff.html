@@ -1,0 +1,51 @@
+<h2>A procedure that takes an array argument and inserts a row for each array element</h2>
+
+Use generate_series.
+<pre>
+insert into foo (
+    select myarray[i]
+    from generate_series(1, array_upper(myarray, 1)) as i
+)
+</pre>
+
+Also seen <a href="http://people.planetpostgresql.org/merlin/index.php?/archives/4-fun-with-arrays.html">here</a>, this can be made into an explode_array function.
+
+<pre>
+create function explode_array(myarray anyarray) returns setof anyelement as
+$$
+    select ($1)[i] from generate_series(1, array_upper($1, 1)) as i;
+$$ language sql immutable;
+</pre>
+
+Using this, the original query would become:
+<pre>
+insert into foo (
+    select * from explode_array(myarray)
+)
+</pre>
+
+<h2>Matching existing records to an array of possible matches</h2>
+
+Just use "IN".
+<pre>
+update foo set a = true where b in (myarray)
+</pre>
+
+<h2>Array-building aggregate function</h2>
+
+Also in the link mentioned above is a reference to the array_accum function
+that exists in the Postgres documentation.
+
+<pre>
+select
+    post.name,
+    array_to_string(array_accum(tag.name), ' ') as tags
+from
+    post
+    inner join post_tags as pt on pt.post_id = post.id
+    inner join tag on tag.id = pt.tag_id
+where
+    post.id = ?
+group by
+    post.name
+</pre>

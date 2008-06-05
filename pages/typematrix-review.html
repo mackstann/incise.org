@@ -1,0 +1,191 @@
+<h1>My experiences with the TypeMatrix keyboard</h1>
+
+<img src="/images/typematrix.jpg">
+
+<strong>[http://typematrix.com]</strong>
+
+<a href="/images/typematrix/">A few pictures of my own</a> (The things on
+the sides are the rubber feet; I took them off the bottom so it didn't wobble
+when it was half hanging off the edge of the desk)
+
+<h1>Initial Overview</h1>
+
+I've been casually using the keyboard for a few hours now, and here are my
+thoughts thus far:
+
+<h2>The good</h2>
+
+<ul>
+ <li>All of the features touted on their site. If you're reading this page, then
+ you've probably already been to the typematrix site and are familiar with the
+ keyboard. If not, <a href="http://typematrix.com">read up!</a></li>
+ <li>The keyboard is a lot thinner than I thought; it's probably less than a
+ half inch thick.</li>
+ <li>Very solid feel.  It's essentially a laptop keyboard, and I like the feel
+ of laptop keyboards.  It's also structurally strong, and doesn't flex much,
+ unlike many keyboards.</li>
+ <li>The keys and typematrix logo are aesthetically pleasing.</li>
+ <li>Their staff seems very friendly.  I emailed them with a question
+ before ordering, and received a quick response.</li>
+</ul>
+
+<h2>The weird or interesting</h2>
+
+<ul>
+ <li>What's up with the bright red delete key?</li>
+ <li>The alt-tab key is kinda spiffy.  I'm not sure if I'll end up actually using
+ it or not. (update: actually I hate the thing)</li>
+ <li>The "00" (double zero) key on the numpad just types a zero. Inspection
+ with xev shows that it's seemingly identical to the numpad zero key, keycode
+ and all.  I'm not sure if it types two zeroes in windows, or if it's even
+ supposed to.</li>
+</ul>
+
+<h2>What could be improved</h2>
+
+This list is disproportionately larger than the good, because
+they already tell you most of the good things.  You have to figure out the
+bad things by using it.  I decided to call these "what could be improved"
+instead of "the bad," because none of them are really *that* bad.
+
+</ul>
+ <li>It's not very sexy.  The area above where the keys are is the ugliest,</li>
+ with the little plastic ridges in the middle, and the area with the LEDs is
+ ugly too.  The keyboard isn't outright ugly, but it could be improved a bit.</li>
+ <li>Along the same lines, it would be cool if they had a black version.</li>
+ <li>It's ps/2 only, and the USB adapter is fifteen bucks!  That's obscene,
+ especially when the keyboard is already $100.  Not a problem for most people
+ though (including myself).</li>
+ <li>The home, end, pgup, and pgdn keys are on the F9 through F12 keys,
+ and you have to hold the function key to use them.  And to compound the issue,
+ the function key is on the other end of the keyboard, requring both hands on
+ the keyboard to access these keys.  You can fix this pretty easily with
+ xmodmap, though.</li>
+ <li>The cluster of 6 keys at bottom left could be better arranged.
+ Ideally, the Alt and Application keys would be swapped.  This might be
+ specific to my hands.</li>
+ <li>The key layout could be further optimized.  The left backspace
+ seems like a total waste to me; I definitely don't imagine that I will be
+ using it.  I also wonder whether they could get away with only one of the
+ space keys.  I personally only use my right thumb for the space key, but I'm
+ guessing some people use their left, or even both.  But maybe forcing people
+ to only use one would be a good thing, since they could relocate some keys to
+ where the other space key was, and the other thumb could actually become
+ useful instead of just sitting there.</li>
+ <li>I got the dual-labeled dvorak version, but the dvorak labels
+ are <strong>really</strong> hard to see!  They're this wimpy bright orange color, and on
+ whitish keys, it's just hard to see.  It's even worse on the darker grey keys
+ to the right. Something like dark green or dark red would probably work well
+ (the dark blue for function keys is very legible).</li>
+ <li>I'm used to the arrow keys being easy to identify, but they
+ somewhat get lost in the other grey keys.  It would be cool if they were a
+ different color.  In fact, I think more colors in general would be a good
+ thing.  The F-keys could get their own color, numbers could get a color,
+ letters could get a color, punctuation a color, modifiers a color, etc etc.
+ Locating things by color is much, much faster than reading symbols.  But
+ selling a fruit rollup keyboard might be more difficult.  Locating keys will
+ also probably get a lot faster as I get used to the keyboard.</li>
+ <li>Price - $100.  Probably a necessary evil, considering this is a bit of a
+ niche product.</li>
+</ul>
+
+<h1>Getting used to the layout</h1>
+
+I haven't done a ton of typing on the keyboard yet, but I have typed this page
+on it, and overall, it's not very hard to get used to.  I do make mistakes
+fairly often, like hitting tab instead of "b", or confusing the x, c, and v
+keys, but I can't imagine that it will take very long to get back to normal.
+
+The
+<a href="http://www.hardwarecentral.com/hardwarecentral/reviews/4722/1/">HardwareCentral review</a>
+reported to have a hard time adjusting to the center backspace and enter keys.
+I expected that to be the case, and I have reached for the old spots a few
+times, but it was actually pretty easy to get used to the new locations.  They
+also reported having a problem with putting their hand in the wrong place on
+home row for 3 days - wow!  I can't say I ever had that problem, as I tend to
+never look at the keyboard, and I use the little bumps on the f and k keys to
+position my hands.  From the comments they make, it seems like they might not
+be touch typists, which I imagine would slow the learning process.
+
+<h1>Overall</h1>
+
+The keyboard is pretty much what I was expecting, which means that it's worth
+$100 to me.  I probably would have even paid more for it.  Hopefully the
+typematrix people are selling enough of these things to stay around, and
+hopefully they can make even cooler keyboards in the future!
+
+<h2>My rating: 9 out of 10</h2>
+
+<hr>
+
+<h1>Hacking</h1>
+
+<h2>Physical hacking</h2>
+
+<strong>Do this at your own risk!</strong>  You're probably voiding the warranty.
+
+(Forgive my lack of a digicam)
+
+I wanted to swap some key caps, but you can't see under the keys, and it felt
+too risky to just blindly pry them off without seeing exactly how they attach
+to the keyboard.  So I took the thing apart, which was pretty straightforward.
+There are 8 philips head screws on the bottom holding the keyboard together,
+and two smaller ones in the middle holding the middle strip in place.  Unscrew
+them all, and the top half of the casing pulls off.  The electronics are
+screwed into the bottom piece of the casing, and the keypad is attached to that
+via two ribbon cables.  The keypad is metal on the bottom and plastic on top
+(you can't really take them apart), with the circuitry sandwiched in between.
+
+The key mechanisms are kind of interesting; they're definitely different
+from your average keyboard.  They call them "double scissor" keys
+(<a href="<img src="/images/typematrix-keycap.jpg">">image</a>), and I assume they are
+what's used on laptops, since the typematrix basically feels like a rearranged
+laptop keyboard.  The keypad didn't appear to have a rubber membrane, it seemed
+to have individual little rubber nipples under each key.
+
+Anyways, to get the caps off, you basically just tug at the top and the bottom,
+and the two little clips on each will pop off.  I did the bottoms and then the
+tops, but I doubt the order matters.  The larger keys have the metal stabilizer
+bars too, so you need to make sure and get those back into their grooves.
+
+<h2>Swapping F9-F12 with Home/End/PgUp/PgDn</h2>
+
+Having Home/End/Pg<strong><em>'Up/Pg</strong></em>'Dn relegated to Fn-keys is unacceptable, but thankfully,
+I don't use the F9-F12 keys at all, so swapping them fixes the problem.  The
+following <a href="http://www.xfree86.org/4.2.0/xmodmap.1.html">xmodmap</a> code will swap
+them around:
+
+<pre>
+keycode 75 = Home
+keycode 76 = End
+keycode 95 = Prior
+keycode 96 = Next
+keycode 97 = F9
+keycode 103 = F10
+keycode 99 = F11
+keycode 105 = F12
+</pre>
+
+<h2>Exploiting all of those keys at bottom left</h2>
+
+You have Shift, Control, Alt, Super ("start" on the keyboard), Menu
+("application"), and caps lock -- imagine what ridiculous key bindings you can
+come up with, now that you have all of these available! (Ok, maybe I'm the only
+one imagining it)
+
+<h3>The "Application" key</h3>
+
+I'm pretty sure this is supposed to be the "menu" key, but who cares about the
+menu key; we can make it another modifier!  I decided to make it Hyper_L and
+mod3.  You need this xmodmap code:
+
+<pre>
+keycode 117 = Hyper_L
+add mod3 = Hyper_L
+</pre>
+
+You also need to execute this to turn off repeating on the key:
+
+<pre>
+xset -r 117
+</pre>

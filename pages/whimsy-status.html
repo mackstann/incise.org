@@ -1,0 +1,35 @@
+<h2>New as of March 2007:</h2>
+<ul>
+ <li>tons of work</li>
+ <li>much code broken out of main.py into modules</li>
+ <li>most event handling gotchas conquered</li>
+ <li>usable for basic window management (mapping, moving, resizing, raise/lower, focus, bindings, primitive viewports)</li>
+</ul>
+
+<h2>New as of September 2006:</h2>
+<ul>
+ <li>reparenting and decorations are gone</li>
+</ul>
+
+<h2>Todo list:</h2>
+<ul>
+ <li>more complete ICCCM compliance (mostly, could use some double-checking)</li>
+ <li>equivalent to xchecktypedwindowevent <strong>(done)</strong></li>
+ <li>actually do something intelligent on kill/shutdown instead of just exiting immediately</li>
+ <li>window creation <strong>(done)</strong></li>
+ <li>more respectable code organization <strong>(done)</strong> (to the extent that this is ever "done")</li>
+ <li>merge signals with event handlers -- this will mostly simplify modularity into just plugins, signals, and actions. (and "actions" may be an unneeded distinction... just whimsy functions) <strong>(done)</strong></li>
+ <li>viewports (mostly working!)</li>
+ <li>BUG: after opening/closing terminal, key repeat gets jerky - spurious focusin/out's. gone?  NO.  happens after running evilwm, killing it, then running whimsy again.  somehow, focus is getting set to some non-existent window (aha.. Pointer<em>'</em>'Root).  should figure out how other wm's choose focus upon startup and do something similar.</li>
+ <li>BUG: freezing -- <strong>FIXED</strong>: replay wasn't replaying multiclicks</li>
+ <li>BUG: remember viewport between runs</li>
+ <li>BUG: still getting some SIGALRMs when moving/resizing (likely monitor.sh bug)</li>
+</ul>
+
+<h2>Random/external ideas:</h2>
+<ul>
+ <li>make something like flypper that only analyzes mouse movement.  two quick gestures towards a screen edge could be much better than traditional edge flipping.  DONE.  I don't think I like this, but something similar, at least something that can avoid the input-only edge window problem, like requiring you hold shift for edge flipping perhaps?  this is a tough usability issue.</li>
+ <li>figure out what external programs that use whimsy modules will work like (hopefully they will work quite nicely!), even though we don't necessarily want this</li>
+</ul>
+
+Back to <a href="whimsy.html">whimsy</a>
