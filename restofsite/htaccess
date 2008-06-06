@@ -1,1 +1,1 @@
-RemoveType .pl .pl.html .py .py.html .php .php3 .php4 .php4 .phtml
+RemoveHandler .pl .pl.html .py .py.html .php .php3 .php4 .php4 .phtml
