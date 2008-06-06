@@ -1,0 +1,53 @@
+Azureus is a pretty nice way to download torrents, but I tend to put it off in another workpsace and forget about it.  I thought it would be cool if I could reliably script a bittorrent download on the command line so that when it finished, some other scripted action(s) would happen (for example, send the file off somewhere else).
+
+btdownloadheadless is perfect for this task.  All you need to do is kill it once you get to 100% success.  I thought that maybe I could get away with a simple shell command, like this:
+
+<pre>btdownloadheadless foo.torrent | tee output.txt | grep -iq "download succeeded"</pre>
+
+... but grep exits, giving tee a broken pipe but not killing it, and btdownloadheadless keeps running.
+
+Plus, btdownloadheadless is really stubborn about getting killed by SIGINT or SIGTERM -- you usually need to SIGKILL it.
+
+So I wrote a little Python script to do this.
+
+<pre>import sys, os, signal, subprocess, time
+
+def kill_with_prejudice(pid):
+    #btdownloadheadless isn't usually very responsive to SIGINT or SIGTERM
+    for i in range(10):
+        try:
+            os.kill(p.pid, signal.SIGTERM)
+        except:
+            return
+        else:
+            time.sleep(0.1)
+    try:
+        os.kill(p.pid, signal.SIGKILL)
+    except:
+        pass
+
+p = None
+
+try:
+    p = subprocess.Popen(["btdownloadheadless", sys.argv[1]], stdout=subprocess.PIPE)
+
+    # can't iterate over p.stdout without destroying responsiveness -- some
+    # sort of buffering?  xreadlines is the same.  instead, we settle for
+    # calling readline() over and over.
+    while 1:
+        line = p.stdout.readline()
+        if line.startswith('percent done:'):
+            if line.split()[-1] == '100':
+                kill_with_prejudice(p.pid)
+                print "%s: download complete.  exiting." % sys.argv[0]
+                raise SystemExit
+
+        print line,
+
+except KeyboardInterrupt:
+    if p:
+        kill_with_prejudice(p.pid)
+    raise SystemExit</pre>
+
+Todo: wait until X amount of additional good-citizen seeding has been done before exiting.
+
