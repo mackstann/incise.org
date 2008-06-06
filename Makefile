@@ -11,6 +11,5 @@ clean:
 	rm -rf output
 
 upload:
-	rsync -vza --checksum -e ssh output/ nwelch@bsd3.quadrahosting.com:incise.org/
 	rsync -vza --checksum -e ssh output/ nwelch@phaeton.dreamhost.com:incise.org/
 

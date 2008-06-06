@@ -49,5 +49,11 @@ except KeyboardInterrupt:
         kill_with_prejudice(p.pid)
     raise SystemExit</pre>
 
+You run it like this:
+
+<pre>python btget.py foo.torrent</pre>
+
+It will look just like btdownloadheadless except it'll exit when 100% is reached.
+
 Todo: wait until X amount of additional good-citizen seeding has been done before exiting.
 
