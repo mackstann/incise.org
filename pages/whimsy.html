@@ -19,10 +19,26 @@ have been implemented thus far.
 
 CODE MAY BE UNSTABLE AND LOCK YOUR X SERVER.  In theory, it should kill and rerun itself after hanging for 20 seconds via alarm().
 
+You should either install python-xlib via whatever means you are comfortable
+with, or you can run fetch-python-xlib.sh to fetch it from svn and then add the
+appropriate directory to your PYTHONPATH manually.  Whimsy is developed against
+svn trunk so you could possibly have problems with older versions of
+python-xlib.
+
+To run whimsy:
+
 <pre>
 $ git clone git://github.com/mackstann/whimsy.git
-$ cd whimsy
-$ sh runit
+$ export PYTHONPATH=$PWD/whimsy:$PYTHONPATH
+$ python whimsy/whimsy/main.py
+</pre>
+
+I generally run it in a loop in case it dies (which is very rare for me at this
+point) and I also launch it inside of screen:
+
+<pre>
+export PYTHONPATH=$HOME/dev/whimsy
+screen -S whimsy -d -m -- sh -c 'while true; do python dev/whimsy/whimsy/main.py; done'
 </pre>
 
 There are no window borders/decorations.  There is support for viewports/large
