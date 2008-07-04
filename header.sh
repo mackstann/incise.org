@@ -8,7 +8,7 @@ fi
 echo "
 <html>
 <head>
-<title>incise.org - $1</title>
+<title>incise.org - $spacey_name</title>
 <style type="text/css">
     table, tr { background: #aaa; }
     td, th { background: white; }
