@@ -43,10 +43,10 @@ Running it inside of <code>screen</code> is a decent idea, so if it crashes you
 can switch to a virtual console and re-attach and see what went wrong and start
 it up again.
 
-Due to its stage of development, I do not recommend using whimsy as the final
-blocking command in your <code>.xinitrc</code> or <code>.xsession</code>, as
-this will cause your whole X session to die if whimsy does.  What I would do is
-put this in its place:
+Due to its early stage of development, I do not recommend using whimsy as the
+final blocking command in your <code>.xinitrc</code> or <code>.xsession</code>,
+as this will cause your whole X session to die if whimsy does.  What I would do
+is put this in its place:
 
 <pre><code>xterm &amp;
 while true; do sleep 1000000; done</pre></code>
