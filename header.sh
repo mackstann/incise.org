@@ -17,6 +17,6 @@ echo "
 </style>
 </head>
 <body>
-<h1><a href="/">[incise.org]</a> $spacey_name</h1>
+<h1><a href=\"/\">[incise.org]</a> $spacey_name</h1>
 "
 
