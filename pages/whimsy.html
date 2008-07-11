@@ -1,55 +1,121 @@
-Whimsy is a highly hackable window manager written in Python.  It is currently
-pre-alpha or maybe alpha quality and is somewhat suitable for use, depending on
-your expectations.  The main mechanism of event handling is the listener
-pattern, also known as the <a
-href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>.
-Here is <a
-href="http://github.com/mackstann/whimsy/tree/master/whimsy/main.py">main.py</a>,
-which still contains my own personal key/mouse bindings, since I've pretty much
-been developing whimsy hermit-style so far.  It should give you a decent idea
-of what Whimsy is like to play with, code-wise.  <a
-href="http://github.com/mackstann/whimsy/tree/master/whimsy">Here</a> is the
-rest of the code for browsing at github.  <a
-href="http://github.com/mackstann/whimsy/tree/master/whimsy/actions/ewmh.py">Here</a>
-is ewmh.py which will show you which <a
-href="http://standards.freedesktop.org/wm-spec/wm-spec-1.3.html">EWMH</a> hints
-have been implemented thus far.
+Whimsy is a small, highly hackable window manager written in Python.
 
-<h2>code/usage</h2>
+It's currently around 1000 lines SLOC and supports a tiny bit of the
+<a href="http://www.freedesktop.org/wiki/Specifications/wm-spec">Extended Window Manager Hints (EWMH)</a>
+spec.
 
-CODE MAY BE UNSTABLE AND LOCK YOUR X SERVER.  In theory, it should kill and rerun itself after hanging for 20 seconds via alarm().
+<a href="http://github.com/mackstann/whimsy/tree/master/whimsy">Here</a>
+is the code at github.
+
+<h2>why python?</h2>
+
+Most window managers are written in C or C++ and bend over backwards to
+implement config files, or IPC with pipes/sockets, or other contrived schemes
+to essentially try and add some flexibility to a static, compiled language.
+Why reinvent all that for the thousandth time?  Using a dynamic language like
+Python cuts out a lot of junk that's just not essential to the task of managing
+windows.  It's also much more flexible -- which is my main goal -- and also
+plenty fast enough.
+
+<h2>usage</h2>
 
 You should either install python-xlib via whatever means you are comfortable
-with, or you can run fetch-python-xlib.sh to fetch it from svn and then add the
-appropriate directory to your PYTHONPATH manually.  Whimsy is developed against
-svn trunk so you could possibly have problems with older versions of
-python-xlib.
+with, or you can run the <code>fetch-python-xlib.sh</code> script to fetch it
+from svn and then add the appropriate directory to your <code>PYTHONPATH</code>
+manually.  Whimsy is developed against python-xlib's svn trunk so you could
+potentially have compatability problems with older versions of python-xlib.
 
-To run whimsy:
+In short:
 
-<pre>
-$ git clone git://github.com/mackstann/whimsy.git
-$ export PYTHONPATH=$PWD/whimsy:$PYTHONPATH
-$ python whimsy/whimsy/main.py
-</pre>
+<pre><code>$ git clone git://github.com/mackstann/whimsy.git
+$ sh whimsy/fetch-python-xlib.sh
+$ mv Xlib whimsy/
+$ export PYTHONPATH="$PWD/whimsy:$PYTHONPATH"
+$ python whimsy/config.py</code></pre>
 
-I generally run it in a loop in case it dies (which is very rare for me at this
-point) and I also launch it inside of screen:
+As you can see, you actually run your config file.  In that sense, whimsy is
+almost a library or toolkit, and your config file is a little script that uses
+it.  As long as you keep the top level <code>whimsy</code> directory in your
+<code>PYTHONPATH</code>, you can put your config script anywhere and call it
+anything.  It will just need to import <code>whimsy.base_config</code>.
 
-<pre>
-export PYTHONPATH=$HOME/dev/whimsy
-screen -S whimsy -d -m -- sh -c 'while true; do python dev/whimsy/whimsy/main.py; done'
-</pre>
+Running it inside of <code>screen</code> is a decent idea, so if it crashes you
+can switch to a virtual console and re-attach and see what went wrong and start
+it up again.
+
+Due to its stage of development, I do not recommend using whimsy as the final
+blocking command in your <code>.xinitrc</code> or <code>.xsession</code>, as
+this will cause your whole X session to die if whimsy does.  What I would do is
+put this in its place:
+
+<pre><code>xterm &amp;
+while true; do sleep 1000000; done</pre></code>
+
+That way you'll get a terminal with which to start whimsy, and your X session
+will run forever.
+
+I'm not sure anyone has ever used it other than me, so please let me know if
+you run into problems: mack at incise dot org.
+
+<h3>default interface</h3>
 
 There are no window borders/decorations.  There is support for viewports/large
-desktops (which are basically like virtual desktops, but are "physically"
+desktops, which are basically like virtual desktops, but are "physically"
 linked in that a window hanging off of one will show up partially in the next,
-instead of being completely isolated little worlds).  There aren't many window
-management operations implemented other than the basics: moving, resizing,
-closing, raising, lowering, and executing commands.  You can also execute
-arbitrary Python, of course.
+instead of each desktop being its own isolated little world.  There aren't many
+window management operations implemented other than the basics: moving,
+resizing, closing, raising, lowering.
 
-<h2>status</h2>
+For the default key/mouse bindings, see
+<a href="http://github.com/mackstann/whimsy/tree/master/config.py"><code>config.py</code></a>.
+My own personal config file is
+<a href="http://github.com/mackstann/whimsy/tree/master/example_config.py"><code>example_config.py</code></a>.
 
-Whimsy has been an on again, off again toy project of mine since sometime in
-2005.  I've been using it as my normal window manager since around March 2007.
+<h2>general design</h2>
+
+Whimsy is built in a somewhat decentralized, indirect way.  The main point of a
+window manager, especially one that you want to customize, is to decide what to
+do with X events, and then do it.  All of this decision-making and execution of
+actions is kept largely decoupled from the core of the window manager.  It's
+essentially an implementation of
+<a href="http://en.wikipedia.org/wiki/Model-view-controller">MVC</a> using the
+<a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>,
+with a single "publisher" object, which is called the <strong>hub</strong>.
+
+<h3>models</h3>
+
+Right now the only models are the <strong>window manager</strong> and the
+<strong>client</strong>.
+
+<h3>controllers</h3>
+
+The <strong>tick controller</strong> is dead simple and simply sends out tick
+signals (through the hub, to whoever wants to receive them) in an
+almost-endless loop.  Some handlers for things like SIGINT call its
+<code>stop</code> method which will abort the endless loop at the end of the
+current iteration and allow for a clean shutdown and exit.
+
+The <strong>X event controller</strong> responds to tick signals and checks for
+new X events.  It then sends out its own signal when it finds an event.  Event
+handlers can in turn listen for <em>that</em> signal and do whatever they want
+to handle the event.
+
+<h3>grey areas</h3>
+
+Actions are the callbacks that actually implement the desired functionality to
+handle events.  I'm not sure if these constitute part of the view or the model
+or what.
+
+I think that the X server could probably be considered the view.  MVC can be
+confusing.  I don't take it too seriously.
+
+is the rest of the code for browsing at github.
+<a href="http://github.com/mackstann/whimsy/tree/master/whimsy/actions/ewmh.py">Here</a>
+is ewmh.py which will show you which
+<a href="http://standards.freedesktop.org/wm-spec/wm-spec-1.3.html">EWMH</a>
+hints have been implemented thus far.
+
+<h2>license</h2>
+
+Whimsy is public domain.
+
