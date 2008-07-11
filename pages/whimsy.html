@@ -100,20 +100,17 @@ new X events.  It then sends out its own signal when it finds an event.  Event
 handlers can in turn listen for <em>that</em> signal and do whatever they want
 to handle the event.
 
-<h3>grey areas</h3>
+<h3>other stuff</h3>
 
-Actions are the callbacks that actually implement the desired functionality to
-handle events.  I'm not sure if these constitute part of the view or the model
-or what.
+<strong>Actions</strong> are the callbacks that actually implement the desired
+functionality to handle events.
+
+<strong>Filters</strong> inspect events and return a boolean indicating whether
+the event meets certain conditions, such as certain keyboard state, or what
+type of window is involved.
 
 I think that the X server could probably be considered the view.  MVC can be
 confusing.  I don't take it too seriously.
-
-is the rest of the code for browsing at github.
-<a href="http://github.com/mackstann/whimsy/tree/master/whimsy/actions/ewmh.py">Here</a>
-is ewmh.py which will show you which
-<a href="http://standards.freedesktop.org/wm-spec/wm-spec-1.3.html">EWMH</a>
-hints have been implemented thus far.
 
 <h2>license</h2>
 
