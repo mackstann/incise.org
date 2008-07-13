@@ -64,17 +64,25 @@ compatability problems with older versions of python-xlib.
 
 <h3>default interface</h3>
 
-There are no window borders/decorations.  There is support for viewports/large
-desktops, which are basically like virtual desktops, but are "physically"
-linked in that a window hanging off of one will show up partially in the next,
-instead of each desktop being its own isolated little world.  There aren't many
-window management operations implemented other than the basics: moving,
-resizing, closing, raising, lowering.
+The most important things you will need to know are:
 
-For the default key/mouse bindings, see
+<ul>
+    <li>Alt+left click will move a window</li>
+    <li>Alt+right click will resize a window</li>
+    <li>Ctrl+Alt+X will open an xterm</li>
+</ul>
+
+Beyond that, you can view the default key/mouse bindings in
 <a href="http://github.com/mackstann/whimsy/tree/master/config.py"><code>config.py</code></a>.
 My own personal config file is
 <a href="http://github.com/mackstann/whimsy/tree/master/example_config.py"><code>example_config.py</code></a>.
+
+There are no window borders/decorations.  There is support for viewports/large
+desktops, which are basically like virtual desktops, but are "physically"
+linked in that a window hanging off of one will show up partially in the next,
+instead of each desktop being its own isolated little world.  (Desktops are implemented by hiding/showing windows.  Viewports are implemented by <em>moving</em> all windows over by one screen's-width or screen's-height.)  There aren't many
+window management operations implemented other than the basics: moving,
+resizing, closing, raising, lowering.
 
 <h2>general design</h2>
 
