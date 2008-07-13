@@ -14,18 +14,12 @@ implement config files, or IPC with pipes/sockets, or other contrived schemes
 to essentially try and add some flexibility to a static, compiled language.
 Why reinvent all that for the thousandth time?  Using a dynamic language like
 Python cuts out a lot of junk that's just not essential to the task of managing
-windows.  It's also much more flexible&mdash;which is my main goal&mdash;and also
-plenty fast enough.
+windows.  It's also much more flexible&mdash;which is my main goal&mdash;and
+plenty fast enough as well.
 
 <h2>usage</h2>
 
-You should either install python-xlib via whatever means you are comfortable
-with, or you can run the <code>fetch-python-xlib.sh</code> script to fetch it
-from svn and then add the appropriate directory to your <code>PYTHONPATH</code>
-manually.  Whimsy is developed against python-xlib's svn trunk so you could
-potentially have compatability problems with older versions of python-xlib.
-
-In short:
+Quick start:
 
 <pre><code>$ git clone git://github.com/mackstann/whimsy.git
 $ sh whimsy/fetch-python-xlib.sh
@@ -53,6 +47,10 @@ while true; do sleep 1000000; done</pre></code>
 
 That way you'll get a terminal with which to start whimsy, and your X session
 will run forever.
+
+You could also install python-xlib via your package manager, although Whimsy is
+developed against python-xlib's svn trunk so you could potentially have
+compatability problems with older versions of python-xlib.
 
 I'm not sure anyone has ever used it other than me, so please let me know if
 you run into problems: mack at incise dot org.
