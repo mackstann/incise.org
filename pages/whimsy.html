@@ -22,11 +22,27 @@ plenty fast enough as well.
 
 Quick start:
 
-<pre><code>$ git clone git://github.com/mackstann/whimsy.git
-$ sh whimsy/fetch-python-xlib.sh
-$ mv Xlib whimsy/
-$ export PYTHONPATH="$PWD/whimsy:$PYTHONPATH"
-$ python whimsy/config.py</code></pre>
+<pre><code>$ wget http://incise.org/files/dev/whimsy-0.1a1.tgz
+$ tar zxvf whimsy-0.1a1.tgz
+$ sh whimsy-0.1a1/fetch-python-xlib.sh
+$ mv Xlib whimsy-0.1a1/
+$ export PYTHONPATH="$PWD/whimsy-0.1a1:$PYTHONPATH"
+$ python whimsy-0.1a1/config.py</code></pre>
+
+If you have a window manager running, then you'll get an exception saying so.
+You will need to kill your window manager and/or start up a new X server and/or
+edit your .xinitrc or .xsession file.  Due to its early stage of development, I
+do not recommend using whimsy as the final blocking command in your
+<code>.xinitrc</code> or <code>.xsession</code>, as this will cause your whole
+X session to die if whimsy does.  What I would do is put this in its place:
+
+<pre><code>export PYTHONPATH="path/to/whimsy-0.1a1:$PYTHONPATH"
+xterm &amp;
+while true; do sleep 1000000; done</pre></code>
+
+That way, when X starts up, you'll be greeted with a terminal with which to
+start whimsy (<code>python path/to/whimsy-0.1a1/config.py</code>), and your X
+session will run forever.
 
 As you can see, you actually run your config file.  In that sense, whimsy is
 almost a library or toolkit, and your config file is a little script that uses
@@ -42,23 +58,9 @@ Running it inside of <code>screen</code> is a decent idea, so if it crashes you
 can switch to a virtual console and re-attach and see what went wrong and start
 it up again.
 
-Due to its early stage of development, I do not recommend using whimsy as the
-final blocking command in your <code>.xinitrc</code> or <code>.xsession</code>,
-as this will cause your whole X session to die if whimsy does.  What I would do
-is put this in its place:
-
-<pre><code>xterm &amp;
-while true; do sleep 1000000; done</pre></code>
-
-That way you'll get a terminal with which to start whimsy, and your X session
-will run forever.
-
 You could also install python-xlib via your package manager, although Whimsy is
 developed against python-xlib's svn trunk so you could potentially have
 compatability problems with older versions of python-xlib.
-
-I'm not sure anyone has ever used it other than me, so please let me know if
-you run into problems: mack at incise dot org.
 
 <h3>default interface</h3>
 
