@@ -12,4 +12,5 @@ clean:
 
 upload:
 	rsync -vza --checksum -e ssh output/ nwelch@phaeton.dreamhost.com:incise.org/
+	rsync -vza --checksum -e ssh restofsite/ nwelch@phaeton.dreamhost.com:incise.org/
 
