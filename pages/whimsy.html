@@ -32,7 +32,11 @@ As you can see, you actually run your config file.  In that sense, whimsy is
 almost a library or toolkit, and your config file is a little script that uses
 it.  As long as you keep the top level <code>whimsy</code> directory in your
 <code>PYTHONPATH</code>, you can put your config script anywhere and call it
-anything.  It will just need to import <code>whimsy.base_config</code>.
+anything.  It will just need to import <code>whimsy.base_config</code>.  You
+can also check out my personal config script, <code>example_config.py</code>,
+and run it like this:
+
+<pre><code>$ python whimsy/example_config.py</code></pre>
 
 Running it inside of <code>screen</code> is a decent idea, so if it crashes you
 can switch to a virtual console and re-attach and see what went wrong and start
