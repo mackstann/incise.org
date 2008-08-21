@@ -1,0 +1,40 @@
+<h2>M4A (AAC) to MP3</h2>
+
+The <code>faad</code> program is what is supposed to be used to play M4A files,
+but it seemed to not work with all of mine.  MPlayer seems to be better.
+Unfortunately, MPlayer
+<a href="http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-December/057511.html">can't
+output the decoded PCM data to stdout</a>, so to achieve parallel
+decoding/encoding, a named pipe is necessary.  This is like a pipe on the
+command line except that it has a filename.
+
+<pre><code>mkfifo tmp.pipe
+mplayer -noconsolecontrols -ao pcm:file=tmp.pipe whatever.m4a &amp;
+lame --preset standard tmp.pipe whatever.mp3
+rm -f tmp.pipe</code></pre>
+
+Substitute your preferred <code>lame</code> flags.
+
+To do all files in a directory recursively:
+
+<pre><code>mkfifo tmp.pipe
+find . -name "*.m4a" | while read filename
+do
+    mp3_filename=`basename "$filename" ".m4a"`.mp3
+    mplayer -noconsolecontrols -ao pcm:file=tmp.pipe "$filename" &amp;
+    lame --preset standard tmp.pipe "$mp3_filename"
+done
+rm -f tmp.pipe</code></pre>
+
+Add <code>-maxdepth 1</code> to <code>find</code>'s arguments to be non-recursive.
+
+<h2>FLAC to MP3</h2>
+
+A little simpler.  Here's the recursive version:
+
+<pre><code>find . -name "*.flac" | while read filename
+do
+    mp3_filename=`basename "$filename" ".flac"`.mp3
+    flac -dc "$filename" | lame --preset standard - "$mp3_filename"
+done</code></pre>
+
