@@ -1,3 +1,19 @@
+<strong>UPDATE:</strong>  This page is wrong.  First off, using this method is
+slow when using X11 over a network, since every single key/button even requires
+a round-trip to determine what to do with it.  Second and more importantly,
+there seems to be a problem with programs which are too slow to keep up with
+repeated key presses -- events get dropped or repeated in strange ways and key
+repeat breaks.  I can't say I understand it fully, because I haven't gone into
+Xlib or the X server code to figure out exactly how this stuff is implemented.
+All I can say is that it's extremely convoluted and undocumented and I just
+don't want to deal with it anymore. So it's back to asynchronous
+<code>XGrabKey</code> and <code>XGrabButton</code>... bummer.
+
+The following is the old content of this page, which should not serve as a
+definitive answer as I once though it was.
+
+<hr>
+
 There is a problem with doing key combos with Xlib, and that is, how do can you
 dynamically decide to not handle a key combo?  Generally if you're writing a
 window manager or keygrabber or whatever, you read a config file and grab some
