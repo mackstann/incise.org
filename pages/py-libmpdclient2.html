@@ -9,7 +9,9 @@ py-libmpdclient2 is a Python library for making <a href="http://musicpd.org">MPD
 <h2>Using py-libmpdclient2</h2>
 <code>test.py</code> should do a decent job of showing how the module works -- there's not a lot to it -- but if you have more questions, your best bet is to get a hold of me (mackstann) in #mpd on irc.freenode.net (not there so much anymore).  Or you can email me at mack@incise.org .
 
-Since the library isn't widely packaged, it is probably easiest for you to just include mpdclient2.py in your own client's codebase.  And since it is public domain, you have no licensing issues to worry about whatsoever.  The code belongs to you no less than it belongs to me.
+<strike>Since the library isn't widely packaged, it is probably easiest for you to just include mpdclient2.py in your own client's codebase.  And since it is public domain, you have no licensing issues to worry about whatsoever.  The code belongs to you no less than it belongs to me.</strike>
+
+py-libmpdclient2 is now in Ubuntu, in the python-mpdclient package.  It does contain a broken IPV6 "improvement" which causes a 3 second startup delay for me at least (and I don't think I've done anything to my machine's IPV6 setup to cause this).  This extended module is mpdclient3.  There also appears to be some changes with regard to unicode and some other things, but nothing fundamental.  I don't recall being contacted about any of that, which I find somewhat puzzling but also amusing.
 
 <h2>Projects using py-libmpdclient2</h2>
 <ul>
@@ -22,7 +24,7 @@ Since the library isn't widely packaged, it is probably easiest for you to just 
  <li><a href="http://sonata.berlios.de">Sonata</a> - a lightweight GTK+ music client for the Music Player Daemon (MPD)</li>
 </ul>
 
-<h2>the situation</h2>
+<h2>the old spiel about version 1 and motivation for version 2</h2>
 I wrote py-libmpdclient a while back, basically as a direct translation of the C libmpdclient to Python.  It works and stuff, but there are some problems:
 
 <h3>overall design problems</h3>
