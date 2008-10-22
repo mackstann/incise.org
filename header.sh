@@ -1,14 +1,8 @@
-if [ "$1" = "py-libmpdclient2" ]
-then
-    spacey_name="$1"
-else
-    spacey_name=`echo "$1" | sed -e 's/-/ /g'`
-fi
-
+title="$1"
 echo "
 <html>
 <head>
-<title>incise.org - $spacey_name</title>
+<title>incise.org - $title</title>
 <style type="text/css">
     table, tr { background: #aaa; }
     td, th { background: white; }
@@ -17,6 +11,6 @@ echo "
 </style>
 </head>
 <body>
-<h1><a href=\"/\">[incise.org]</a> $spacey_name</h1>
+<h1><a href=\"/\">[incise.org]</a> $title</h1>
 "
 
