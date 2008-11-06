@@ -2,9 +2,8 @@ all: clean build
 install: all upload
 
 build:
-	mkdir -p output
-	sh buildall.sh
-	cp redir.cgi.pl output/index.cgi
+	./buildall.py
+	cp -p redir.cgi.pl output/index.cgi
 	chmod +x output/index.cgi
 
 clean:
@@ -13,4 +12,5 @@ clean:
 upload:
 	rsync -vza --checksum -e ssh output/ nwelch@biggs.dreamhost.com:incise.org/
 	rsync -vza --checksum -e ssh restofsite/ nwelch@biggs.dreamhost.com:incise.org/
+	./stale_pages.py
 
