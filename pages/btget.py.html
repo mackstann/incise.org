@@ -2,7 +2,7 @@ Azureus is a pretty nice way to download torrents, but I tend to put it off in a
 
 btdownloadheadless is perfect for this task.  All you need to do is kill it once you get to 100% success.  I thought that maybe I could get away with a simple shell command, like this:
 
-<pre>btdownloadheadless foo.torrent | tee output.txt | grep -iq "download succeeded"</pre>
+<pre class="sh"><code>btdownloadheadless foo.torrent | tee output.txt | grep -iq "download succeeded"</code></pre>
 
 ... but grep exits, giving tee a broken pipe but not killing it, and btdownloadheadless keeps running.
 
@@ -10,7 +10,7 @@ Plus, btdownloadheadless is really stubborn about getting killed by SIGINT or SI
 
 So I wrote a little Python script to do this.
 
-<pre>import sys, os, signal, subprocess, time
+<pre class="python"><code>import sys, os, signal, subprocess, time
 
 def kill_with_prejudice(pid):
     #btdownloadheadless isn't usually very responsive to SIGINT or SIGTERM
@@ -47,11 +47,11 @@ try:
 except KeyboardInterrupt:
     if p:
         kill_with_prejudice(p.pid)
-    raise SystemExit</pre>
+    raise SystemExit</code></pre>
 
 You run it like this:
 
-<pre>python btget.py foo.torrent</pre>
+<pre class="sh"><code>python btget.py foo.torrent</code></pre>
 
 It will look just like btdownloadheadless except it'll exit when 100% is reached.
 

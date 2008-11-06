@@ -17,8 +17,7 @@ other block of memory that you'd get from e.g. malloc().
 
 PDIE() is left as an exercise to the reader...
 
-<pre>
-/* This code written by Nick Welch <mack@incise.org>, 2006.
+<pre class="c"><code>/* This code written by Nick Welch <mack@incise.org>, 2006.
  *
  * This code is in the public domain
  * and is provided AS IS, with NO WARRANTY. */
@@ -83,5 +82,5 @@ static void * open_shm(size_t bytes, int justreading)
         PDIE("shmat (second call)");
 
     return shm;
-}
-</pre>
+}</code></pre>
+

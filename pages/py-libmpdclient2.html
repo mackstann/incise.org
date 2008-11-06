@@ -69,16 +69,12 @@ A command is a single word followed by a space, followed by space-delimited argu
 
 A safe implementation is just as simple as that.
 
-<pre>
-escaped = text.replace('\\', '\\\\').replace('"', '\\"')
-</pre>
+<pre class="python"><code>escaped = text.replace('\\', '\\\\').replace('"', '\\"')</code></pre>
 
-<pre>
-somecommand "hey i have \"embedded quotes\" in my string"
+<pre><code>somecommand "hey i have \"embedded quotes\" in my string"
 ACK what's somecommand?  you're dumb
 somecommand "i have backslashes too.  a backslash is \"\\\"."
-ACK what's somecommand?  you're dumb
-</pre>
+ACK what's somecommand?  you're dumb</code></pre>
 
 Every line that comes from the server is one of:
 
@@ -95,8 +91,7 @@ The OK MPD is sent to the client when it first connects.  Some commands receive 
 
 Examples:
 
-<pre>
-<strong>% telnet localhost 6600</strong>
+<pre><code><strong>% telnet localhost 6600</strong>
 <em>Trying 127.0.0.1...</em>
 <em>Connected to localhost.localdomain.</em>
 <em>Escape character is '^]'.</em>
@@ -133,8 +128,7 @@ songid: 24793
 time: 3:319
 bitrate: 192
 audio: 44100:16:2
-OK
-</pre>
+OK</code></pre>
 
 <strong>todo: command_list_ok_begin adds some more exceptions to the protocol</strong>
 
@@ -142,21 +136,18 @@ OK
 
 Check out the <code>status</code> command above.  We can take all of its key/val pairs and throw them into a dict (hash) - voila.  But some commands return multiple "sets" of the same key/val pairs.  For example, the outputs command could return:
 
-<pre>
-outputid: 0
+<pre><code>outputid: 0
 outputname: my ALSA device
 outputenabled: 1
 outputid: 1
 outputname: lalala
-outputenabled: 1
-</pre>
+outputenabled: 1</code></pre>
 
 We now need to break this into two different dicts.  We need to know which keys to consider "beginning" keys -- keys that indicate a new set of pairs; an independent entity in the results.
 
 We also should give each of these entities a type, so we know what it is.  This is necessary for the playlist commands which return arbitrarily ordered lists of playlists, files, and directories.  For example, listallinfo might give us:
 
-<pre>
-directory: music
+<pre><code>directory: music
 directory: music/deftones
 file: music/deftones/deftones - around the fur.mp3
 Time: 212
@@ -167,23 +158,14 @@ file: music/deftones/deftones - be quiet and drive (far away).mp3
 Time: 308
 Artist: deftones
 Title: be quiet and drive (far away)
-Album: deftones
-</pre>
+Album: deftones</code></pre>
 
 So we'll give our dicts a single extra key, "type".  For the above output, we'd have four dicts:
 
-<pre>
-{'directory': 'music', 'type': 'directory'}
-</pre>
-<pre>
-{'directory': 'music/deftones', 'type': 'directory'}
-</pre>
-<pre>
-{'Album': 'deftones', 'Title': 'around the fur', 'Artist': 'deftones', 'file': 'music/deftones/deftones - around the fur.mp3', 'Time': '212', 'type': 'file'}
-</pre>
-<pre>
-{'Album': 'deftones', 'Title': 'be quiet and drive (far away)', 'Artist': 'deftones', 'file': 'music/deftones/deftones - be quiet and drive (far away).mp3', 'Time': '308', 'type': 'file'}
-</pre>
+<pre><code>{'directory': 'music', 'type': 'directory'}</code></pre>
+<pre><code>{'directory': 'music/deftones', 'type': 'directory'}</code></pre>
+<pre><code>{'Album': 'deftones', 'Title': 'around the fur', 'Artist': 'deftones', 'file': 'music/deftones/deftones - around the fur.mp3', 'Time': '212', 'type': 'file'}</code></pre>
+<pre><code>{'Album': 'deftones', 'Title': 'be quiet and drive (far away)', 'Artist': 'deftones', 'file': 'music/deftones/deftones - be quiet and drive (far away).mp3', 'Time': '308', 'type': 'file'}</code></pre>
 
 The "type" to use for each entity would be its first key for playlist items, and for other commands we'll just use the name of the command -- after all, it would make no sense for a status object's type to be "volume".
 
@@ -194,3 +176,4 @@ I mentioned earlier that hard-coding the various keys that go into a given objec
 <strong>todo: explain converters</strong>
 
 <strong>todo: explain the layout of the command dict, and the independent send/fetch/do components</strong>
+

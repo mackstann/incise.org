@@ -28,8 +28,7 @@ There's a number of loosely related and intertwined steps to this.
  it'll do something for you.</li>
  <li><code>xvidtune -unlock</code> - This got my mouse input (mostly) back (woohoo!).</li>
  <li>I found some sdl C code for grabbing/ungrabbing input from a google search, and in light of other things, I don't think it did anything for me.  My logic is trying to tell me that it shouldn't really do anything, either, but I don't know much about sdl, so I'll just play stupid and put it on this page anyways.  Maybe it'll help you.
-<pre>
-/* compile with: gcc `sdl-config --cflags --libs` foo.c */
+<pre class="c"><code>/* compile with: gcc `sdl-config --cflags --libs` foo.c */
 #include "SDL.h"
 int main(void) {
   SDL_Init(SDL_INIT_VIDEO);
@@ -39,8 +38,7 @@ int main(void) {
   SDL_ShowCursor(1);
   SDL_Quit();
   return 0;
-}
-</pre>
+}</code></pre>
   UPDATE - Apparently this does help; Neverball bombed on me, and this
   fixed my mouse afterwards.</li>
  <li><em>Fix your window manager</em> - My alt key was working for a alt+mouse keybinding I have set up, and Ctrl+Alt+<a href="+-]">worked, but normal keys weren't working.  And if I tried to move windows around, my mouse would get in this funky maybe-grabbed-maybe-not state.  I ended up killing and restarting my [http://kahakai.sf.net wm</a> a couple times, however, it seemed to have no effect - which I believe might be due to the fact that I was in a virtual console the whole time.  Logically that makes no sense to me, but it seems that you can't use logic with computers and expect it to work out perfectly.  Finally, I just used the "restart" option on my root menu, and all was well!  The missing link.  However -- due to the way that most peoples' X sessions are set up to run, you may not have room to work here.</li>

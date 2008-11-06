@@ -1,43 +1,37 @@
 <h2>A procedure that takes an array argument and inserts a row for each array element</h2>
 
 Use generate_series.
-<pre>
-insert into foo (
+
+<pre class="sql"><code>insert into foo (
     select myarray[i]
     from generate_series(1, array_upper(myarray, 1)) as i
-)
-</pre>
+)</code></pre>
 
 Also seen <a href="http://people.planetpostgresql.org/merlin/index.php?/archives/4-fun-with-arrays.html">here</a>, this can be made into an explode_array function.
 
-<pre>
-create function explode_array(myarray anyarray) returns setof anyelement as
+<pre class="sql"><code>create function explode_array(myarray anyarray) returns setof anyelement as
 $$
     select ($1)[i] from generate_series(1, array_upper($1, 1)) as i;
-$$ language sql immutable;
-</pre>
+$$ language sql immutable;</code></pre>
 
 Using this, the original query would become:
-<pre>
-insert into foo (
+
+<pre class="sql"><code>insert into foo (
     select * from explode_array(myarray)
-)
-</pre>
+)</code></pre>
 
 <h2>Matching existing records to an array of possible matches</h2>
 
 Just use "IN".
-<pre>
-update foo set a = true where b in (myarray)
-</pre>
+
+<pre class="sql"><code>update foo set a = true where b in (myarray)</code></pre>
 
 <h2>Array-building aggregate function</h2>
 
 Also in the link mentioned above is a reference to the array_accum function
 that exists in the Postgres documentation.
 
-<pre>
-select
+<pre class="sql"><code>select
     post.name,
     array_to_string(array_accum(tag.name), ' ') as tags
 from
@@ -47,5 +41,4 @@ from
 where
     post.id = ?
 group by
-    post.name
-</pre>
+    post.name</code></pre>

@@ -52,7 +52,7 @@ It lets you do 4 basic things:
 <h2>The source</h2>
 
 Here is tinywm.c from the most recent release, 1.3:
-<pre>
+<pre class="c"><code>
 /* TinyWM is written by Nick Welch &lt;mack@incise.org&gt;, 2005.
  *
  * This software is in the public domain
@@ -60,7 +60,7 @@ Here is tinywm.c from the most recent release, 1.3:
 
 #include &lt;X11/Xlib.h&gt;
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))
 
 int main()
 {
@@ -83,21 +83,21 @@ int main()
 
     for(;;)
     {
-        XNextEvent(dpy, &ev);
-        if(ev.type == KeyPress && ev.xkey.subwindow != None)
+        XNextEvent(dpy, &amp;ev);
+        if(ev.type == KeyPress &amp;&amp; ev.xkey.subwindow != None)
             XRaiseWindow(dpy, ev.xkey.subwindow);
-        else if(ev.type == ButtonPress && ev.xbutton.subwindow != None)
+        else if(ev.type == ButtonPress &amp;&amp; ev.xbutton.subwindow != None)
         {
             XGrabPointer(dpy, ev.xbutton.subwindow, True,
                     PointerMotionMask|ButtonReleaseMask, GrabModeAsync,
                     GrabModeAsync, None, None, CurrentTime);
-            XGetWindowAttributes(dpy, ev.xbutton.subwindow, &attr);
+            XGetWindowAttributes(dpy, ev.xbutton.subwindow, &amp;attr);
             start = ev.xbutton;
         }
         else if(ev.type == MotionNotify)
         {
             int xdiff, ydiff;
-            while(XCheckTypedEvent(dpy, MotionNotify, &ev));
+            while(XCheckTypedEvent(dpy, MotionNotify, &amp;ev));
             xdiff = ev.xbutton.x_root - start.x_root;
             ydiff = ev.xbutton.y_root - start.y_root;
             XMoveResizeWindow(dpy, ev.xmotion.window,
@@ -110,13 +110,11 @@ int main()
             XUngrabPointer(dpy, CurrentTime);
     }
 }
-
-</pre>
+</code></pre>
 
 Here is annotated.c, which is just tinywm.c with a lot of comments explaining what is going on.  This should give you a reasonable idea of how everything works.
 
-<pre>
-/* TinyWM is written by Nick Welch &lt;mack@incise.org&gt;, 2005.
+<pre class="c"><code>/* TinyWM is written by Nick Welch &lt;mack@incise.org&gt;, 2005.
  *
  * This software is in the public domain
  * and is provided AS IS, with NO WARRANTY. */
@@ -138,7 +136,7 @@ Here is annotated.c, which is just tinywm.c with a lot of comments explaining wh
  */
 #include &lt;X11/Xlib.h&gt;
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))
 
 int main()
 {
@@ -210,7 +208,7 @@ int main()
          * more flexible by using XPending(), or ConnectionNumber() along with
          * select() (or poll() or whatever floats your boat).
          */
-        XNextEvent(dpy, &ev);
+        XNextEvent(dpy, &amp;ev);
 
         /* this is our keybinding for raising windows.  as i saw someone
          * mention on the ratpoison wiki, it is pretty stupid; however, i
@@ -224,9 +222,9 @@ int main()
          * None, that means that the window the event happened in was the same
          * window that was grabbed on -- in this case, the root window.
          */
-        if(ev.type == KeyPress && ev.xkey.subwindow != None)
+        if(ev.type == KeyPress &amp;&amp; ev.xkey.subwindow != None)
             XRaiseWindow(dpy, ev.xkey.subwindow);
-        else if(ev.type == ButtonPress && ev.xbutton.subwindow != None)
+        else if(ev.type == ButtonPress &amp;&amp; ev.xbutton.subwindow != None)
         {
             /* now we take command of the pointer, looking for motion and
              * button release events.
@@ -240,7 +238,7 @@ int main()
              * when the pointer moves, we can compare it to our initial data
              * and move/resize accordingly.
              */
-            XGetWindowAttributes(dpy, ev.xbutton.subwindow, &attr);
+            XGetWindowAttributes(dpy, ev.xbutton.subwindow, &amp;attr);
             start = ev.xbutton;
         }
         /* the only way we'd receive a motion notify event is if we already did
@@ -260,7 +258,7 @@ int main()
              * get "focus flicker" as windows shuffle around underneath the
              * pointer.
              */
-            while(XCheckTypedEvent(dpy, MotionNotify, &ev));
+            while(XCheckTypedEvent(dpy, MotionNotify, &amp;ev));
 
             /* now we use the stuff we saved at the beginning of the
              * move/resize and compare it to the pointer's current position to
@@ -293,14 +291,11 @@ int main()
         else if(ev.type == ButtonRelease)
             XUngrabPointer(dpy, CurrentTime);
     }
-}
-
-</pre>
+}</code></pre>
 
 And here's tinywm.py.  XCheckTypedEvent has no equivalent in python-xlib, so it is commented out.  It doesn't affect functionality, except that responsiveness is worse when you are moving/resizing (especially resizing a large window).
 
-<pre>
-# TinyWM is written by Nick Welch &lt;mack@incise.org&gt;, 2005.
+<pre class="python"><code># TinyWM is written by Nick Welch &lt;mack@incise.org&gt;, 2005.
 #
 # This software is in the public domain
 # and is provided AS IS, with NO WARRANTY.
@@ -329,7 +324,7 @@ while 1:
         attr = ev.child.get_geometry()
         start = ev
     elif ev.type == X.MotionNotify:
-        #while(XCheckTypedEvent(dpy, MotionNotify, &ev));
+        #while(XCheckTypedEvent(dpy, MotionNotify, &amp;ev));
         xdiff = ev.root_x - start.root_x
         ydiff = ev.root_y - start.root_y
         ev.window.configure(
@@ -338,6 +333,5 @@ while 1:
             width = max(1, attr.width + (start.detail == 3 and xdiff or 0)),
             height = max(1, attr.height + (start.detail == 3 and ydiff or 0)))
     elif ev.type == X.ButtonRelease:
-        dpy.ungrab_pointer(X.CurrentTime)
+        dpy.ungrab_pointer(X.CurrentTime)</code></pre>
 
-</pre>

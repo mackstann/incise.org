@@ -38,15 +38,13 @@ I also have some goals for the code itsef:
  <li>The <strong>number of files should be minimized</strong>, but not if it means affecting other aspects negatively.  I am a <strong>minimalist</strong>, not for the sake of performance, but for the sake of <strong>simplicity, coherency</strong>, and <strong>aiding the learning process</strong>.  For example, I don't use KDE.  This is not because I am afraid of my dual 1.3Ghz machine being too slow, or my 60GB hard drive filling up, it's because KDE is visually and conceptually humongous, gets in my way, and basically just does way more stuff than I wish to delegate to software, while at the same time, provides little flexibility to me unless I learn C++ and QT, which is a huge task that I have no intention of undertaking.  As simple as it may be for a windows user to navigate, it makes it very difficult to get at it's innards and really play with it, and understand what's going on.</li>
  <li><strong>All code related to the player</strong> should be included in the player's code, and that code should be <strong>in the form of a Python module </strong> that I can import from other programs to easily control the player.  Currently I have mid-level functions for controlling the player, which still expose the underpinnings of how it works.
 
-  Example: <pre>
-death@two ~/shplay % python
+  Example: <pre><code>death@two ~/shplay % python
 Python 2.2.2 (#1, Mar 21 2003, 23:01:54)
-<a href="GCC">3.2.3 20030316 (Debian prerelease)</a> on linux2
+[GCC 3.2.3 20030316 (Debian prerelease)] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt; import <a href="pymp.html">pymp</a>
-&gt;&gt;&gt; remote = <a href="pymp.html">pymp</a>.<a href="pymp.html">pymp</a>Ctl()
-&gt;&gt;&gt; remote.hupPlayer()
-</pre>
+&gt;&gt;&gt; import pymp
+&gt;&gt;&gt; remote = pymp.PympCtl()
+&gt;&gt;&gt; remote.hupPlayer()</code></pre>
     The player currently skips to the next song when it receives SIGHUP, and the method for doing that reflects in the name of the method.  Eventually I want methods such as "nextSong()" or "prevSong()" or "stopPlayer()", etc.
     </li>
 </ul>
@@ -68,55 +66,52 @@ Just from these two modules we can build the core of our player, the part which
 actually decodes the mp3 and sends it to the sound card.  An extremely simple
 example (derived from an example in the <em>pymad</em> distribution) would be:
 
-<pre>
-#!/usr/bin/python
+<pre class="python"><code>#!/usr/bin/python
 import mad, ao, sys
 
 madfile = mad.MadFile(sys.argv[1])
 dsp = ao.AudioDevice("oss", bits=16, rate=44100)
 while 1:
-buf = madfile.read()
-if buf is None: break
-dsp.play(buf, len(buf))
-</pre>
+  buf = madfile.read()
+  if buf is None: break
+  dsp.play(buf, len(buf))</code></pre>
 
 You can copy/paste this into a file, pass an mp3 filename as the first argument
 when you execute it, and it will play your mp3!  Just playing the file is a bit
 inadequete though, we want a framework that will interoperate all kinds of
 ways.  Let's make something a bit more organized and modular.
 
-<pre>
-class <a href="pymp.html">pymp</a>Decoder:
+<pre class="python"><code>
+class PympDecoder:
 
-def __init__(self, output_type="oss", bits=16, rate=44100):
-self.dsp = ao.AudioDevice(output_type, bits, rate)
-
-def bitrate(self, filename):
-return mad.MadFile(filename).bitrate()
-
-def _getBuf(self):
-self.buf = self.madfile.read()
-if self.buf is None:
-  return 0
-else:
-  return 1
-
-def _outputFrame(self):
-self.dsp.play(self.buf, len(self.buf))
-
-def _setMadFile(self, filename):
-self.madfile = mad.MadFile(filename)
-
-def playFile(self, filename):
-self._setMadFile(filename)
-
-while self._getBuf():
-  self._decodeFrame()
-else:
-  print
-  return 1
-  # we made it!
-</pre>
+  def __init__(self, output_type="oss", bits=16, rate=44100):
+    self.dsp = ao.AudioDevice(output_type, bits, rate)
+  
+  def bitrate(self, filename):
+    return mad.MadFile(filename).bitrate()
+  
+  def _getBuf(self):
+    self.buf = self.madfile.read()
+    if self.buf is None:
+      return 0
+    else:
+      return 1
+  
+  def _outputFrame(self):
+    self.dsp.play(self.buf, len(self.buf))
+  
+  def _setMadFile(self, filename):
+    self.madfile = mad.MadFile(filename)
+  
+  def playFile(self, filename):
+    self._setMadFile(filename)
+  
+    while self._getBuf():
+      self._decodeFrame()
+    else:
+      print
+      return 1
+      # we made it!</code></pre>
 
 Now we have a class with which we can play, or retrieve the bitrate, of
 arbitrary files.  We also provide the individual methods needed for iterating
@@ -157,8 +152,7 @@ With window I can split the screen into two, with a single line at the bottom
 running one program, and the remaining top portion running another.  So far
 this looks like:
 
-<pre>
--1------------------------------------------------------------------------------
+<pre>-1------------------------------------------------------------------------------
 Escape character is ^P.
 death@incise ~ %
 
@@ -182,8 +176,7 @@ death@incise ~ %
 
 
 -2-----------------------------------------------------------------------------
-death@incise ~ %
-</pre>
+death@incise ~ %</pre>
 
 I can customize the behavior of window(1) in my ~/.windowrc should I desire to
 do so.  I believe screen(1) can also do this, I know it can split the screen
@@ -244,23 +237,17 @@ good with C I'd probably try to myself, but I'm not, so I won't. : P
 So now I am using screen.  First off, I put the following in my
 <code>~/.screenrc</code>:
 
-<pre>
-bind + resize +1
-bind - resize -1
-</pre>
+<pre><code>bind + resize +1
+bind - resize -1</code></pre>
 
 Now, I start up a screen session.
 
-<pre>
-% screen -S musicd
-</pre>
+<pre class="sh"><code>% screen -S musicd</code></pre>
 
 In this screen session, I run play.py, and it begins playing my music.  I now
 detach.  <code>^A d</code>.  Now I start a second screen session.
 
-<pre>
-% screen -S music
-</pre>
+<pre class="sh"><code>% screen -S music</pre>
 
 Now in this screen session, I do <code>^A S</code> twice, this splits the terminal
 into 3 "windows".  Using <code>^A ^I</code> to switch between windows, <code>^A +</code> and

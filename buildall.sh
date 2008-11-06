@@ -1,3 +1,7 @@
+python -c 'import pygments.formatters; \
+           print pygments.formatters.HtmlFormatter(classprefix="pyg-").get_style_defs()' \
+    > output/pygments.css
+
 find pages -type f -name '*.html' |
 while read i
 do
@@ -19,8 +23,8 @@ do
     mkdir -p "$outdir"
     (
         sh header.sh "$title" "$ctime" "$mtime"
-        cat "$i" | perl paragraphs.pl
+        cat "$i"
         sh footer.sh "$title" "$ctime" "$mtime"
-    ) > "$outdir"/`basename "$i"`
+    ) | python paragraphs.py | python highlight.py > "$outdir"/`basename "$i"`
 done
 

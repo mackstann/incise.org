@@ -90,28 +90,22 @@ and when a certain modifier is <em>not</em> negated, don't require it match.
 
 Currently:
 
-<pre>
-ev.state == Mod1Mask | ControlMask | Button3MotionMask
+<pre class="python"><code>ev.state == Mod1Mask | ControlMask | Button3MotionMask
 modmask_to_match == Mod1Mask | ControlMask
 
-# no match, but we probably wanted it to
-</pre>
+# no match, but we probably wanted it to</code></pre>
 
 It should be something like:
 
-<pre>
-ev.state == Mod1Mask | ControlMask | Button3MotionMask
+<pre class="python"><code>ev.state == Mod1Mask | ControlMask | Button3MotionMask
 modmask_to_match == Mod1Mask "plus" ControlMask
 
-# match
-</pre>
+# match</code></pre>
 
-<pre>
-ev.state == Mod1Mask | ControlMask | Button3MotionMask
+<pre class="python"><code>ev.state == Mod1Mask | ControlMask | Button3MotionMask
 modmask_to_match == Mod1Mask "minus" ControlMask
 
-# no match
-</pre>
+# no match</code></pre>
 
 So basically each modmask specifies 3 "sets" of modifiers:
 <ol>

@@ -150,21 +150,19 @@ bars too, so you need to make sure and get those back into their grooves.
 
 <h2>Swapping F9-F12 with Home/End/PgUp/PgDn</h2>
 
-Having Home/End/Pg<strong><em>'Up/Pg</strong></em>'Dn relegated to Fn-keys is unacceptable, but thankfully,
+Having Home/End/PgUp/PgDn relegated to Fn-keys is unacceptable, but thankfully,
 I don't use the F9-F12 keys at all, so swapping them fixes the problem.  The
 following <a href="http://www.xfree86.org/4.2.0/xmodmap.1.html">xmodmap</a> code will swap
 them around:
 
-<pre>
-keycode 75 = Home
+<pre><code>keycode 75 = Home
 keycode 76 = End
 keycode 95 = Prior
 keycode 96 = Next
 keycode 97 = F9
 keycode 103 = F10
 keycode 99 = F11
-keycode 105 = F12
-</pre>
+keycode 105 = F12</code></pre>
 
 <h2>Exploiting all of those keys at bottom left</h2>
 
@@ -179,13 +177,9 @@ I'm pretty sure this is supposed to be the "menu" key, but who cares about the
 menu key; we can make it another modifier!  I decided to make it Hyper_L and
 mod3.  You need this xmodmap code:
 
-<pre>
-keycode 117 = Hyper_L
-add mod3 = Hyper_L
-</pre>
+<pre><code>keycode 117 = Hyper_L
+add mod3 = Hyper_L</code></pre>
 
 You also need to execute this to turn off repeating on the key:
 
-<pre>
-xset -r 117
-</pre>
+<pre><code>xset -r 117</code></pre>

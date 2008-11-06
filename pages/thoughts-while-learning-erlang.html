@@ -1,13 +1,11 @@
 <h1>array/string ambiguity is uncomfortable</h1>
 
-<pre>
-6&gt; [1000, 500, 4].
+<pre class="erlang"><code>6&gt; [1000, 500, 4].
 [1000,500,4]
 7&gt; [100, 50, 4].
 [100,50,4]
 8&gt; [100, 50, 40].
-"d2("
-</pre>
+"d2("</code></pre>
 
 gross.
 
@@ -50,17 +48,13 @@ heard of it in smalltalk (i think).  base#value where base is 2-36
 
 fun to have it; a refreshing change from python
 
-<pre>
-% silently does nothing forever
+<pre class="erlang"><code>% silently does nothing forever
 foo() -&gt;
-    foo().
-</pre>
+    foo().</code></pre>
 
-<pre>
-# raises recursion limit error
+<pre class="python"><code># raises recursion limit error
 def foo():
-    foo()
-</pre>
+    foo()</code></pre>
 
 (<a href="http://mail.python.org/pipermail/python-dev/2006-January/059652.html">or python will segfault if you increase the recursion limit</a>)
 

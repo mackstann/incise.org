@@ -32,7 +32,7 @@ with the X server.  python-xlib is also written in pure Python.
 
 Quick start:
 
-<pre><code>$ wget http://incise.org/files/dev/whimsy-0.1a1.tgz
+<pre class="sh"><code>$ wget http://incise.org/files/dev/whimsy-0.1a1.tgz
 $ tar zxvf whimsy-0.1a1.tgz
 $ sh whimsy-0.1a1/fetch-python-xlib.sh
 $ mv Xlib whimsy-0.1a1/
@@ -46,7 +46,7 @@ do not recommend using whimsy as the final blocking command in your
 <code>.xinitrc</code> or <code>.xsession</code>, as this will cause your whole
 X session to die if whimsy does.  What I would do is put this in its place:
 
-<pre><code>export PYTHONPATH="path/to/whimsy-0.1a1:$PYTHONPATH"
+<pre class="sh"><code>export PYTHONPATH="path/to/whimsy-0.1a1:$PYTHONPATH"
 xterm &amp;
 while true; do sleep 1000000; done</pre></code>
 
@@ -62,7 +62,7 @@ anything.  It will just need to import <code>whimsy.base_config</code>.  You
 can also check out my personal config script, <code>example_config.py</code>,
 and run it like this:
 
-<pre><code>$ python whimsy/example_config.py</code></pre>
+<pre class="sh"><code>$ python whimsy/example_config.py</code></pre>
 
 Running it inside of <code>screen</code> is a decent idea, so if it crashes you
 can switch to a virtual console and re-attach and see what went wrong and start

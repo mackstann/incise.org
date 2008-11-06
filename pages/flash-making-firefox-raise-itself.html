@@ -5,14 +5,12 @@ It seems that for years, Mozilla / Phoenix / Firebird / Firefox on Unix/X11 have
 Download: <a href="http://incise.org/files/dev/interceptor.c">http://incise.org/files/dev/interceptor.c</a>
 
 Usage:
-<pre>
-$ gcc interceptor.c -o interceptor.so -shared -lX11 -ldl -rdynamic
+<pre class="sh"><code>$ gcc interceptor.c -o interceptor.so -shared -lX11 -ldl -rdynamic
 $ LD_PRELOAD=./interceptor.so
 $ export LD_PRELOAD
-$ firefox &
+$ firefox &amp;
 (... look at messages if you want to ...)
-$ exit
-</pre>
+$ exit</code></pre>
 
 Packages needed (Ubuntu): libx11-dev, gcc, libc-dev
 
