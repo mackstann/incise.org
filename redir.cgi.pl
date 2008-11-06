@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 my %map = (
-    '/index.cgi/AdvancedSimCityStrategies/Cookie'           => '/advanced-sim-city-strategies-cookie.html',
+    '/index.cgi/AdvancedSimCityStrategies/Cookie'           => '/advanced-sim-city-strategies%3a-cookie.html',
     '/index.cgi/AdvancedSimCityStrategies'                  => '/advanced-sim-city-strategies.html',
     '/index.cgi/BmxGearRatios'                              => '/bmx-gear-ratios.html',
     '/index.cgi/DisgaeaCheatSheet'                          => '/disgaea-cheat-sheet.html',
