@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys, BeautifulSoup
 
 soup = BeautifulSoup.BeautifulSoup(sys.stdin.read())

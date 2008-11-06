@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 import BeautifulSoup
 import pygments, pygments.lexers, pygments.formatters

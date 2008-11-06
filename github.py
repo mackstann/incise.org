@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import json, urllib2, pprint
 
 url = 'http://github.com/api/v1/json/mackstann'
