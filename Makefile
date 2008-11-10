@@ -1,5 +1,5 @@
 all: clean build
-install: all upload
+install: all upload checkstale
 
 build:
 	./buildall.py
@@ -12,5 +12,6 @@ clean:
 upload:
 	rsync -vza --checksum -e ssh output/ nwelch@biggs.dreamhost.com:incise.org/
 	rsync -vza --checksum -e ssh restofsite/ nwelch@biggs.dreamhost.com:incise.org/
-	./stale_pages.py
 
+checkstale:
+	./stale_pages.py
