@@ -1,4 +1,5 @@
 #!/bin/sh
+cd /tmp
 wget -r -nd --delete-after -A .html http://incise.org 2>&1 |
     grep ^-- |
     cut -d' ' -f3 |
