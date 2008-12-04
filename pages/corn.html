@@ -31,7 +31,8 @@ player = dbus.Interface(bus.get_object('org.mpris.corn', '/Player'),
 player.Next()
 
 print 'volume:', player.VolumeGet()
-print 'position:', player.PositionGet()</code></pre>
+for pair in player.GetMetadata().items():
+    print "%-15s: %s" % pair</code></pre>
 
 <pre class="sh"><code>#!/bin/sh
 mpris-remote clear
