@@ -1,36 +1,20 @@
-I'm working on a music player now.  I've used <a
-    href="http://musicpd.org">MPD</a> for a while, but decided it's time for a
-change.  I am forking <a href="http://quark.sunsite.dk/">Quark</a>, a solid,
-simple little music daemon that was created and subsequently abandoned within a
-four month period back in 2003 by Openbox developers.  It's a good starting
-place because it's small (about 1500 lines of C, thanks to its use of libxine
-for actually playing the music) and the code is nice and clean, using lots of
-glib functionality instead of reinventing malloc and strcmp for the millionth
-time.
+Corn is a small, command line-friendly music playing daemon.  It strikes a
+balance between command line flexibility and desktop integration.
 
-Quark runs in the background and takes command through a named pipe, and can
-optionally send status updates to a client through another named pipe.  Being
-annoyed by needlessly invented syntaxes, I first replaced Quark's communication
-syntax with some JSON using <a
-    href="http://live.gnome.org/JsonGlib">JSON-Glib</a>.  But that brought the
-fifo system itself into question.  Isn't that what something like D-BUS is for?
-Well, turns out that there is actually a de-facto standard for music player
-communication through D-BUS called <a
-    href="http://wiki.xmms2.xmms.se/wiki/MPRIS">MPRIS</a>.  D-BUS is way more
-cumbersome than I wish it were, but the upside to using it is interoperability
-with current and future desktop apps.  MPRIS is already implemented in a number
-of the popular desktop music players (Amarok etc.).
+Key features:
 
-One choice that was somewhat inherent in forking Quark, and even moreso in
-using D-BUS, is to not have network support (i.e. clients controlling the
-daemon over the network, as in a music server or HTPC setup).  Quark had a
-little hack using netcat, but that doesn't work very well with anything that
-involves a file path.
+<ul>
+    <li>Uses libxine for playback -- supports the many file formats that xine does.</li>
+    <li>Uses GConf for saving settings.</li>
+    <li>Uses D-BUS and the <a
+        href="http://wiki.xmms2.xmms.se/wiki/MPRIS">MPRIS</a> standard for
+        inter-process communication.</li>
+    <li>Scriptable via any language with D-BUS bindings, or via <a
+        href="mpris-remote.html">mpris-remote</a> on the command line.</li>
+    <li>Roughly 2000 lines of C.</li>
+</ul>
 
 Code is at <a href="http://github.com/mackstann/corn/tree/master">github</a>.
 
-And how do you control it through this D-BUS MPRIS thingie?  I've made a little
-utility called <a href="mpris-remote.html">mpris-remote</a> to do just that.
-
-to be continued...
+Corn is a fork of <a href="http://quark.sunsite.dk/">Quark</a>.
 
