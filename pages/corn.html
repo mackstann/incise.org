@@ -31,7 +31,7 @@ player = dbus.Interface(bus.get_object('org.mpris.corn', '/Player'),
 player.Next()
 
 print 'volume:', player.VolumeGet()
-for pair in player.GetMetadata().items():
+for pair in sorted(player.GetMetadata().items()):
     print "%-18s: %s" % pair</code></pre>
 
 <pre class="sh"><code>#!/bin/sh
