@@ -42,11 +42,11 @@ mpris-remote play</code></pre>
 
 <h3>don't have a dbus session bus running?</h3>
 
-If you use startx with a smaller window manager instead of a full blown desktop
-environment, you may not have a dbus session bus running.  The system bus
-(<code>dbus-daemon --system</code> in your <code>ps</code> output) will not do
--- it is not for communication between user apps.  To get a session bus
-running, put this in your .xinitrc:
+If you use <code>startx</code> with a smaller window manager instead of a full
+blown desktop environment, you may not have a dbus session bus running.  The
+system bus (<code>dbus-daemon --system</code> in your <code>ps</code> output)
+will not do -- it is not for communication between user apps.  To get a session
+bus running, put this in your .xinitrc:
 
 <pre class="sh"><code>if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
     eval `dbus-launch --sh-syntax --exit-with-session`
