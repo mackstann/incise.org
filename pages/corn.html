@@ -18,3 +18,24 @@ Code is at <a href="http://github.com/mackstann/corn/tree/master">github</a>.
 
 Corn is a fork of <a href="http://quark.sunsite.dk/">Quark</a>.
 
+<h3>scripting examples</h3>
+
+<pre class="python"><code>import dbus
+
+bus = dbus.SessionBus()
+
+player = dbus.Interface(bus.get_object('org.mpris.corn', '/Player'),
+                        dbus_interface='org.freedesktop.MediaPlayer')
+
+player.Next()
+
+print 'volume:', player.VolumeGet()
+print 'position:', player.PositionGet()</code></pre>
+
+<pre class="sh"><code>mpris-remote clear
+mpris-remote random true
+mpris-remote loop true
+find ~/music -name '*.mp3' | mpris-remote add -
+mpris-remote play</code></pre>
+
+
