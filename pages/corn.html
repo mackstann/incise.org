@@ -88,6 +88,65 @@ as the xine program, or it can be its own separate file.  Here is my
 <pre><code>audio.driver:alsa
 engine.decoder_priorities.mad:1000</code></pre>
 
+<h3>what are the methods i can call through d-bus?</h3>
+
+Service name for all methods is <code>org.mpris.corn</code>
+
+<ul>
+    <li>Interface: <code>org.freedesktop.MediaPlayer</code> (aka MPRIS)
+    <ul>
+        <li>Path: <code>/</code>
+        <ul>
+            <li>Method: <code>Identity() -&gt; (program/version string)</code></li>
+            <li>Method: <code>Quit()</code></li>
+            <li>Method: <code>MprisVersion() -&gt; (struct { uint16 major, uint16 minor })</code> <strong>XXX broken</strong></li>
+        </ul>
+        </li>
+        <li>Path: <code>/Player</code>
+        <ul>
+            <li>Method: <code>Next()</code></li>
+            <li>Method: <code>Prev()</code></li>
+            <li>Method: <code>Pause()</code></li>
+            <li>Method: <code>Stop()</code></li>
+            <li>Method: <code>Play()</code></li>
+            <li>Method: <code>GetCaps() -&gt; (bitmask of capabilities)</code></li>
+            <li>Method: <code>VolumeSet(int 0-100)</code></li>
+            <li>Method: <code>VolumeGet() -&gt; (int 0-100)</code></li>
+            <li>Method: <code>PositionSet(int 0-100)</code></li>
+            <li>Method: <code>PositionGet() -&gt; (int 0-100)</code></li>
+            <li>Method: <code>Repeat(boolean to repeat current track or not)</code></li>
+            <li>Method: <code>GetMetadata() -&gt; (hash/dict of current song's metadata)</code></li>
+        </ul>
+        </li>
+        <li>Path: <code>/TrackList</code>
+        <ul>
+            <li>Method: <code>DelTrack(int track)</code></li>
+            <li>Method: <code>AddTrack(string uri, boolean playnow) -&gt; (int failed)</code></li>
+            <li>Method: <code>GetLength() -&gt; (int length in ms)</code></li>
+            <li>Method: <code>GetCurrentTrack() -&gt; (int track)</code></li>
+            <li>Method: <code>SetLoop(boolean) # loop at end of playlist or not</code></li>
+            <li>Method: <code>SetRandom(boolean) # play randomly or not</code></li>
+            <li>Method: <code>GetMetadata(int track) -&gt; (hash/dict of metadata for $track)</code></li>
+        </ul>
+        </li>
+    </ul>
+    </li>
+
+    <li>Interface: <code>org.corn.CornPlayer</code></li>
+    <ul>
+        <li>Path: <code>/</code>
+        <ul>
+            <li>Method: <code>Clear() # clear playlist</code></li>
+            <li>Method: <code>PlayTrack(int track) # play given track</code></li>
+            <li>Method: <code>Move(int from, int to) # move track at $from to $to</code></li>
+        </ul>
+        </li>
+    </ul>
+    </li>
+</ul>
+
+
+
 <h3><a name="well-sorta">well, depends on what you mean by small</a></h3>
 
 Corn actually uses kind of a lot of memory right now (60-80MB for me).  This is
