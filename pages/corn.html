@@ -12,6 +12,10 @@ Key features:
         inter-process communication.</li>
     <li>Scriptable via any language with D-BUS bindings, or via <a
         href="mpris-remote.html">mpris-remote</a> on the command line.</li>
+    <li>Follows the <a
+        href="http://standards.freedesktop.org/basedir-spec/basedir-spec-0.6.html">XDG
+        base directory spec</a>
+        for config file directory location.</li>
     <li>Roughly 2000 lines of C.</li>
 </ul>
 
@@ -78,12 +82,12 @@ fi</code></pre>
 
 <h3>selecting an audio driver</h3>
 
-For me, libxine by default tries to connect to a pulse audio daemon with a timeout,
-which caused a startup delay for corn.  But corn has its own xine config file,
-which is at <code>~/.corn/xine_config</code>.  You can just symlink it to
-<code>~/.xine/config</code> if you want corn to use the same libxine settings
-as the xine program, or it can be its own separate file.  Here is my
-<code>xine_config</code>:
+For me, libxine by default tries to connect to a pulse audio daemon with a
+timeout, which caused a startup delay for corn.  But corn has its own xine
+config file, which is at <code>~/.config/corn/xine_config</code>.  You can just
+symlink it to <code>~/.xine/config</code> if you want corn to use the same
+libxine settings as the xine program, or it can be its own separate file.  Here
+is my <code>xine_config</code>:
 
 <pre><code>audio.driver:alsa
 engine.decoder_priorities.mad:1000</code></pre>
