@@ -38,6 +38,13 @@ Corn is a fork of <a href="http://quark.sunsite.dk/">Quark</a>.
 
 <h3>scripting examples</h3>
 
+<pre class="sh"><code>#!/bin/sh
+mpris-remote clear
+mpris-remote random true
+mpris-remote loop true
+find ~/music -name '*.mp3' | mpris-remote addtrack -
+mpris-remote play</code></pre>
+
 <pre class="python"><code>#!/usr/bin/env python
 import dbus
 
@@ -51,13 +58,6 @@ player.Next()
 print 'volume:', player.VolumeGet()
 for pair in sorted(player.GetMetadata().items()):
     print "%-18s: %s" % pair</code></pre>
-
-<pre class="sh"><code>#!/bin/sh
-mpris-remote clear
-mpris-remote random true
-mpris-remote loop true
-find ~/music -name '*.mp3' | mpris-remote addtrack -
-mpris-remote play</code></pre>
 
 <h3>don't have a dbus session bus running?</h3>
 
