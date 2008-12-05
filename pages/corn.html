@@ -75,3 +75,15 @@ bus running, put this in your .xinitrc:
     eval `dbus-launch --sh-syntax --exit-with-session`
 fi</code></pre>
 
+<h3>selecting an audio driver</h3>
+
+For me, libxine by default tries to connect to a pulse audio daemon with a timeout,
+which caused a startup delay for corn.  But corn has its own xine config file,
+which is at <code>~/.corn/xine_config</code>.  You can just symlink it to
+<code>~/.xine/config</code> if you want corn to use the same libxine settings
+as the xine program, or it can be its own separate file.  Here is my
+<code>xine_config</code>:
+
+<pre><code>audio.driver:alsa
+engine.decoder_priorities.mad:1000</code></pre>
+
