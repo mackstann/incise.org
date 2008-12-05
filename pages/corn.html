@@ -1,5 +1,6 @@
-Corn is a small, command line-friendly music playing daemon.  It strikes a
-balance between command line flexibility and desktop integration.
+Corn is a small<sup><a href="#well-sorta">*</a></sup>, command line-friendly
+music playing daemon.  It strikes a balance between command line flexibility
+and desktop integration.
 
 Key features:
 
@@ -86,4 +87,14 @@ as the xine program, or it can be its own separate file.  Here is my
 
 <pre><code>audio.driver:alsa
 engine.decoder_priorities.mad:1000</code></pre>
+
+<h3><a name="well-sorta">well, depends on what you mean by small</a></h3>
+
+Corn actually uses kind of a lot of memory right now (60-80MB for me).  This is
+a libxine problem, apparently due to it <a
+    href="http://paul-pach.blogspot.com/2008/03/finding-bloat-in-kde4.html?showComment=1208382840000#c4871031230157608326">allocating
+    tons of unnecessary buffers</a>.  Supposedly it will be fixed sometime.
+But even until then -- hey -- 80MB is only about 4% of 2GB!
+
+
 
