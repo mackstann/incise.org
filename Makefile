@@ -1,10 +1,8 @@
 all: clean build
-install: all upload checkstale
+install: all upload
 
 build:
 	./buildall.py
-	cp -p redir.cgi.pl output/index.cgi
-	chmod +x output/index.cgi
 
 clean:
 	rm -rf output

@@ -1,2 +1,53 @@
 RemoveHandler .pl .pl.html .py .py.html .php .php3 .php4 .php4 .phtml
 IndexOptions NameWidth=*
+
+RedirectPermanent /index.cgi/FrontPage                                  /
+
+RedirectPermanent /index.cgi/AdvancedSimCityStrategies/Cookie           /advanced-sim-city-strategies%3a-cookie.html
+RedirectPermanent /index.cgi/AdvancedSimCityStrategies                  /advanced-sim-city-strategies.html
+RedirectPermanent /index.cgi/BmxGearRatios                              /bmx-gear-ratios.html
+RedirectPermanent /index.cgi/DisgaeaCheatSheet                          /disgaea-cheat-sheet.html
+RedirectPermanent /index.cgi/FinalFantasy6Hacking                       /final-fantasy-6-hacking.html
+RedirectPermanent /index.cgi/FlashMakingFirefoxRaiseItself              /flash-making-firefox-raise-itself.html
+RedirectPermanent /index.cgi/Flypper                                    /flypper.html
+RedirectPermanent /index.cgi/GettingStartedSellingSharewareGames/MyPlan /getting-started-selling-shareware-games-my-plan.html
+RedirectPermanent /index.cgi/GettingStartedSellingSharewareGames        /getting-started-selling-shareware-games.html
+RedirectPermanent /index.cgi/GnomeVfsCommandLineTools                   /gnome-vfs-command-line-tools.html
+RedirectPermanent /index.cgi/GoodQuotes                                 /good-quotes.html
+RedirectPermanent /index.cgi/GreenHomeScratchPage                       /green-home-scratch-page.html
+RedirectPermanent /index.cgi/INTP_links                                 /intp-links.html
+RedirectPermanent /index.cgi/LinuxFormatKahakaiArticle                  /linux-format-kahakai-article.html
+RedirectPermanent /index.cgi/MaybeOurEntireWayOfLifeIsASham             /maybe-our-entire-way-of-life-is-a-sham.html
+RedirectPermanent /index.cgi/MegaProgrammingLanguage                    /mega-programming-language.html
+RedirectPermanent /index.cgi/NotSoTinyWindowManagers                    /not-so-tiny-window-managers.html
+RedirectPermanent /index.cgi/OldAssStuff                                /old-ass-stuff.html
+RedirectPermanent /index.cgi/OldWaimeaPage                              /old-waimea-page.html
+RedirectPermanent /index.cgi/PerfectKeyboard                            /perfect-keyboard.html
+RedirectPermanent /index.cgi/PostgresArrayStuff                         /postgres-array-stuff.html
+RedirectPermanent /index.cgi/PygamePatchThoughts                        /pygame-patch-thoughts.html
+RedirectPermanent /index.cgi/py-libmpdclient2                           /py-libmpdclient2.html
+RedirectPermanent /index.cgi/Pymp                                       /pymp.html
+RedirectPermanent /index.cgi/SimpleUnixSharedMemoryInterface            /simple-unix-shared-memory-interface.html
+RedirectPermanent /index.cgi/SpookWindowManager                         /spook-window-manager.html
+RedirectPermanent /index.cgi/Statiki                                    /statiki.html
+RedirectPermanent /index.cgi/ThoughtsWhileLearningErlang                /thoughts-while-learning-erlang.html
+RedirectPermanent /index.cgi/Thump                                      /thump.html
+RedirectPermanent /index.cgi/TinyWM                                     /tinywm.html
+RedirectPermanent /index.cgi/TypeMatrixReview                           /typematrix-review.html
+RedirectPermanent /index.cgi/UnBustYourXserver                          /un-bust-your-x-server.html
+RedirectPermanent /index.cgi/UsbHardDriveInLunix                        /usb-hard-drive-in-lunix.html
+RedirectPermanent /index.cgi/VerySimpleGoogleMapsHack                   /very-simple-google-maps-hack.html
+RedirectPermanent /index.cgi/ViewportsAndVirtualDesktops                /viewports-and-virtual-desktops.html
+RedirectPermanent /index.cgi/VimTips                                    /vim-tips.html
+RedirectPermanent /index.cgi/WebPyNotes                                 /web.py-notes.html
+RedirectPermanent /index.cgi/WhatToEatWhenGoingBackToIowa               /what-to-eat-when-going-back-to-iowa.html
+RedirectPermanent /index.cgi/Whimsy/Ideas                               /whimsy-ideas.html
+RedirectPermanent /index.cgi/Whimsy/Status                              /whimsy-status.html
+RedirectPermanent /index.cgi/Whimsy/ToDo                                /whimsy-todo.html
+RedirectPermanent /index.cgi/Whimsy                                     /whimsy.html
+RedirectPermanent /index.cgi/WhyViewportsRule                           /why-viewports-rule.html
+RedirectPermanent /index.cgi/XlibKeyPassing                             /xlib-key-passing.html
+
+RedirectPermanent /index.cgi/                                           /
+RedirectPermanent /index.cgi                                            /
+
