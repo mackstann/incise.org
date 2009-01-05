@@ -4,7 +4,7 @@ import os, sys, re
 import BeautifulSoup
 import pygments, pygments.lexers, pygments.formatters
 
-def makepage(content, title, ctime, mtime):
+def makepage(content, title, css, ctime, mtime):
     titledate = '' if ctime == "long ago.." else ctime
 
     return '''
@@ -22,6 +22,8 @@ def makepage(content, title, ctime, mtime):
 
     .pyg-c, .pyg-cm, .pyg-c1, .pyg-cs, .pyg-ge, .pyg-sd { font-style: normal; }
     .pyg-err { border: none; }
+
+    %(css)s
 </style>
 </head>
 <body>
@@ -112,18 +114,24 @@ def run():
         dir = os.path.dirname(fn)
         base = os.path.splitext(os.path.basename(fn))[0]
         titlefile = "%s/%s.title" % (dir, base)
+        cssfile = "%s/%s.css" % (dir, base)
 
         if os.path.isfile(titlefile):
             title = file(titlefile).read().strip()
         else:
             title = base.replace('-', ' ')
 
+        if os.path.isfile(cssfile):
+            css = file(cssfile).read().strip()
+        else:
+            css = ''
+
         outdir = re.sub('^pages', 'output', dir)
         outfile = "%s/%s" % (outdir, os.path.basename(fn))
         os.system("mkdir -p '%s'" % outdir)
 
         content = file(fn).read()
-        content = makepage(content, title, ctime, mtime)
+        content = makepage(content, title, css, ctime, mtime)
         content = paragraphify(content)
         content = highlight(content)
         print >>file(outfile, 'w'), content

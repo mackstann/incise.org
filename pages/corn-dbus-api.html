@@ -1,4 +1,4 @@
-Corn's service name is <code>org.mpris.corn</code>.  There are two interfaces.
+Corn's service name is org.mpris.corn.  There are two interfaces.
 org.freedesktop.MediaPlayer is the implementation of the <a
     href="http://wiki.xmms2.xmms.se/wiki/MPRIS">MPRIS specification</a>.
 org.corn.CornPlayer contains a few extra things that I thought were missing in
@@ -37,6 +37,7 @@ MPRIS (and will <a
 <tr><td>/TrackList</td><td>GetMetadata    </td><td>int32: track to get metadata for       </td><td>dict (key:string, val:variant): metadata for requested track</td><td>           </td></tr>
 </table>
 
+<h3>Interface: org.corn.Player</h3>
 <table>
 <tr><th>path      </th><th>method         </th><th>arguments</th><th>return value</th><th>explanation</th></tr>
 
