@@ -23,35 +23,16 @@ Key features:
 See the <a href="corn-installation.html">build/installation page</a> for
 instructions on how to get corn running.
 
-If you're interested in writing a program to control or query Corn, see
-the <a href="corn-dbus-api.html">Corn D-BUS API reference</a>.
+Since Corn is a daemon with no user interface, you need to control it with some
+sort of client program.  I have written a command line program called <a
+href="mpris-remote.html">mpris-remote</a> that does that.
+
+If you're interested in writing a program to control or query Corn, see the <a
+href="corn-dbus-api.html">Corn D-BUS API reference</a>.  You might also want to
+look at the <a href="mpris-remote.html">mpris-remote</a> source code as an
+example.
 
 Corn is a fork of <a href="http://quark.sunsite.dk/">Quark</a>.
-
-<h3>scripting examples</h3>
-
-<pre class="sh"><code>#!/bin/sh
-mpris-remote clear
-mpris-remote random true
-mpris-remote loop true
-find ~/music -name '*.mp3' | mpris-remote addtrack -
-mpris-remote play</code></pre>
-
-(get mpris-remote <a href="mpris-remote.html">here</a>)
-
-<pre class="python"><code>#!/usr/bin/env python
-import dbus
-
-bus = dbus.SessionBus()
-
-player = dbus.Interface(bus.get_object('org.mpris.corn', '/Player'),
-                        dbus_interface='org.freedesktop.MediaPlayer')
-
-player.Next()
-
-print 'volume:', player.VolumeGet()
-for pair in sorted(player.GetMetadata().items()):
-    print "%-18s: %s" % pair</code></pre>
 
 <h3>don't have a dbus session bus running?</h3>
 
