@@ -1,4 +1,4 @@
-Corn's service name is org.mpris.corn.  There are two interfaces.
+<a href="corn.html">Corn</a>'s service name is org.mpris.corn.  There are two interfaces.
 org.freedesktop.MediaPlayer is the implementation of the <a
     href="http://wiki.xmms2.xmms.se/wiki/MPRIS">MPRIS specification</a>.
 org.corn.CornPlayer contains a few extra things that I thought were missing in
@@ -6,45 +6,57 @@ MPRIS (and will <a
     href="http://mailman.videolan.org/pipermail/mpris/2008-December/000042.html">probably
     be in MPRIS 2.0</a>).
 
-<h3>Interface: org.freedesktop.MediaPlayer</h3>
-<table>
-<tr><th>path      </th><th>method         </th><th>arguments</th><th>return value</th><th>explanation</th></tr>
+<pre>Interface: org.freedesktop.MediaPlayer
+  Path: /
+    Method: Identity      Returns: string: program/version
+    Method: MprisVersion  Returns: struct { uint16 major, uint16 minor }
+    Method: Quit
 
-<tr><td>/         </td><td>Identity       </td><td>                                       </td><td>string: program/version                    </td><td>                            </td></tr>
-<tr><td>/         </td><td>Quit           </td><td>                                       </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/         </td><td>MprisVersion   </td><td>                                       </td><td>struct { uint16 major, uint16 minor }      </td><td>                            </td></tr>
+  Path: /Player
+    Method: Next
+    Method: Prev
+    Method: Pause
+    Method: Stop
+    Method: Play
 
-<tr><td>/Player   </td><td>Next           </td><td>                                       </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>Prev           </td><td>                                       </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>Pause          </td><td>                                       </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>Stop           </td><td>                                       </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>Play           </td><td>                                       </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>GetCaps        </td><td>                                       </td><td>int32: bitmask of capabilities             </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>VolumeSet      </td><td>int32: 0 through 100, inclusive        </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>VolumeGet      </td><td>                                       </td><td>int32: 0 through 100, inclusive            </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>PositionSet    </td><td>int32: 0 through 100, inclusive        </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>PositionGet    </td><td>                                       </td><td>int32: 0 through 100, inclusive            </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>Repeat         </td><td>boolean: repeat current track or not   </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Player   </td><td>GetMetadata    </td><td>                                       </td><td>dict (key:string, val:variant): current song's metadata</td><td>                </td></tr>
+    Method: VolumeSet     Args: (int32: 0 through 100 inclusive)
+    Method: PositionSet   Args: (int32: 0 through 100 inclusive)
+    Method: Repeat        Args: (boolean: repeat current track or not)
 
-<tr><td>/TrackList</td><td>DelTrack       </td><td>int32: track to delete                 </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/TrackList</td><td>AddTrack       </td><td>string: uri of song<br>
-                                                   boolean: playnow                       </td><td>int32: 0 if succeeded                      </td><td>                            </td></tr>
-<tr><td>/TrackList</td><td>GetLength      </td><td>                                       </td><td>int32: number of tracks                    </td><td>                            </td></tr>
-<tr><td>/TrackList</td><td>GetCurrentTrack</td><td>                                       </td><td>int32: track number of current song        </td><td>                            </td></tr>
-<tr><td>/TrackList</td><td>SetLoop        </td><td>boolean: loop at end of playlist or not</td><td>                                           </td><td>                            </td></tr>
-<tr><td>/TrackList</td><td>SetRandom      </td><td>boolean: play randomly or not          </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/TrackList</td><td>GetMetadata    </td><td>int32: track to get metadata for       </td><td>dict (key:string, val:variant): metadata for requested track</td><td>           </td></tr>
-</table>
+    Method: VolumeGet     Returns: (int32: 0 through 100 inclusive)
+    Method: PositionGet   Returns: (int32: 0 through 100 inclusive)
+    Method: GetMetadata   Returns: (dict(key:string, val:variant): current song's metadata)
 
-<h3>Interface: org.corn.Player</h3>
-<table>
-<tr><th>path      </th><th>method         </th><th>arguments</th><th>return value</th><th>explanation</th></tr>
+    Method: GetCaps       Returns: (int32: bitmask of capabilities)
+      Possible contents of GetCaps return value:
+        NONE                 = 0
+        CAN_GO_NEXT          = 1 &lt;&lt; 0
+        CAN_GO_PREV          = 1 &lt;&lt; 1
+        CAN_PAUSE            = 1 &lt;&lt; 2
+        CAN_PLAY             = 1 &lt;&lt; 3
+        CAN_SEEK             = 1 &lt;&lt; 4
+        CAN_PROVIDE_METADATA = 1 &lt;&lt; 5
+        CAN_HAS_TRACKLIST    = 1 &lt;&lt; 6
 
-<tr><td>/Corn     </td><td>Clear          </td><td>                                       </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Corn     </td><td>PlayTrack      </td><td>int32: track                           </td><td>                                           </td><td>                            </td></tr>
-<tr><td>/Corn     </td><td>Move           </td><td>int32: from<br>int32: to               </td><td>                                           </td><td># move track at $from to $to</td></tr>
-</table>
+  Path: /TrackList
+    Method: DelTrack         Args: (int32: track to delete)
+    Method: AddTrack         Args: (string: uri of song, boolean: playnow)
+                             Returns: (int32: 0 if succeeded, non-zero if failed)
+
+    Method: GetLength        Returns: (int32: number of tracks)
+    Method: GetCurrentTrack  Returns: (int32: track number of current song)
+
+    Method: GetMetadata      Args: (int32: track to get metadata for)
+                             Returns: (dict(key:string, val:variant): metadata for requested track)
+
+    Method: SetLoop          Args: (boolean: loop at end of playlist or not)
+    Method: SetRandom        Args: (boolean: play randomly or not)
+
+Interface: org.corn.Player
+  Path: /Corn
+    Method: Clear                                                                                                                        
+    Method: PlayTrack  Args: (int32: track)
+    Method: Move       Args: (int32: from, int32: to)  # move track at $from to $to</pre>
 
 
 <h3>Examples using <code>dbus-send</code></h3>
