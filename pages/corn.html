@@ -20,33 +20,11 @@ Key features:
     <li>Roughly 2000 lines of C.</li>
 </ul>
 
-Code is at <a href="http://github.com/mackstann/corn/tree/master">github</a>.
+See the <a href="corn-installation.html">build/installation page</a> for
+instructions on how to get corn running.
 
-<pre class="sh"><code>git clone git://github.com/mackstann/corn.git
-cd corn
-./autogen.sh
-./configure
-make
-
-./corn/corn &amp;
-
-# or
-
-make install
-corn &amp;</code></pre>
-
-<h3>build dependencies</h3>
-
-You'll need to <code>apt-get build-dep quark</code> and then also install the
-<code>libdbus-glib-1-2</code> and <code>libdbus-glib-1-dev</code> packages.  Or
-on non-apt systems, you'll need GNU autotools, dbus-glib, libxine, glib,
-gnome-vfs, and gthread.
-
-You also need cvs installed, bizarrely enough (<a
-href="http://www.gnu.org/software/automake/manual/gettext/autopoint-Invocation.html">autopoint</a>
-needs it).
-
-Real tarballs will be up... sometime.
+If you're interested in writing a program to control or query Corn, see
+the <a href="corn-dbus-api.html">Corn D-BUS API reference</a>.
 
 Corn is a fork of <a href="http://quark.sunsite.dk/">Quark</a>.
 
@@ -98,10 +76,6 @@ is my <code>xine_config</code>:
 
 <pre><code>audio.driver:alsa
 engine.decoder_priorities.mad:1000</code></pre>
-
-<h3>what are the methods i can call through d-bus?</h3>
-
-See the <a href="corn-dbus-api.html">Corn D-BUS API reference</a>.
 
 <h3><a name="well-sorta">well, depends on what you mean by small</a></h3>
 
