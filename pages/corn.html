@@ -1,6 +1,6 @@
-Corn is a small<a href="#well-sorta"><sup>*</sup></a>, command line- and
-programmer-friendly music playing daemon.  It strikes a balance between nerdy
-programmable flexibility and desktop integration.
+Corn is a small<a href="#well-sorta"><sup>*</sup></a>
+music playing daemon.  It strikes a balance between nerdy
+programmable flexibility and modern desktop integration.
 
 Key features:
 
@@ -24,8 +24,8 @@ See the <a href="corn-installation.html">build/installation page</a> for
 instructions on how to get corn running.
 
 Since Corn is a daemon with no user interface, you need to control it with some
-sort of client program.  I have written a command line program called <a
-href="mpris-remote.html">mpris-remote</a> that does that.
+sort of client program.  Check out my <a
+href="mpris-remote.html">mpris-remote</a> command line utility.
 
 If you're interested in writing a program to control or query Corn, see the <a
 href="corn-dbus-api.html">Corn D-BUS API reference</a>.  You might also want to
@@ -33,6 +33,22 @@ look at the <a href="mpris-remote.html">mpris-remote</a> source code as an
 example.
 
 Corn is a fork of <a href="http://quark.sunsite.dk/">Quark</a>.
+
+<h3>other programs that will work with corn</h3>
+
+There's a "now playing" <a
+href="http://m0n5t3r.info/work/pidgin-mpris">plugin</a> for Pidgin which is
+in Debian, Ubuntu, and Gentoo at least.
+
+An MPRIS <a href="http://mpris.rubyforge.org/classes/MPRIS.html">Ruby module</a>.
+
+There's unofficial <a
+href="http://lists.affinix.com/pipermail/psi-devel-affinix.com/2008-November/008399.html">"now
+playing" code</a> for the <a href="http://psi-im.org/">Psi</a> IM client.
+
+The <a href="http://kmess.org/">KMess</a> IM client has an <a
+href="http://trac.kmess.org/ticket/357">outstanding bug</a> requesting MPRIS
+support (they already support other D-BUS stuff so it looks like a small task).
 
 <h3>don't have a dbus session bus running?</h3>
 
