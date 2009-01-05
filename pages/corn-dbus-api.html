@@ -1,0 +1,63 @@
+Service name for all methods is <code>org.mpris.corn</code>.
+
+Example calls using <code>dbus-send</code>:
+
+<pre><code>$ dbus-send --session --type=method_call --print-reply --dest=org.mpris.corn / org.freedesktop.MediaPlayer.Identity
+method return sender=:1.684 -&gt; dest=:1.785 reply_serial=2
+   string "corn 0.0.0"</code></pre>
+
+<pre><code>$ dbus-send --session --type=method_call --dest=org.mpris.corn /Player org.freedesktop.MediaPlayer.Next</code></pre>
+
+<ul>
+    <li>Interface: <code>org.freedesktop.MediaPlayer</code> (aka MPRIS)
+    <ul>
+        <li>Path: <code>/</code>
+        <ul>
+            <li>Method: <code>Identity() -&gt; (program/version string)</code></li>
+            <li>Method: <code>Quit()</code></li>
+            <li>Method: <code>MprisVersion() -&gt; (struct { uint16 major, uint16 minor })</code> <strong>XXX broken</strong></li>
+        </ul>
+        </li>
+        <li>Path: <code>/Player</code>
+        <ul>
+            <li>Method: <code>Next()</code></li>
+            <li>Method: <code>Prev()</code></li>
+            <li>Method: <code>Pause()</code></li>
+            <li>Method: <code>Stop()</code></li>
+            <li>Method: <code>Play()</code></li>
+            <li>Method: <code>GetCaps() -&gt; (bitmask of capabilities)</code></li>
+            <li>Method: <code>VolumeSet(int 0-100)</code></li>
+            <li>Method: <code>VolumeGet() -&gt; (int 0-100)</code></li>
+            <li>Method: <code>PositionSet(int 0-100)</code></li>
+            <li>Method: <code>PositionGet() -&gt; (int 0-100)</code></li>
+            <li>Method: <code>Repeat(boolean to repeat current track or not)</code></li>
+            <li>Method: <code>GetMetadata() -&gt; (hash/dict of current song's metadata)</code></li>
+        </ul>
+        </li>
+        <li>Path: <code>/TrackList</code>
+        <ul>
+            <li>Method: <code>DelTrack(int track)</code></li>
+            <li>Method: <code>AddTrack(string uri, boolean playnow) -&gt; (int failed)</code></li>
+            <li>Method: <code>GetLength() -&gt; (int number of tracks)</code></li>
+            <li>Method: <code>GetCurrentTrack() -&gt; (int track)</code></li>
+            <li>Method: <code>SetLoop(boolean) # loop at end of playlist or not</code></li>
+            <li>Method: <code>SetRandom(boolean) # play randomly or not</code></li>
+            <li>Method: <code>GetMetadata(int track) -&gt; (hash/dict of metadata for $track)</code></li>
+        </ul>
+        </li>
+    </ul>
+    </li>
+
+    <li>Interface: <code>org.corn.CornPlayer</code> (things that should be in MPRIS but aren't.. yet)</li>
+    <ul>
+        <li>Path: <code>/Corn</code>
+        <ul>
+            <li>Method: <code>Clear() # clear playlist</code></li>
+            <li>Method: <code>PlayTrack(int track) # play given track</code></li>
+            <li>Method: <code>Move(int from, int to) # move track at $from to $to</code></li>
+        </ul>
+        </li>
+    </ul>
+    </li>
+</ul>
+
