@@ -60,7 +60,7 @@ The following is a reference of all D-BUS methods available in Corn.
     Method: GetMetadata      Args: (int32: track to get metadata for)
                              Returns: (dict(key:string, val:variant): metadata for requested track)
 
-    Method: GetStatus        Returns: (strict { int32 playstate, int32 random, int32 repeat, int32 loop })
+    Method: GetStatus        Returns: (struct { int32 playstate, int32 random, int32 repeat, int32 loop })
       All four ints are effectively booleans, except playstate, which is:
         playing = 0
         paused = 1
