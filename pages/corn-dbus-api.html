@@ -22,12 +22,12 @@ The following is a reference of all D-BUS methods available in Corn.
     Method: Play
 
     Method: VolumeSet     Args: (int32: 0 through 100 inclusive)
-    Method: PositionSet   Args: (int32: 0 through 100 inclusive)
+    Method: PositionSet   Args: (int32: 0 through track-length-in-ms inclusive)
     Method: Repeat        Args: (boolean: repeat current track or not)
 
     Method: VolumeGet     Returns: (int32: 0 through 100 inclusive)
-    Method: PositionGet   Returns: (int32: 0 through 100 inclusive)
-    Method: GetMetadata   Returns: (dict(key:string, val:variant): current song's metadata)
+    Method: PositionGet   Returns: (int32: 0 through track-length-in-ms inclusive)
+    Method: GetMetadata   Returns: (dict(key:string, val:variant): current song's <a href="http://wiki.xmms2.xmms.se/wiki/MPRIS_Metadata">metadata</a>)
 
     Method: GetCaps       Returns: (int32: bitmask of capabilities)
       Possible contents of GetCaps return value:
@@ -40,7 +40,7 @@ The following is a reference of all D-BUS methods available in Corn.
         CAN_PROVIDE_METADATA = 1 &lt;&lt; 5
         CAN_HAS_TRACKLIST    = 1 &lt;&lt; 6
 
-    Signal: TrackChange   Args: (dict(key:string, val:variant): song's metadata)
+    Signal: TrackChange   Args: (dict(key:string, val:variant): song's <a href="http://wiki.xmms2.xmms.se/wiki/MPRIS_Metadata">metadata</a>)
       Tells you when a new track has begun playing.
 
     Signal: StatusChange  Args: (struct { int32[4] }: same structure as GetStatus returns)
@@ -57,8 +57,8 @@ The following is a reference of all D-BUS methods available in Corn.
     Method: GetLength        Returns: (int32: number of tracks)
     Method: GetCurrentTrack  Returns: (int32: track number of current song)
 
-    Method: GetMetadata      Args: (int32: track to get metadata for)
-                             Returns: (dict(key:string, val:variant): metadata for requested track)
+    Method: GetMetadata      Args: (int32: track to get <a href="http://wiki.xmms2.xmms.se/wiki/MPRIS_Metadata">metadata</a> for)
+                             Returns: (dict(key:string, val:variant): <a href="http://wiki.xmms2.xmms.se/wiki/MPRIS_Metadata">metadata</a> for requested track)
 
     Method: GetStatus        Returns: (struct { int32 playstate, int32 random, int32 repeat, int32 loop })
       All four ints are effectively booleans, except playstate, which is:
