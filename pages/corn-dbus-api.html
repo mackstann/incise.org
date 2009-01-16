@@ -40,6 +40,15 @@ The following is a reference of all D-BUS methods available in Corn.
         CAN_PROVIDE_METADATA = 1 &lt;&lt; 5
         CAN_HAS_TRACKLIST    = 1 &lt;&lt; 6
 
+    Signal: TrackChange   Args: (dict(key:string, val:variant): song's metadata)
+      Tells you when a new track has begun playing.
+
+    Signal: StatusChange  Args: (struct { int32[4] }: same structure as GetStatus returns)
+      Tells you when any part of the information that a GetStatus call returns has changed.
+
+    Signal: CapsChange    Args: (int32: capabilities, same as returned by GetCaps)
+      Tells you when player's capabilities, as given by GetCaps, have changed.
+
   Path: /TrackList
     Method: DelTrack         Args: (int32: track to delete)
     Method: AddTrack         Args: (string: uri of song, boolean: playnow)
@@ -59,6 +68,11 @@ The following is a reference of all D-BUS methods available in Corn.
 
     Method: SetLoop          Args: (boolean: loop at end of playlist or not)
     Method: SetRandom        Args: (boolean: play randomly or not)
+
+    Signal: TrackListChange  Args: (int32: new number of items in playlist)
+      Tells you that something in the playlist has been added or removed, or
+      moved around.  Unfortunately it doesn't give you much detail on what
+      actually happened.
 
 Interface: org.corn.Player
   Path: /Corn
