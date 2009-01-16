@@ -2,7 +2,7 @@ Corn is a small<a href="#well-sorta"><sup>*</sup></a>
 music playing daemon.  It strikes a balance between nerdy
 programmable flexibility and modern desktop integration.
 
-Key features:
+<h2>key features</h2>
 
 <ul>
     <li>Uses libxine for playback -- supports the many file formats that xine does.</li>
@@ -10,37 +10,30 @@ Key features:
         href="http://mpris.org/">MPRIS</a> standard for
         inter-process communication.</li>
     <li>Scriptable via any language with D-BUS bindings, or via <a
-        href="mpris-remote.html">mpris-remote</a> on the command line.</li>
-    <li>Uses GnomeVFS to access media files locally or through a number of
-        protocols (SFTP, HTTP, FTP, WebDAV, SMB, inside of gzipped/bzipped tarballs)</li>
-    <li>Follows the <a
-        href="http://standards.freedesktop.org/basedir-spec/basedir-spec-0.6.html">XDG
-        base directory spec</a>
-        for config file directory location.</li>
-    <li>Roughly 2000 lines of C.</li>
+        href="mpris-remote.html">mpris-remote</a> on the command line, and compatible with a number
+        of other <a href="mpris-speaking-programs.html">MPRIS-speaking programs and libraries</a>.</li>
+    <li>Uses <a
+        href="http://library.gnome.org/misc/release-notes/2.22/#sect:gvfs-gio">GIO/GVFS</a>
+        to access media files locally or through a number of protocols. (SFTP, HTTP,
+        FTP, WebDAV, SMB, inside of gzipped/bzipped tarballs)</li>
+    <li>Uses SQLite for metadata storage.  Stores all metadata but scans it
+        lazily, so importing music and beginning playback is fast.</li>
+    <li>Is fairly small and simple, especially for a program in C: around 2000 lines of code.</li>
 </ul>
 
-See the <a href="corn-installation.html">build/installation page</a> for
-instructions on how to get corn running.
+<h2>useful links</h2>
 
-Since Corn is a daemon with no user interface, you need to control it with some
-sort of client program.  Check out my <a
-href="mpris-remote.html">mpris-remote</a> command line utility.
-
-If you're interested in writing a program to control or query Corn, see the <a
-href="corn-dbus-api.html">Corn D-BUS API reference</a>.  You might also want to
-look at the <a href="mpris-remote.html">mpris-remote</a> source code as an
-example.
+<ul>
+<li><strong><a href="corn-installation.html">build/installation instructions</a></strong></li>
+<li><strong><a href="mpris-speaking-programs.html">compatible programs/utilities/libraries</a></strong></li>
+<li><strong><a href="corn-dbus-api.html">API reference</a></strong></li>
+<li><strong><a href="https://bugs.launchpad.net/corn">bug tracker</a></strong></li>
+<li><strong><a href="https://launchpad.net/~corn-talk">discussion mailing list</a></strong></li>
+</ul>
 
 Corn is a fork of <a href="http://quark.sunsite.dk/">Quark</a>.
 
-Please report bugs <a href="https://bugs.launchpad.net/corn">here</a>.  There
-is also a discussion <a href="https://launchpad.net/~corn-talk">mailing
-list</a>.
-
-<h3>other programs that will work with corn</h3>
-
-See <a href="mpris-speaking-programs.html">MPRIS-speaking programs</a>.
+<h2>never-asked-but-anticipated questions</h2>
 
 <h3>don't have a dbus session bus running?</h3>
 
