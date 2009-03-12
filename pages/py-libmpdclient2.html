@@ -11,22 +11,9 @@ The result is a much smaller, simpler, more reliable, and more dynamic library.
 
 <h2>Using py-libmpdclient2</h2>
 <code>test.py</code> should do a decent job of showing how the module works --
-there's not a lot to it -- but if you have more questions, your best bet is to
-get a hold of me (mackstann) in #mpd on irc.freenode.net (not there so much
-anymore).  Or you can email me at mack@incise.org .
+it's pretty straightforward and based on MPD's network protocol.
 
-<strike>Since the library isn't widely packaged, it is probably easiest for you
-to just include mpdclient2.py in your own client's codebase.  And since it is
-public domain, you have no licensing issues to worry about whatsoever.  The
-code belongs to you no less than it belongs to me.</strike>
-
-py-libmpdclient2 is now in Ubuntu, in the python-mpdclient package.  It does
-contain a broken IPV6 "improvement" which causes a 3 second startup delay for
-me at least (and I don't think I've done anything to my machine's IPV6 setup to
-cause this).  This extended module is mpdclient3.  There also appears to be
-some changes with regard to unicode and some other things, but nothing
-fundamental.  (update: as of intrepid, Ubuntu now calls it mpdclient2.. so
-bizarre)
+py-libmpdclient2 is now in Ubuntu, in the python-mpdclient package.
 
 <a href="http://pypi.python.org/pypi/py-libmpdclient2/1.0">It is also in the Python Package Index now</a>, so you can just <code>easy_install py-libmpdclient2</code>.
 
