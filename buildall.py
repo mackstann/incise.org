@@ -13,7 +13,8 @@ def makepage(content, title, css, ctime, mtime):
 <title>incise.org - %(title)s</title>
 <link rel="stylesheet" type="text/css" href="/pygments.css" /> 
 <style type="text/css">
-    body { font-family: sans-serif; }
+    body { font-family: sans-serif; max-width: 750px; }
+    p { line-height: 1.4em; }
     table, tr { background: #aaa; }
     td, th { background: white; }
     address { font-size: small; }
