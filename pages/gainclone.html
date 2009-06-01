@@ -22,13 +22,18 @@ Here is a basic parts list:
             <td>46.00</td>
         </tr>
         <tr>
+            <td><a href="http://www.google.com/products/catalog?hl=en&q=griffin+imic&cid=17017937447002039085#ps-sellers">Griffin iMic 2 USB sound adapter</a></td>
+            <td>&nbsp;</td>
+            <td>35.00</td>
+        </tr>
+        <tr>
             <td colspan="3">(other parts to be filled in later)</td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
             <th colspan="2">total</th>
-            <td>104.00</td>
+            <td>139.00</td>
         </tr>
     </tfoot>
 </table>
@@ -65,5 +70,41 @@ I decided to go for the 300<abbr title="volt-amps, also known as watts">VA</abbr
 This part of the amp is much more expensive than the $15-ish laptop-style power
 brick that the amp6 can use, but it'll translate to a significantly more
 powerful amp.
+
+<h2>digital is good</h2>
+
+I'm going to be using this amp at my computer.  Primarily for listening to
+music, but sometimes also a movie.  One of the things that bugs me about my
+current setup (internal sound card connected to a typical stereo receiver) is
+that a lot of noise is introduced.  When my external hard drive spins up, I can
+hear it through my speakers if the volume is up a bit.  If I turn the volume up
+moderately with nothing playing, I hear hiss.  This isn't the end of the world,
+but it'd be nice to eliminate it, and I'm sure sound fidelity would go up at
+least a tiny bit by doing so.
+
+One source of interference is the sound card being inside of the computer, which
+is a very noisy place to be, as far as audio electronics are concerned.  Another
+issue is the line-level cables running from the computer to the amp.  Both of
+these can be eliminated by building a
+<abbr title="digital-to-analog converter">DAC</abbr> into the amp, so that the
+sound path is purely digital (and thus, generally interference-free) until
+right before reaching the amp circuit itself.
+
+You can build your own <abbr
+    title="digital-to-analog converter">DAC</abbr> circuit, or buy kits, but
+the easiest way to go is to buy an already complete one and take it apart.
+
+<h3>enter the imic</h3>
+
+<img src="/images/gainclone/imic.jpg"><br>
+<cite><em><a href="http://www.flickr.com/photos/pritch/103170583/">iMic</a></em> &copy; 2006 <a href="http://www.flickr.com/people/pritch/">Huw Pritchard</a>.
+
+The Griffin iMic is exactly that, and it seems to generally be regarded as
+having good sound quality.  To turn it into an in-amp
+<abbr title="digital-to-analog converter">DAC</abbr>, all one needs to do is
+connect its USB cord to a panel-mounted USB female jack, and connect its analog
+output into the amp's line-level input.  There'll be a couple more components
+involved since I want multiple inputs to the amp that can be toggled, and I'll
+of course want a volume control, but the basic point is the same.
 
 <h2>to be continued...</h2>
