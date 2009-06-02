@@ -1,6 +1,7 @@
 {% extends "/base.html" %}
 {% set title = "thoughts while learning erlang" %}
 {% block content %}
+
 <h1>array/string ambiguity is uncomfortable</h1>
 
 <pre class="erlang"><code>6&gt; [1000, 500, 4].
@@ -10,46 +11,46 @@
 8&gt; [100, 50, 40].
 "d2("</code></pre>
 
-gross.
+<p>gross.</p>
 
 <blockquote>Strings are enclosed in double quotes ("), but is not a data type
 in Erlang. Instead a string "hello" is shorthand for the list [$h,$e,$l,$l,$o],
 that is [104,101,108,108,111]</a>.</blockquote>
 
-($y gives you the ordinal value of the letter y)
+<p>($y gives you the ordinal value of the letter y)</p>
 
-I guess that's kinda fun.  I'm starting to get feelings about Erlang similar to
-C++ -- it's somewhat perverse, but in a way I can appreciate.
+<p>I guess that's kinda fun.  I'm starting to get feelings about Erlang similar to
+C++ -- it's somewhat perverse, but in a way I can appreciate.</p>
 
 <h1>boilerplate stuff</h1>
 
-filename foo.erl needs "-module(foo)" at the top of it, which is annoyingly
+<p>filename foo.erl needs "-module(foo)" at the top of it, which is annoyingly
 redundant.  although i wonder what happens when the two differ?  could this be
 useful somehow? (nope, otherwise it will break code loading.  well that's
-pointless)
+pointless)</p>
 
-The "-export" list which says which functions in a module get publicly
-exported, is redundant.  I feel like I'm writing C header files again.
+<p>The "-export" list which says which functions in a module get publicly
+exported, is redundant.  I feel like I'm writing C header files again.</p>
 
-(that's hyperbole, somewhat)
+<p>(that's hyperbole, somewhat)</p>
 
 <h1>function name overloading</h1>
 
-Looking for the same function name but with a different number of arguments
+<p>Looking for the same function name but with a different number of arguments
 seems a little annoying.  It would be a little more obvious to just give them
 different names.  This may just be a deficiency in the coding style of the
-tutorial I am reading.
+tutorial I am reading.</p>
 
 <h1>arbitrary base integers</h1>
 
-not really very useful for me, but i always thought it was a cool idea when i
-heard of it in smalltalk (i think).  base#value where base is 2-36
+<p>not really very useful for me, but i always thought it was a cool idea when i
+heard of it in smalltalk (i think).  base#value where base is 2-36</p>
 
-(speaking of base 36... so that's what those dang reddit and youtube ids are!)
+<p>(speaking of base 36... so that's what those dang reddit and youtube ids are!)</p>
 
 <h1>tail call recursion optimization</h1>
 
-fun to have it; a refreshing change from python
+<p>fun to have it; a refreshing change from python</p>
 
 <pre class="erlang"><code>% silently does nothing forever
 foo() -&gt;
@@ -59,6 +60,6 @@ foo() -&gt;
 def foo():
     foo()</code></pre>
 
-(<a href="http://mail.python.org/pipermail/python-dev/2006-January/059652.html">or python will segfault if you increase the recursion limit</a>)
+<p>(<a href="http://mail.python.org/pipermail/python-dev/2006-January/059652.html">or python will segfault if you increase the recursion limit</a>)</p>
 
 {% endblock content %}

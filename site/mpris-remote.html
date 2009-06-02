@@ -1,12 +1,13 @@
 {% extends "/base.html" %}
 {% set title = "mpris remote" %}
 {% block content %}
-mpris-remote is a utility that controls an <a
-    href="http://mpris.org/">MPRIS</a>-capable music player.
 
-Supported players include:
+<p>mpris-remote is a utility that controls an <a
+    href="http://mpris.org/">MPRIS</a>-capable music player.</p>
 
-<ul>
+<p>Supported players include:</p>
+
+<p><ul>
 <li>Audacious</li>
 <li>VLC (must launch with <code>vlc --control dbus</code>)</li>
 <li>BMPx</li>
@@ -15,21 +16,21 @@ Supported players include:
 <li>MPD via <a href="http://mpd.wikia.com/wiki/Client:MpDris">mpDris</a></li>
 <li>Dragon Player</li>
 <li><a href="corn.html">Corn</a> (written by me)</li>
-</ul>
+</ul></p>
 
-The level of MPRIS compliance varies wildly between these different players,
+<p>The level of MPRIS compliance varies wildly between these different players,
 but mpris-remote tries to work around that as much as possible.  Some players
-don't report status information, some don't support metadata, etc.
+don't report status information, some don't support metadata, etc.</p>
 
-Code is at <a
+<p>Code is at <a
 href="http://github.com/mackstann/mpris-remote/tree/master">github</a>.  It's a
 Python script and doesn't require any building or installation.  Just put it
-somewhere in your PATH.  It does depend on the Python D-BUS module.
+somewhere in your PATH.  It does depend on the Python D-BUS module.</p>
 
 <pre class="sh"><code>git clone git://github.com/mackstann/mpris-remote.git</code></pre>
 
-The usage text is hopefully pretty self-explanatory.  Use <code>-h</code> or
-<code>--help</code> to read it.
+<p>The usage text is hopefully pretty self-explanatory.  Use <code>-h</code> or
+<code>--help</code> to read it.</p>
 
 <h3>examples</h3>
 

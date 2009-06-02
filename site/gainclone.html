@@ -1,15 +1,16 @@
 {% extends "/base.html" %}
 {% set title = "gainclone" %}
 {% block content %}
-I had <a href="amp6.html">previously planned</a> to build a small stereo amp
+
+<p>I had <a href="amp6.html">previously planned</a> to build a small stereo amp
 using the amp6 kit from 41hz.com.  After deciding I wanted a bit more power, I
 did some research and am now going to build a so-called <a
     href="http://en.wikipedia.org/wiki/Gainclone">gainclone</a> amp based on
-the LM3886 chip.
+the LM3886 chip.</p>
 
-Here is a basic parts list:
+<p>Here is a basic parts list:</p>
 
-<table>
+<p><table>
     <thead>
         <tr><th>part</th><th>source</th><th>price</th></tr>
     </thead>
@@ -39,80 +40,81 @@ Here is a basic parts list:
             <td>$139.00</td>
         </tr>
     </tfoot>
-</table>
+</table></p>
 
 <h2>the amp kit</h2>
 
-<img src="/images/gainclone/8audio-1-small.jpg">
+<p><img src="/images/gainclone/8audio-1-small.jpg">
 <img src="/images/gainclone/8audio-3-small.jpg"><br>
-<cite>LM3886 amp boards (left) and power supply (right)</cite>
+<cite>LM3886 amp boards (left) and power supply (right)</cite></p>
 
-There are apparently a lot of shady sellers on ebay selling chip amp kits out
+<p>There are apparently a lot of shady sellers on ebay selling chip amp kits out
 of east Asia with counterfeit chips and low quality construction.  I was wary
 of 8audio at first, but some searching led me to an article at <a
     href="http://www.beavishifi.com/projects/class_d_amplifier/">beavishifi.com</a>
 which mentioned good experiences with them. I wrote the author, and he
-re-iterated this.
+re-iterated this.</p>
 
-The main reason I'm going with this kit is that it's pretty cheap, and it'll
+<p>The main reason I'm going with this kit is that it's pretty cheap, and it'll
 save me the tedium of soldering circuits together myself, which is not
-something I really love to do.
+something I really love to do.</p>
 
-If you do want to solder the amp yourself, the <a
+<p>If you do want to solder the amp yourself, the <a
     href="http://chipamp.com">chipamp.com</a> kits seem to be widely respected,
 or you can pretty easily roll your own, without even using a PCB, if you like.
-There are many options.  Use the Google.
+There are many options.  Use the Google.</p>
 
 <h2>transformer</h2>
 
-22<abbr title="volts">V</abbr> seems to be the ideal voltage for these amps.
+<p>22<abbr title="volts">V</abbr> seems to be the ideal voltage for these amps.
 You can go a bit lower or higher depending on the speakers you're driving, but
 I'm looking to build a pretty middle-of-the-road amp.  The lowest amount of
 power generally recommended is 160<abbr title="volt-amps, also known as watts">VA</abbr>.
 Going a bit higher will help when playing at loud
 volumes, and since it was only $7 more than the
 200<abbr title="volt-amps, also known as watts">VA</abbr> model,
-I decided to go for the 300<abbr title="volt-amps, also known as watts">VA</abbr>.
+I decided to go for the 300<abbr title="volt-amps, also known as watts">VA</abbr>.</p>
 
-This part of the amp is much more expensive than the $15-ish laptop-style power
+<p>This part of the amp is much more expensive than the $15-ish laptop-style power
 brick that the amp6 can use, but it'll translate to a significantly more
-powerful amp.
+powerful amp.</p>
 
 <h2>digital is good</h2>
 
-I'm going to be using this amp at my computer.  Primarily for listening to
+<p>I'm going to be using this amp at my computer.  Primarily for listening to
 music, but sometimes also a movie.  One of the things that bugs me about my
 current setup (internal sound card connected to a typical stereo receiver) is
 that a lot of noise is introduced.  When my external hard drive spins up, I can
 hear it through my speakers if the volume is up a bit.  If I turn the volume up
 moderately with nothing playing, I hear hiss.  This isn't the end of the world,
 but it'd be nice to eliminate it, and I'm sure sound fidelity would go up at
-least a tiny bit by doing so.
+least a tiny bit by doing so.</p>
 
-One source of interference is the sound card being inside of the computer, which
+<p>One source of interference is the sound card being inside of the computer, which
 is a very noisy place to be, as far as audio electronics are concerned.  Another
 issue is the line-level cables running from the computer to the amp.  Both of
 these can be eliminated by building a
 <abbr title="digital-to-analog converter">DAC</abbr> into the amp, so that the
 sound path is purely digital (and thus, generally interference-free) until
-right before reaching the amp circuit itself.
+right before reaching the amp circuit itself.</p>
 
-You can build your own <abbr
+<p>You can build your own <abbr
     title="digital-to-analog converter">DAC</abbr> circuit, or buy kits, but
-the easiest way to go is to buy an already complete one and take it apart.
+the easiest way to go is to buy an already complete one and take it apart.</p>
 
 <h3>enter the imic</h3>
 
-<img src="/images/gainclone/imic.jpg"><br>
-<cite><em><a href="http://www.flickr.com/photos/pritch/103170583/">iMic</a></em> &copy; 2006 <a href="http://www.flickr.com/people/pritch/">Huw Pritchard</a>. CC by-nc-sa.
+<p><img src="/images/gainclone/imic.jpg"><br>
+<cite><em><a href="http://www.flickr.com/photos/pritch/103170583/">iMic</a></em> &copy; 2006 <a href="http://www.flickr.com/people/pritch/">Huw Pritchard</a>. CC by-nc-sa.</p>
 
-The Griffin iMic is exactly that, and it seems to generally be regarded as
+<p>The Griffin iMic is exactly that, and it seems to generally be regarded as
 having good sound quality.  To turn it into an in-amp
 <abbr title="digital-to-analog converter">DAC</abbr>, all one needs to do is
 connect its USB cord to a panel-mounted USB female jack, and connect its analog
 output into the amp's line-level input.  There'll be a couple more components
 involved since I want multiple inputs to the amp that can be toggled, and I'll
-of course want a volume control, but the basic point is the same.
+of course want a volume control, but the basic point is the same.</p>
 
 <h2>to be continued...</h2>
+
 {% endblock content %}

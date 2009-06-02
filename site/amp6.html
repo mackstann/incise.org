@@ -3,7 +3,7 @@
 {% block content %}
 <h2>my 41hz.com amp6 project</h2>
 
-I'm building a little stereo amp based on the <a
+<p>I'm building a little stereo amp based on the <a
     href="http://41hz.com">41hz.com</a> amp6 kit.  I'm doing this because
 typical stereo receivers waste a lot of power due to being class A/B
 amplifiers, they're somewhat-annoyingly large, and just because I like
@@ -11,39 +11,44 @@ designing/building stuff.  I'm not sure if I'll be able to notice a difference
 in sound since I don't consider myself to have great hearing -- not to mention
 the fact that I'm generally listening to music from a computer with cheap
 on-board sound -- but the 41hz amps are considered to have very high fidelity,
-as are other amps based on Tripath chips in general.
+as are other amps based on Tripath chips in general.</p>
 
-I'm spending more than the minimum for decent quality parts, although it is
+<p>I'm spending more than the minimum for decent quality parts, although it is
 still very cheap by "audiophile" standards.  The most notable expense is the
-alps blue velvet potentiometer.
+alps blue velvet potentiometer.</p>
 
-Another issue is "vampire power" or the trickle of power consumption that many
-devices exhibit when apparently turned off.  This amp will be designed so that
-the power switch will cut off the a/c connection and no transformers or
-anything else will be consuming any energy when it is switched off.
+<p>Another issue is "vampire power" or the trickle of power consumption that
+many devices exhibit when apparently turned off.  This amp will be designed so
+that the power switch will cut off the a/c connection and no transformers or
+anything else will be consuming any energy when it is switched off.</p>
 
 <h3>controls/inputs/outputs</h3>
 
-back panel:
+<p>back panel:</p>
 
-<ul>
-    <li>a/c power input</li>
-    <li>two pairs of speaker binding posts</li>
-    <li>four pairs of rca inputs</li>
-</ul>
+<p>
+    <ul>
+        <li>a/c power input</li>
+        <li>two pairs of speaker binding posts</li>
+        <li>four pairs of rca inputs</li>
+    </ul>
+</p>
 
-front panel:
+<p>front panel:</p>
 
-<ul>
-    <li>power switch</li>
-    <li>mute (sleep) switch</li>
-    <li>source 1/2/none toggle switch</li>
-    <li>source 3/4/none toggle switch</li>
-    <li>volume knob</li>
-</ul>
+<p>
+    <ul>
+        <li>power switch</li>
+        <li>mute (sleep) switch</li>
+        <li>source 1/2/none toggle switch</li>
+        <li>source 3/4/none toggle switch</li>
+        <li>volume knob</li>
+    </ul>
+</p>
 
 <h3>parts list</h3>
 
+<p>
 <table border="1">
     <thead>
     <tr><th>    part                          </th><th>source       </th><th align="right">price </th><th align="right">#</th></tr>
@@ -91,17 +96,18 @@ front panel:
     <tr><th>total                             </th><td>             </td><td align="right">107.84</td><td align="right"> </td></tr>
     </tfoot>
 </table>
+</p>
 
-Plus maybe $10-20 for a chassis of some sort.  I'm not sure if I'll reuse
+<p>Plus maybe $10-20 for a chassis of some sort.  I'm not sure if I'll reuse
 something weird (like a metal lunchbox) or get one of the cheap enclosures from
-web-tronics (like <a href="http://web-tronics.com/la-7.html">this one</a>).
+web-tronics (like <a href="http://web-tronics.com/la-7.html">this one</a>).</p>
 
 <h3>concerns about specific parts</h3>
 
 <h4>source selector switch(es)</h4>
 
-Rotary switches seem to be more expensive than toggles for the same amount of
-switching.  I don't have much personal preference, so toggles it is.  Most
+<p>Rotary switches seem to be more expensive than toggles for the same amount
+of switching.  I don't have much personal preference, so toggles it is.  Most
 switches have copper contacts (the parts inside which actually touch each other
 when switched) which are fine for most purposes, but can cause sound
 degradation if used with audio, especially line-level, which is relatively
@@ -116,48 +122,48 @@ oxidize, but the layer of <a
 thin and the action of switching will generally wipe it away, not to mention
 the fact that silver oxide is conductive anyway, while <a
     href="http://en.wikipedia.org/wiki/Copper(I)_oxide">copper oxide</a> is a
-semiconductor and apparently acts as an insulator in this circumstance.
+semiconductor and apparently acts as an insulator in this circumstance.</p>
 
-If you only had two inputs, an on/on DPDT would be appropriate, but I want four
-inputs, so I'll use two DPDT on/off/on switches, with one switching between
-source 1/2 and the other switching between 3/4.  If both switches are in an
-"on" position, I'll have two sources mixed together, which is not something I
-need or want, so it will require slightly more human effort to make sure one
-switch is off before using the other, but that's negligible, especially since I
-rarely switch sources.  I couldn't find any actual reviews of web-tronics, but
-the people at the diyaudio.com forums <a
+<p>If you only had two inputs, an on/on DPDT would be appropriate, but I want
+four inputs, so I'll use two DPDT on/off/on switches, with one switching
+between source 1/2 and the other switching between 3/4.  If both switches are
+in an "on" position, I'll have two sources mixed together, which is not
+something I need or want, so it will require slightly more human effort to make
+sure one switch is off before using the other, but that's negligible,
+especially since I rarely switch sources.  I couldn't find any actual reviews
+of web-tronics, but the people at the diyaudio.com forums <a
     href="http://www.google.com/search?q=site%3Adiyaudio.com+web-tronics.com">seem
-    to be okay with them</a>.
+    to be okay with them</a>.</p>
 
-It took a long time for me to get a straight answer on whether the negatives
+<p>It took a long time for me to get a straight answer on whether the negatives
 from the input sources need to be kept separate from each other (requiring a
 4PDT switch to switch both the positives and the negatives), but finally I
 discovered that the answer is no.  You just connect all the negatives together,
-and only the positives go through the switches.
+and only the positives go through the switches.</p>
 
 <h3>sketch of layout</h3>
 
-click to enlarge
+<p>click to enlarge</p>
 
-<a href="/images/amp6/amp6-sortoffinal.png"><img src="/images/amp6/amp6-sortoffinal-thumb.png"></a>
+<p><a href="/images/amp6/amp6-sortoffinal.png"><img src="/images/amp6/amp6-sortoffinal-thumb.png"></a></p>
 
 <h2>UPDATE - a new addition</h2>
 
-I've decided that the noise encountered by analog connections from computer to
-amp is unacceptable anymore, so I'm going to cannibalize a Griffin iMic USB DAC
-and put it inside the amp.  It's small, cheap, is powered by USB, is compatible
-with Linux with no special configuration needed, and has a good reputation for
-its sound quality.  Wiring it in will be simple (using a USB female jack like
-<a href="http://www.l-com.com/item.aspx?id=4758">this</a>), and the end result
-will be that the line-level analog signal will only exist for a very small
-length of wire inside of the amp.  This should reduce noise greatly.
+<p>I've decided that the noise encountered by analog connections from computer
+to amp is unacceptable anymore, so I'm going to cannibalize a Griffin iMic USB
+DAC and put it inside the amp.  It's small, cheap, is powered by USB, is
+compatible with Linux with no special configuration needed, and has a good
+reputation for its sound quality.  Wiring it in will be simple (using a USB
+female jack like <a href="http://www.l-com.com/item.aspx?id=4758">this</a>),
+and the end result will be that the line-level analog signal will only exist
+for a very small length of wire inside of the amp.  This should reduce noise
+greatly.</p>
 
 
 <h3>the end, for now</h3>
 
-I probably won't be building this until spring/summer 2009.  I seem to
-have gotten all the parts and design figured out, so until then, this page
-remains to be continued...
-
+<p>I probably won't be building this until spring/summer 2009.  I seem to have
+gotten all the parts and design figured out, so until then, this page remains
+to be continued...</p>
 
 {% endblock content %}

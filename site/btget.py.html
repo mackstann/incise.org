@@ -1,17 +1,26 @@
 {% extends "/base.html" %}
 {% set title = "btget.py" %}
 {% block content %}
-Azureus is a pretty nice way to download torrents, but I tend to put it off in another workpsace and forget about it.  I thought it would be cool if I could reliably script a bittorrent download on the command line so that when it finished, some other scripted action(s) would happen (for example, send the file off somewhere else).
 
-btdownloadheadless is perfect for this task.  All you need to do is kill it once you get to 100% success.  I thought that maybe I could get away with a simple shell command, like this:
+<p>Azureus is a pretty nice way to download torrents, but I tend to put it off
+in another workpsace and forget about it.  I thought it would be cool if I
+could reliably script a bittorrent download on the command line so that when it
+finished, some other scripted action(s) would happen (for example, send the
+file off somewhere else).</p>
+
+<p>btdownloadheadless is perfect for this task.  All you need to do is kill it
+once you get to 100% success.  I thought that maybe I could get away with a
+simple shell command, like this:</p>
 
 <pre class="sh"><code>btdownloadheadless foo.torrent | tee output.txt | grep -iq "download succeeded"</code></pre>
 
-... but grep exits, giving tee a broken pipe but not killing it, and btdownloadheadless keeps running.
+<p>... but grep exits, giving tee a broken pipe but not killing it, and
+btdownloadheadless keeps running.</p>
 
-Plus, btdownloadheadless is really stubborn about getting killed by SIGINT or SIGTERM -- you usually need to SIGKILL it.
+<p>Plus, btdownloadheadless is really stubborn about getting killed by SIGINT
+or SIGTERM -- you usually need to SIGKILL it.</p>
 
-So I wrote a little Python script to do this.
+<p>So I wrote a little Python script to do this.</p>
 
 <pre class="python"><code>import sys, os, signal, subprocess, time
 
@@ -52,12 +61,12 @@ except KeyboardInterrupt:
         kill_with_prejudice(p.pid)
     raise SystemExit</code></pre>
 
-You run it like this:
+<p>You run it like this:</p>
 
 <pre class="sh"><code>python btget.py foo.torrent</code></pre>
 
-It will look just like btdownloadheadless except it'll exit when 100% is reached.
+<p>It will look just like btdownloadheadless except it'll exit when 100% is reached.</p>
 
-Todo: wait until X amount of additional good-citizen seeding has been done before exiting.
+<p>Todo: wait until X amount of additional good-citizen seeding has been done before exiting.</p>
 
 {% endblock content %}

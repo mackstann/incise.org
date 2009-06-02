@@ -1,24 +1,25 @@
 {% extends "/base.html" %}
 {% set title = "simple unix shared memory interface" %}
 {% block content %}
-This is a simple example of how to use shared memory.  I found that there were a number of hoops
+
+<p>This is a simple example of how to use shared memory.  I found that there were a number of hoops
 to jump through to make it work right, so I figured I'd put my code up in case anyone else
-needs help with it.
+needs help with it.</p>
 
-If you want to use multiple blocks of shared memory in a single process then
-you might need to pass a different id to ftok() for each one.  I used the same block every time so I had no need for that.
+<p>If you want to use multiple blocks of shared memory in a single process then
+you might need to pass a different id to ftok() for each one.  I used the same block every time so I had no need for that.</p>
 
-In any case,
+<p>In any case,
 the main entry point is open_shm(). It returns a block of shared memory
 of the specified size. If justreading is 1 and there's been data written
 to the block of shared mem, then you access what has already been
 written. Otherwise, you create a new one
-with undefined contents.
+with undefined contents.</p>
 
-Once you get your memory block successfully returned to you by open_shm(), you can treat it like any
-other block of memory that you'd get from e.g. malloc().
+<p>Once you get your memory block successfully returned to you by open_shm(), you can treat it like any
+other block of memory that you'd get from e.g. malloc().</p>
 
-PDIE() is left as an exercise to the reader...
+<p>PDIE() is left as an exercise to the reader...</p>
 
 <pre class="c"><code>/* This code written by Nick Welch <mack@incise.org>, 2006.
  *
@@ -41,7 +42,7 @@ static key_t get_shm_key(void)
 static int get_shm_min(void)
 {
     struct shminfo info;
-    if((shmctl(0, IPC_INFO, (struct shmid_ds *)(void *)&info)) == -1)
+    if((shmctl(0, IPC_INFO, (struct shmid_ds *)(void *)&amp;info)) == -1)
         PDIE("shmctl (shminfo)");
     return info.shmmin;
 }

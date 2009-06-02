@@ -3,22 +3,22 @@
 {% block content %}
 <h2>M4A (AAC) to MP3</h2>
 
-The <code>faad</code> program is what is supposed to be used to play M4A files,
+<p>The <code>faad</code> program is what is supposed to be used to play M4A files,
 but it seemed to not work with all of mine.  MPlayer seems to be better.
 Unfortunately, MPlayer
 <a href="http://lists.mplayerhq.hu/pipermail/mplayer-users/2005-December/057511.html">can't
 output the decoded PCM data to stdout</a>, so to achieve parallel
 decoding/encoding, a named pipe is necessary.  This is like a pipe on the
-command line except that it has a filename.
+command line except that it has a filename.</p>
 
 <pre class="sh"><code>mkfifo tmp.pipe
 mplayer -noconsolecontrols -ao pcm:file=tmp.pipe whatever.m4a &amp;
 lame --preset standard tmp.pipe whatever.mp3
 rm -f tmp.pipe</code></pre>
 
-Substitute your preferred <code>lame</code> flags.
+<p>Substitute your preferred <code>lame</code> flags.</p>
 
-To do all files in a directory recursively:
+<p>To do all files in a directory recursively:</p>
 
 <pre class="sh"><code>mkfifo tmp.pipe
 find . -name "*.m4a" | while read filename
@@ -29,11 +29,11 @@ do
 done
 rm -f tmp.pipe</code></pre>
 
-Add <code>-maxdepth 1</code> to <code>find</code>'s arguments to be non-recursive.
+<p>Add <code>-maxdepth 1</code> to <code>find</code>'s arguments to be non-recursive.</p>
 
 <h2>FLAC to MP3</h2>
 
-A little simpler.  Here's the recursive version:
+<p>A little simpler.  Here's the recursive version:</p>
 
 <pre class="sh"><code>find . -name "*.flac" | while read filename
 do
@@ -43,6 +43,6 @@ done</code></pre>
 
 <h2>update: actually, why not use mplayer for every source format?</h2>
 
-Hey.. good idea.  I also made a script that parallelizes and <a href="http://github.com/mackstann/bin/tree/master/TranscodeToMP3">put it on github</a>.
+<p>Hey.. good idea.  I also made a script that parallelizes and <a href="http://github.com/mackstann/bin/tree/master/TranscodeToMP3">put it on github</a>.</p>
 
 {% endblock content %}

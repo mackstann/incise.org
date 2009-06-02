@@ -1,7 +1,8 @@
 {% extends "/base.html" %}
 {% set title = "xlib key passing" %}
 {% block content %}
-<strong>UPDATE:</strong>  This page is wrong.  First off, using this method is
+
+<p><strong>UPDATE:</strong>  This page is wrong.  First off, using this method is
 slow when using X11 over a network, since every single key/button even requires
 a round-trip to determine what to do with it.  Second and more importantly,
 there seems to be a problem with programs which are too slow to keep up with
@@ -10,30 +11,30 @@ repeat breaks.  I can't say I understand it fully, because I haven't gone into
 Xlib or the X server code to figure out exactly how this stuff is implemented.
 All I can say is that it's extremely convoluted and undocumented and I just
 don't want to deal with it anymore. So it's back to asynchronous
-<code>XGrabKey</code> and <code>XGrabButton</code>... bummer.
+<code>XGrabKey</code> and <code>XGrabButton</code>... bummer.</p>
 
-The following is the old content of this page, which should not serve as a
-definitive answer as I once though it was.
+<p>The following is the old content of this page, which should not serve as a
+definitive answer as I once though it was.</p>
 
 <hr>
 
-There is a problem with doing key combos with Xlib, and that is, how do can you
+<p>There is a problem with doing key combos with Xlib, and that is, how do can you
 dynamically decide to not handle a key combo?  Generally if you're writing a
 window manager or keygrabber or whatever, you read a config file and grab some
 known key combinations, and it's that simple.  But what if your key combo
 handling "rules" aren't quite so static?  What if you want to match against some
 sort of logic that can't be predetermined at the time of your <code>XGrabKey</code>
-calls?
+calls?</p>
 
-Well the answer is pretty simple, but seemed elusive for quite a while.
+<p>Well the answer is pretty simple, but seemed elusive for quite a while.
 Basically, to swallow a keycombo, you use <code>XAllowEvents</code> with
 <code>ReplayKeyboard</code> on both the <code>KeyPress</code> <strong>and</strong> <code>KeyRelease</code>
 events that match your keybinding.  To pass a keycombo on to the client
 windows, you use <code>XAllowEvents</code> with <code>AsyncKeyboard</code> <strong>and</strong> do an
 <code>XFlush</code>.  If you don't do an <code>XFlush</code>, then quickly repeated keycombos
-(like when you're holding the keys down and they auto-repeat) will get "lost."
+(like when you're holding the keys down and they auto-repeat) will get "lost."</p>
 
-Example:
+<p>Example:</p>
 
 <pre class="c"><code>/* Written by Nick Welch &lt;mack@incise.org&gt;, 2005.
  *
@@ -75,24 +76,24 @@ int main(void)
 
     for(;;)
     {
-        XNextEvent(dpy, &ev);
+        XNextEvent(dpy, &amp;ev);
 
         if(ev.type == KeyPress </td><td> ev.type == KeyRelease)
         {
             /* again the lock key issues -- we just fire if alt is being
              * pressed, regardless if other modifiers are being pressed or not.
              */
-            if(ev.xkey.keycode == F1 && ev.xkey.state & Mod1Mask)
+            if(ev.xkey.keycode == F1 &amp;&amp; ev.xkey.state &amp; Mod1Mask)
             {
                 if(ev.type == KeyPress)
                     fprintf(stderr, "got Alt+F1\n");
 
-                swallow_keystroke(dpy, &ev);
+                swallow_keystroke(dpy, &amp;ev);
             }
             else
             {
                 fprintf(stderr, "got (something else)+F1, passing through\n");
-                passthru_keystroke(dpy, &ev);
+                passthru_keystroke(dpy, &amp;ev);
             }
         }
     }

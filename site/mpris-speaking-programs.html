@@ -1,14 +1,15 @@
 {% extends "/base.html" %}
 {% set title = "mpris speaking programs" %}
 {% block content %}
-<a href="http://wiki.xmms2.xmms.se/wiki/Media_Player_Interfaces">MPRIS</a> is a
+
+<p><a href="http://wiki.xmms2.xmms.se/wiki/Media_Player_Interfaces">MPRIS</a> is a
 standard for communication between media players and programs that interact
 with them.  This page is a list of all programs I could find that are
-MPRIS-compatible in some way.
+MPRIS-compatible in some way.</p>
 
 <h2>media players</h2>
 
-<ul>
+<p><ul>
 <li>Amarok</li>
 <li>Audacious</li>
 <li>VLC (must launch with <code>vlc --control dbus</code>)</li>
@@ -18,11 +19,11 @@ MPRIS-compatible in some way.
 <li>MPD via <a href="http://mpd.wikia.com/wiki/Client:MpDris">mpDris</a></li>
 <li>Dragon Player</li>
 <li><a href="corn.html">Corn</a> (written by me)</li>
-</ul>
+</ul></p>
 
 <h2>utility/control apps</h2>
 
-<ul>
+<p><ul>
 <li><a href="http://hans.fugal.net/src/mprismote/">mprismote</a> controls an
 MPRIS-compatible player from across a network.</li>
 <li>An MPRIS <a href="http://mpris.rubyforge.org/classes/MPRIS.html">Ruby module</a>.</li>
@@ -31,27 +32,23 @@ lyric display program.</li>
 <li><a href="http://www.fredemmott.co.uk/index.php?page=blogentry&id=157">mprisshell</a></li>
 <li><a href="http://www.kuliniewicz.org/music-applet/">Music Applet</a></li>
 <li><a href="mpris-remote.html">mpris-remote</a> (written by me)</li>
-</ul>
+</ul></p>
 
 <h2>chat clients</h2>
 
-<ul>
+<p><ul>
     <li>There's a "now playing" <a
-    href="http://m0n5t3r.info/work/pidgin-mpris">plugin</a> for Pidgin which is
-    in Debian, Ubuntu, and Gentoo at least.</li>
-
+        href="http://m0n5t3r.info/work/pidgin-mpris">plugin</a> for Pidgin
+        which is in Debian, Ubuntu, and Gentoo at least.</li>
     <li>There's unofficial <a
-    href="http://flyspray.psi-im.org/task/773?dev=3">"now
-    playing" code</a> for the <a href="http://psi-im.org/">Psi</a> IM client.</li>
-
+        href="http://flyspray.psi-im.org/task/773?dev=3">"now
+        playing" code</a> for the <a href="http://psi-im.org/">Psi</a> IM client.</li>
     <li>The <a href="http://kmess.org/">KMess</a> IM client has an <a
-    href="http://trac.kmess.org/ticket/357">outstanding bug</a> requesting MPRIS
-    support (they already support other D-BUS stuff so it looks like a small task).</li>
-
+        href="http://trac.kmess.org/ticket/357">outstanding bug</a> requesting MPRIS
+        support (they already support other D-BUS stuff so it looks like a small task).</li>
     <li>The Gajim Jabber client supports a "now playing" feature <a
-    href="http://trac.gajim.org/wiki/GajimAndMusicPlayer">through MPRIS</a>.</li>
-
+        href="http://trac.gajim.org/wiki/GajimAndMusicPlayer">through MPRIS</a>.</li>
     <li><a href="http://www.kvirc.net/">KVIrc</a> IRC client.
-</ul>
+</ul></p>
 
 {% endblock content %}

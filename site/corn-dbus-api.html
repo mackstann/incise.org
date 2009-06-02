@@ -1,15 +1,16 @@
 {% extends "/base.html" %}
 {% set title = "corn dbus api" %}
 {% block content %}
-<a href="corn.html">Corn</a>'s service name is org.mpris.corn.  There are two interfaces.
-org.freedesktop.MediaPlayer is the implementation of the <a
+
+<p><a href="corn.html">Corn</a>'s service name is org.mpris.corn.  There are
+two interfaces.  org.freedesktop.MediaPlayer is the implementation of the <a
     href="http://wiki.xmms2.xmms.se/wiki/MPRIS">MPRIS specification</a>.
 org.corn.CornPlayer contains a few extra things that I thought were missing in
 MPRIS (and will <a
     href="http://mailman.videolan.org/pipermail/mpris/2008-December/000042.html">probably
-    be in MPRIS 2.0</a>).
+    be in MPRIS 2.0</a>).</p>
 
-The following is a reference of all D-BUS methods available in Corn.
+<p>The following is a reference of all D-BUS methods available in Corn.</p>
 
 <pre>Interface: org.freedesktop.MediaPlayer
   Path: /

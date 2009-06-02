@@ -1,29 +1,32 @@
 {% extends "/base.html" %}
 {% set title = "corn installation" %}
 {% block content %}
-There are no official releases of <a href="corn.html">Corn</a> yet.  The code
-is available at <a
-href="http://github.com/mackstann/corn/tree/master">github</a>.
+
+<p>There are no official releases of <a href="corn.html">Corn</a> yet.  The
+code is available at <a
+href="http://github.com/mackstann/corn/tree/master">github</a>.</p>
 
 <h3>build instructions</h3>
 
-You'll need gcc, GNU autotools, cvs, and the following libraries (including development headers):
+<p>You'll need gcc, GNU autotools, cvs, and the following libraries (including development headers):</p>
 
-<ul>
-<li>libxine 1.0.0+</li>
-<li>glib 2.0+</li>
-<li>gthread 2.0+</li>
-<li>dbus-glib 1.0+</li>
-<li>libunique 1.0+</li>
-<li>sqlite3</li>
-<li>gio (often comes with glib)</li>
-</ul>
+<p>
+    <ul>
+        <li>libxine 1.0.0+</li>
+        <li>glib 2.0+</li>
+        <li>gthread 2.0+</li>
+        <li>dbus-glib 1.0+</li>
+        <li>libunique 1.0+</li>
+        <li>sqlite3</li>
+        <li>gio (often comes with glib)</li>
+    </ul>
+</p>
 
-On Ubuntu/Debian this should work out to:
+<p>On Ubuntu/Debian this should work out to:</p>
 
 <pre class="sh"><code>apt-get install build-essential cvs libxine-dev libglib2.0-dev libgio0 libdbus-glib-1-dev libunique-dev libsqlite3-dev</code></pre>
 
-To build:
+<p>To build:</p>
 
 <pre class="sh"><code>git clone git://github.com/mackstann/corn.git
 cd corn
@@ -31,11 +34,12 @@ cd corn
 ./configure
 make</code></pre>
 
-To run it from the build directory:
+<p>To run it from the build directory:</p>
 
 <pre class="sh"><code>./corn/corn</code></pre>
 
-Or to install to your system:
+<p>Or to install to your system:</p>
 
 <pre class="sh"><code>make install</code></pre>
+
 {% endblock content %}

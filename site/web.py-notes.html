@@ -1,14 +1,15 @@
 {% extends "/base.html" %}
 {% set title = "web.py notes" %}
 {% block content %}
-render(template, terms=None, asTemplate=False, base=None, isString=False):  : Renders a template, caching where it can.
+<p>render(template, terms=None, asTemplate=False, base=None, isString=False):  : Renders a template, caching where it can.</p>
 
- `template` is the name of a file containing the a template in
- the `templates/` folder
+<p>`template` is the name of a file containing the a template in
+the `templates/` folder</p> 
 
- `terms` is a dictionary used to fill the template. If it's None, then
+<p>`terms` is a dictionary used to fill the template. If it's None, then
  the caller's local variables are used instead, plus context, if it's not 
- already set, is set to `context`. <strong>Meaning: explicitly pass terms=locals() to reduce the amount of magic going on.</strong>
+ already set, is set to `context`. <strong>Meaning: explicitly pass terms=locals() to reduce the amount of magic going on.</strong></p>
 
-update: I like CherryPy and Mako better than web.py now.
+<p>update: I like CherryPy and Mako better than web.py now.</p>
+
 {% endblock content %}

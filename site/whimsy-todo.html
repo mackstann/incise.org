@@ -3,39 +3,40 @@
 {% block content %}
 <h2>handle non-normal-client windows</h2>
 
-Progress: zilch
+<p>Progress: zilch</p>
 
-i.e. override_redirect windows, unmapped windows, iconified, etc.
+<p>i.e. override_redirect windows, unmapped windows, iconified, etc.</p>
 
 
 <h2>sane key/mouse binding system</h2>
 
-Progress: moderate
+<p>Progress: moderate</p>
 
-For now (until hotspot stuff and window db are all working together nicely) it should just be global grabs mapped to functions that can do further filtering, and the actual actions.  Should turn off <em>replay</em> by default, instead of requiring user to do so, since that is the most common desired behavior.
+<p>For now (until hotspot stuff and window db are all working together nicely) it should just be global grabs mapped to functions that can do further filtering, and the actual actions.  Should turn off <em>replay</em> by default, instead of requiring user to do so, since that is the most common desired behavior.</p>
 
-The more granular grabbing will come when window types are working, and the callback functions generally assume that they should just go ahead and execute the action.  The binding setup should be the thing that takes care of making sure the right events go to the right places -- generally.
+<p>The more granular grabbing will come when window types are working, and the callback functions generally assume that they should just go ahead and execute the action.  The binding setup should be the thing that takes care of making sure the right events go to the right places -- generally.</p>
 
 
 <h2>window labels</h2>
 
-Progress: some, but unsure of proper design
+<p>Progress: some, but unsure of proper design</p>
 
-Keeping things in sync with the "database" might be an issue.
+<p>Keeping things in sync with the "database" might be an issue.</p>
 
-Container-wise, it's probably best to have a dict with window keys and sequence values, listing the labels for that window. -- yes
+<p>Container-wise, it's probably best to have a dict with window keys and sequence values, listing the labels for that window. -- yes</p>
 
-Formerly window "types."
+<p>Formerly window "types."</p>
 
 <h2>easy creation of 'hotspot' windows</h2>
 
-Progress: none
+<p>Progress: none</p>
 
-Basically the same idea that OmegaWM uses, although at least for now, with no graphics-related stuff.  Just creating the windows, putting them in the right places, giving them labels, and generally managing them (repositioning on resize etc.).
+<p>Basically the same idea that OmegaWM uses, although at least for now, with no graphics-related stuff.  Just creating the windows, putting them in the right places, giving them labels, and generally managing them (repositioning on resize etc.).</p>
 
 <h2>complex modifiers</h2>
 
-Progress: mostly done
+<p>Progress: mostly done</p>
 
-Mentioned in <a href="whimsy-ideas.html">ideas</a>
+<p>Mentioned in <a href="whimsy-ideas.html">ideas</a></p>
+
 {% endblock content %}

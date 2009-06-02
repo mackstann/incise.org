@@ -5,38 +5,38 @@
 
 <h2>See also</h2>
 
-<ul>
+<p><ul>
  <li><a href="http://freshmeat.net/projects/spookwm">freshmeat project page</a></li>
-</ul>
+</ul></p>
 
 <h2>Introduction</h2>
 
 <h3>What?</h3>
 
-Spook is an <a href="http://www.plig.org/xwinman/intro.html">X11 Window
+<p>Spook is an <a href="http://www.plig.org/xwinman/intro.html">X11 Window
 Manager</a>, focusing on modularity, and clean, well designed, object-oriented
-code.  It is written in C++.
+code.  It is written in C++.</p>
 
-Spook is licensed under an unrestrictive X/MIT license.  Basically, you just
-have to retain the license text.
+<p>Spook is licensed under an unrestrictive X/MIT license.  Basically, you just
+have to retain the license text.</p>
 
-The idea design- and implementation-wise is basically to take the time to think
+<p>The idea design- and implementation-wise is basically to take the time to think
 things through, instead of tossing together what works and saying I'll clean it
 up later.  Also, I think it's important to avoid monoliths -- monolithic code
 blocks, monolithic files, monolithic libraries and applications.  In fact,
-probably most of my time spent on Spook has been outside of Spook itself. :)
+probably most of my time spent on Spook has been outside of Spook itself. :)</p>
 
-There will be no prejudice against keyboard or mouse, and for the most part,
+<p>There will be no prejudice against keyboard or mouse, and for the most part,
 the behavior of the window manager with regard to input will be completely
-defined outside of the core of the window manager.
+defined outside of the core of the window manager.</p>
 
-Callbacks are used extensively.  You can put your own callbacks into the main
+<p>Callbacks are used extensively.  You can put your own callbacks into the main
 loop itself.  You can put callbacks into the X event handler for arbitrary X
 event types.  The X event handler itself is simply a callback registered with
 the main loop.  This stuff works right now.  And of course there are a ton of
-ideas in my head of where to go.
+ideas in my head of where to go.</p>
 
-Modules will be used, somewhat similar to <a
+<p>Modules will be used, somewhat similar to <a
 href="http://gaim.sf.net">gaim</a>'s plugins (or those of many other apps).
 Basically, compiled dynamic objects which the window manager will load and then
 communicate with.  It is through this interface that you can register your
@@ -48,33 +48,33 @@ parses.  There could be modules which wrap scripting language interpreters so
 that you could script things in your favorite scripting language, just as you
 can do in <a href="http://kahakai.sf.net">Kahakai</a> (python &amp; ruby) and
 <a href="http://sawmill.sf.net">Sawfish</a> (lisp).  This is still being hashed
-out -- it works, but I still want to do some more reworking.
+out -- it works, but I still want to do some more reworking.</p>
 
 <h3>Who?</h3>
 
-Me, Nick Welch, aka mackstann.  A computer nerd in Iowa, US.
+<p>Me, Nick Welch, aka mackstann.  A computer nerd in Iowa, US.</p>
 
-Spook is yet another spinoff of <a href="http://www.red-bean.com/%7Edecklin/aewm/">aewm</a>,
-and <a href="http://www.red-bean.com/%7Edecklin/">Decklin Foster</a> wrote that.
+<p>Spook is yet another spinoff of <a href="http://www.red-bean.com/%7Edecklin/aewm/">aewm</a>,
+and <a href="http://www.red-bean.com/%7Edecklin/">Decklin Foster</a> wrote that.</p>
 
 <h3>When?</h3>
 
-<a href="http://acronymfinder.com/af-query.asp?String=on&Acronym=ready+borland">WIR</a>!
-Basically - you definitely don't want to use it right now.
+<p><a href="http://acronymfinder.com/af-query.asp?String=on&Acronym=ready+borland">WIR</a>!
+Basically - you definitely don't want to use it right now.</p>
 
-The thing runs and works with few crashes/etc., but it's not even worthy of
+<p>The thing runs and works with few crashes/etc., but it's not even worthy of
 calling alpha.  Slow and steady is the key... I plan on this being a long-term
-project.
+project.</p>
 
 <h3>Where?</h3>
 
-You can browse viewarch <a href="http://incise.org:82/pub/arch-repository.html">here</a>,
+<p>You can browse viewarch <a href="http://incise.org:82/pub/arch-repository.html">here</a>,
 though it is often out of sync with my local copy.  The arch archive itself is
-<a href="http://wq.ath.cx:82/pub/arch">here</a> (not always online).
+<a href="http://wq.ath.cx:82/pub/arch">here</a> (not always online).</p>
 
 <h3>Why?</h3>
 
-<ul>
+<p><ul>
  <li>To become a better programmer, including:</li>
  <li>Improving C++ skills (was pretty new to it)</li>
  <li>Improving Xlib skills (ditto)</li>
@@ -82,36 +82,36 @@ though it is often out of sync with my local copy.  The arch archive itself is
  <li>Learning to deal with managing a C/C++ project: libraries, build system, etc.</li>
  <li>To have fun coding!</li>
  <li>And of course - to build the perfect window manager that I've always wanted but has not existed.  For some reason I've always been really intrigued by window managers; I've spent a lot of time going through different ones, I hacked a couple before having any real idea what I was doing, and even helped launch and develop <a href="http://kahakai.sf.net">one</a> for a while.  But they all had shortcomings.  I finally figured that the only way I could really get the exact window manager I wanted was to <em>write</em> the exact one I wanted, so I am.</li>
-</ul>
+</ul></p>
 
 <h2>Hot Screenshot Action</h2>
 
-I stripped out all of the Xlib drawing stuff that aewm had, and have not
+<p>I stripped out all of the Xlib drawing stuff that aewm had, and have not
 replaced it with anything, so right now you just get a random-colored titlebar
 with no text or buttons. :P  Left mouse button moves the window, and right
-mouse button resizes it.  Eventually I'll <a href="#decor">implement decor</a>.
+mouse button resizes it.  Eventually I'll <a href="#decor">implement decor</a>.</p>
 
-<img src="/images/spook/sexy.png">
+<p><img src="/images/spook/sexy.png"></p>
 
 <h2>Major Hurdles</h2>
 
 <h3>X Error Handling (solved, implemented)</h3>
-One thing I want to absolutely avoid in Spook is global variables, and the
+<p>One thing I want to absolutely avoid in Spook is global variables, and the
 general habit of "grabbing things out of the sky," as I call it.  It just feels
 wrong to me.  I feel that it can make encapsulation a <em>lot</em> more
 difficult.  Something I've noticed a lot in C++ (window managers specifically)
 is the usage of singletons as syntactically-sugared up global variables.  If a
 global variable is an F, then this is probably a D, IMO.  I realize that
-singletons have their uses; I think they're possibly overused.
+singletons have their uses; I think they're possibly overused.</p>
 
-The problem with X event handling comes in when you consider that you
+<p>The problem with X event handling comes in when you consider that you
 essentially <em>have</em> to handle X errors, and they're called via a function
 pointer that you pass to xlib.  This means that you can't really access the
 running program data from inside of the error handler, unless you have some
 global variables, singletons, or functions in the sky to use to grab onto the
-rest of the running program.
+rest of the running program.</p>
 
-So after quite a bit of thinking (I may be a bit slow), and after seeing
+<p>So after quite a bit of thinking (I may be a bit slow), and after seeing
 Metacity's error handling scheme, I realized that it was pretty simple, and
 allowed me to handle X errors without resorting to global variables, and in
 fact, presented a solution somewhat similar to the <code>try/catch</code>
@@ -122,10 +122,10 @@ error, and afterwards, you check your <code>xerror_catch</code> instance and
 see if it caught anything during that time.  You can then retrieve the error
 and do whatever is appropriate with it.  You can nest them, and you can also
 use a traditional X error handling function on the "outside" to catch
-unexpected X errors.
+unexpected X errors.</p>
 
 <h3>Signal Handling (solved, implemented)</h3>
-A somewhat similar problem is handling of unix signals.  Normally you do this
+<p>A somewhat similar problem is handling of unix signals.  Normally you do this
 by registering handlers for whichever signal(s) you want to catch, and then
 they're called, with no access to anything but the signal number, and any
 global data you have.  Well, if we want no global data, then that's not very
@@ -136,43 +136,43 @@ do.  You can only call a small number of C standard library functions
 called, so to be safe, you have to resort to things like blocking signals at
 various parts of your code.  A lot of people just ignore those restrictions
 (it'll usually compile and run fine), which can cause extremely sporadic and
-hard to detect bugs.
+hard to detect bugs.</p>
 
-The solution is also similar to <code>xerror_catch</code>, but a little
+<p>The solution is also similar to <code>xerror_catch</code>, but a little
 different.  Basically you set up a super simple signal handler that just
 records the fact that that signal was received, and then you poll that
 indicator at regular intervals, and if it is set, you take appropriate
 action and then clear it.  I don't want to explain it too much, because it
-could change, so see the source. (libspook/signal_check.{cc,hh})
+could change, so see the source. (libspook/signal_check.{cc,hh})</p>
 
 <h4>update: hah!</h4>
-Ok, as often happens, I found out that my "solution" was flawed.  My new
+<p>Ok, as often happens, I found out that my "solution" was flawed.  My new
 "perfect" (the old solution was perfect, until I found out it wasn't, so now
 this one is perfect ;) solution is to block signals with sigprocmask, and then
 check them with sigwaitinfo/sigtimedwait.  I split this off into its own
 library called sigh.
-And of course, nothing is ever final.
+And of course, nothing is ever final.</p>
 
 <h3>Extensiblity (somewhat solved, somewhat implemented)</h3>
-At first I thought that using boost::python was the best idea for making
+<p>At first I thought that using boost::python was the best idea for making
 Spook extensible, but I soon realized that basically any scripting
 interface is a total pain in the ass to deal with.  After a lot of
-pondering, I settled on callbacks and modules, right in C++.
+pondering, I settled on callbacks and modules, right in C++.</p>
 
-Modules are just dynamically loaded objects, like linux kernel modules,
+<p>Modules are just dynamically loaded objects, like linux kernel modules,
 or the modules that Gaim, XMMS, The Golem WM, and many other apps use.
 They will be implemented using Glib::Module, which is a convenience wrapper
-around dlopen(), dlsym(), etc.
+around dlopen(), dlsym(), etc.</p>
 
-Callbacks are implemented using the boost signal/bind/function
+<p>Callbacks are implemented using the boost signal/bind/function
 libraries.  Essentially, the whole inner core of the window manager will
 just be a bunch of signals (events) that you connect slots (callback
 functions) to.  This can be a platform not only for the default window
 manager behavior, but for (almost) any behavior a person would want to
-implement.
+implement.</p>
 
 <h3>Logging (solved, implemented)</h3>
-For any non-trivial app, I really think a good logging system is a good
+<p>For any non-trivial app, I really think a good logging system is a good
 idea.  I initially started using log4cplus, but I soon found it to be
 extremely hard to work with.  I really have a hard time articulating why I
 didn't like it; it just felt..obtuse.  It seemed to be the only decent C++
@@ -184,10 +184,10 @@ have your log file only log warnings, but get debug logging on
 prefix, one for formatting the actual log message, and one for a suffix),
 which can be pointed at any function so that you can override them with
 your own formatting.  And that's about it.  Simple and easy to wrap your
-brain around, yet decently flexible.
+brain around, yet decently flexible.</p>
 
 <h3>Decor (concept falling into place, not implemented)</h3>
-I think this is still a while off.  The main problem I am having with my
+<p>I think this is still a while off.  The main problem I am having with my
 mental assessment of it, is having flexible decor layouts.  I guess I'd lay
 it out similar to Metacity, but I want the label and buttons to be totally
 flexible.  They should be able to go anywhere on the decor.  As for how to
@@ -199,9 +199,9 @@ can execute whatever code it wants.  If someone wants to make a theme
 engine, they could just have their theme module have some sort of parser
 that reads a theme file and acts accordingly.  The interaction with cairo
 (or whatever other drawing system, if I change my mind) is, well, something
-I'm not too sure about yet.
+I'm not too sure about yet.</p>
 
-Update: And the answer is... don't worry about it.  This stuff (drawing)
+<p>Update: And the answer is... don't worry about it.  This stuff (drawing)
 doesn't need to be in the core anyways.  But the other part of the decor
 problem is how to organize the different areas of the decor, i.e. buttons,
 labels, handles, grips, etc.  I think I'll basically give each decor object
@@ -220,5 +220,6 @@ not sure about shape extension support (for non-rectangular decor), but
 I'll probably do it eventually.  I also suppose the client window should be
 at the bottom of the internal stacking of the whole frame window, so that
 decor can have little parts that hang over it if they want, for gee-whiz
-effects.
+effects.</p>
+
 {% endblock content %}

@@ -1,78 +1,79 @@
 {% extends "/base.html" %}
 {% set title = "thump" %}
 {% block content %}
-<strong>note: thump is defunct.</strong>
+
+<p><strong>note: thump is defunct.</strong></p>
 
 <h2>Feedback</h2>
 
-If you have any ideas or opinions regarding thump, playing
+<p>If you have any ideas or opinions regarding thump, playing
 mp3s/music in general, or anything remotely relevant to thump, please
-let me know.  I like to hear ideas.
+let me know.  I like to hear ideas.</p>
 
 <h2>Requirements</h2>
-You need Python 2.2, and either mpg321 or mpg123.
+<p>You need Python 2.2, and either mpg321 or mpg123.</p>
 
-Your Python will need threading support, so on NetBSD (and maybe others, I
+<p>Your Python will need threading support, so on NetBSD (and maybe others, I
 don't know), install the python2x-pth package, since the default python2x
-packages do not have threading support.
+packages do not have threading support.</p>
 
 <h2>Source</h2>
 <h3>thump 2</h3>
-Version 2 is almost a total rewrite, to make thump much more object-oriented.
+<p>Version 2 is almost a total rewrite, to make thump much more object-oriented.
 Work will be split up between the player, the queue manager, possibly another
 controlling process, and various clients.  IRC gateway is the plan, a la
-<a href="http://www.lintux.cx/bitlbee.html">BitlBee</a>.
+<a href="http://www.lintux.cx/bitlbee.html">BitlBee</a>.</p>
 
-<ul>
+<p><ul>
  <li><a href="http://incise.org/files/dev/thump2-2003-08-17-01.tgz">thump2-2003-08-17-01.tgz</a> [ 30 KB ]</li>
  <li><a href="http://incise.org/files/dev/thump2-2003-08-06-01.tgz">thump2-2003-08-06-01.tgz</a> [ 56 KB ]</li>
  <li><a href="http://incise.org/files/dev/thump2-2003-07-06-01.tgz">thump2-2003-07-06-01.tgz</a> [ 17 KB ]</li>
-</ul>
+</ul></p>
 
 <h3>thump 1</h3>
 
-<ul>
+<p><ul>
  <li><a href="http://incise.org/files/dev/thump-2003-05-22-2.tgz">thump-2003-05-22-2.tgz</a> [ 6 KB ]</li>
  <li><a href="http://incise.org/files/dev/thump-2003-05-22-1.tgz">thump-2003-05-22-1.tgz</a> [ 12 KB ]</li>
-</ul>
+</ul></p>
 
 <h2>Current status</h2>
 
-<strong>August 17 2003:</strong> Now using XML to transfer commands around.  Lots of crud
+<p><strong>August 17 2003:</strong> Now using XML to transfer commands around.  Lots of crud
 cleaned up, config file and code stabilized, playlist with basic functionality
 works, everything looking really good.  Most big problems have been worked out,
-and now it's just a matter of getting things done.
+and now it's just a matter of getting things done.</p>
 
-<strong>August 6 2003:</strong> Tons of work, tons of changes.  I've decided to just use
+<p><strong>August 6 2003:</strong> Tons of work, tons of changes.  I've decided to just use
 mpg321, at least for now.  As things got more complex, I found myself
 duplicating more and more things that mpg321 already has, so I am using it.
-Tons of other changes, no time to write about all of them.
+Tons of other changes, no time to write about all of them.</p>
 
-<strong>July 14 2003:</strong> Logging works (much more elegant now too), decoder was
+<p><strong>July 14 2003:</strong> Logging works (much more elegant now too), decoder was
 mostly overhauled, adding pause/resume, seek, grab/ungrab of DSP, a command
 queue that listens on a socket is now complete.  Tons of docstrings.  Some
-other stuff I can't remember.
+other stuff I can't remember.</p>
 
-<strong>July 6 2003:</strong> Rewrite underway -- player works, decoder works, a dummy
+<p><strong>July 6 2003:</strong> Rewrite underway -- player works, decoder works, a dummy
 queue reader just takes commands on stdin, logging should work but not tested
-yet.
+yet.</p>
 
 <h2>Overview</h2>
 
-thump stands for <em> <strong>Th</strong>e <strong>U</strong>nix <strong>M</strong>p3 <strong>P</strong>layer</em>, the name
+<p>thump stands for <em> <strong>Th</strong>e <strong>U</strong>nix <strong>M</strong>p3 <strong>P</strong>layer</em>, the name
 reflects the goals of the player, and the philosophies that I believe software,
 and accordingly, software authors, should follow.  These ideas form the
 foundation of Unix-like operating systems.  Basically, things should be
-modular, flexible, and perform specific tasks.  Something like that, anyways.
+modular, flexible, and perform specific tasks.  Something like that, anyways.</p>
 
 <h2>Files</h2>
 
-In the thump config directory (normally ~/.thump), there are a number of
-files that serve various purposes.
+<p>In the thump config directory (normally ~/.thump), there are a number of
+files that serve various purposes.</p>
 
-<strong>[ This section is out of date ]</strong>
+<p><strong>[ This section is out of date ]</strong></p>
 
-<ul>
+<p><ul>
  <li>access_log is a formatted file listing what songs were played at what time.  The odd :@@: sequence is used to split the two fields to make it super easy to parse the file.</li>
  <li>error_log has errors and messages from thumpd.</li>
  <li>fe.pid is a list of the pids of clients/frontends currently running.</li>
@@ -81,5 +82,6 @@ files that serve various purposes.
  <li>player.pid has the pid of the player.</li>
  <li>playlist is a standard m3u format file, which is, just a list of files, one per line.</li>
  <li>stderr.out is where stderr gets redirected to.  If thumpd dies mysteriously, check this file.  You can also run thumpd with the -nodaemon option, which stops thumpd from forking and becoming a daemon, and also keeps stdout/stderr directed to your terminal.</li>
-</ul>
+</ul></p>
+
 {% endblock content %}

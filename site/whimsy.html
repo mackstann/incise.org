@@ -1,54 +1,55 @@
 {% extends "/base.html" %}
 {% set title = "whimsy" %}
 {% block content %}
-Whimsy is a small, highly hackable window manager written in Python.
 
-It's currently around 1000 lines SLOC (physical source lines of code, according
+<p>Whimsy is a small, highly hackable window manager written in Python.</p>
+
+<p>It's currently around 1000 lines SLOC (physical source lines of code, according
 to sloccount) and supports a tiny bit of the
 <a href="http://www.freedesktop.org/wiki/Specifications/wm-spec">Extended Window Manager Hints (EWMH)</a>
-spec.
+spec.</p>
 
-You can view the
+<p>You can view the
 <a href="http://github.com/mackstann/whimsy/tree/master">git repository</a>
-at github or see a list of release tarballs at the end of the page.
+at github or see a list of release tarballs at the end of the page.</p>
 
 <h2>why python?</h2>
 
-Most window managers are written in C or C++ and bend over backwards to
+<p>Most window managers are written in C or C++ and bend over backwards to
 implement config files, or IPC with pipes/sockets, or other contrived schemes
 to essentially try and add some flexibility to a static, compiled language.
 Why reinvent all that for the thousandth time?  Using a dynamic language like
 Python cuts out a lot of junk that's just not essential to the task of managing
 windows.  It's also much more flexible&mdash;which is my main goal&mdash;and
-plenty fast enough as well.
+plenty fast enough as well.</p>
 
-Whimsy is <em>entirely</em> written in Python.  There are no funky Python-to-C
+<p>Whimsy is <em>entirely</em> written in Python.  There are no funky Python-to-C
 bridges or wrappers or anything of that nature.  It uses
 <a href="http://python-xlib.sourceforge.net/">python-xlib</a> to communicate
-with the X server.  python-xlib is also written in pure Python.
+with the X server.  python-xlib is also written in pure Python.</p>
 
 <h2>what about tiling?</h2>
 
-The tiling window managers (ion, xmonad, wmii, dwm, etc.) out there are pretty
+<p>The tiling window managers (ion, xmonad, wmii, dwm, etc.) out there are pretty
 neat, but I just don't care for tiling.  It feels unpredictable, in a bad way.
 I've found that I really only have a handful of different ways of arranging
 windows<sup>*</sup>, and a handful of key bindings to explicitly make windows
-do these things is the most natural way of dealing with them that I've found.
+do these things is the most natural way of dealing with them that I've found.</p>
 
-<small><sup>*</sup> which generally are: fill left half of screen, or right
-half, or full screen, or just float above at whatever size</small>
+<p><small><sup>*</sup> which generally are: fill left half of screen, or right
+half, or full screen, or just float above at whatever size</small></p>
 
-I'm sure it wouldn't be a total nightmare for someone to implement tiling in
+<p>I'm sure it wouldn't be a total nightmare for someone to implement tiling in
 whimsy, but it seems that that niche has been filled pretty well, so I doubt it
-would be worth it.
+would be worth it.</p>
 
 <h2>screenshot?</h2>
 
-Well, there's really no point.  Whimsy doesn't draw any window borders or anything else.
+<p>Well, there's really no point.  Whimsy doesn't draw any window borders or anything else.</p>
 
 <h2>usage</h2>
 
-Quick start:
+<p>Quick start:</p>
 
 <pre class="sh"><code>$ wget http://incise.org/files/dev/whimsy-0.1a1.tgz
 $ tar zxvf whimsy-0.1a1.tgz
@@ -57,110 +58,110 @@ $ mv Xlib whimsy-0.1a1/
 $ export PYTHONPATH="$PWD/whimsy-0.1a1:$PYTHONPATH"
 $ python whimsy-0.1a1/config.py</code></pre>
 
-If you have a window manager running, then you'll get an exception saying so.
+<p>If you have a window manager running, then you'll get an exception saying so.
 You will need to kill your window manager and/or start up a new X server and/or
 edit your .xinitrc or .xsession file.  Due to its early stage of development, I
 do not recommend using whimsy as the final blocking command in your
 <code>.xinitrc</code> or <code>.xsession</code>, as this will cause your whole
-X session to die if whimsy does.  What I would do is put this in its place:
+X session to die if whimsy does.  What I would do is put this in its place:</p>
 
 <pre class="sh"><code>export PYTHONPATH="path/to/whimsy-0.1a1:$PYTHONPATH"
 xterm &amp;
-while true; do sleep 1000000; done</pre></code>
+while true; do sleep 1000000; done</code></pre>
 
-That way, when X starts up, you'll be greeted with a terminal with which to
+<p>That way, when X starts up, you'll be greeted with a terminal with which to
 start whimsy (<code>python path/to/whimsy-0.1a1/config.py</code>), and your X
-session will run forever.
+session will run forever.</p>
 
-As you can see, you actually run your config file.  In that sense, whimsy is
+<p>As you can see, you actually run your config file.  In that sense, whimsy is
 almost a library or toolkit, and your config file is a little script that uses
 it.  As long as you keep the top level <code>whimsy</code> directory in your
 <code>PYTHONPATH</code>, you can put your config script anywhere and call it
 anything.  It will just need to import <code>whimsy.base_config</code>.  You
 can also check out my personal config script, <code>example_config.py</code>,
-and run it like this:
+and run it like this:</p>
 
 <pre class="sh"><code>$ python whimsy/example_config.py</code></pre>
 
-Running it inside of <code>screen</code> is a decent idea, so if it crashes you
+<p>Running it inside of <code>screen</code> is a decent idea, so if it crashes you
 can switch to a virtual console and re-attach and see what went wrong and start
-it up again.
+it up again.</p>
 
-You could also install python-xlib via your package manager, although Whimsy is
+<p>You could also install python-xlib via your package manager, although Whimsy is
 developed against python-xlib's svn trunk so you could potentially have
-compatability problems with older versions of python-xlib.
+compatability problems with older versions of python-xlib.</p>
 
 <h3>default interface</h3>
 
-The most important things you will need to know are:
+<p>The most important things you will need to know are:</p>
 
-<ul>
+<p><ul>
     <li>Alt+left click will move a window</li>
     <li>Alt+right click will resize a window</li>
     <li>Ctrl+Alt+X will open an xterm</li>
-</ul>
+</ul></p>
 
-Beyond that, you can view the default key/mouse bindings in
+<p>Beyond that, you can view the default key/mouse bindings in
 <a href="http://github.com/mackstann/whimsy/tree/master/config.py"><code>config.py</code></a>.
 My own personal config file is
-<a href="http://github.com/mackstann/whimsy/tree/master/example_config.py"><code>example_config.py</code></a>.
+<a href="http://github.com/mackstann/whimsy/tree/master/example_config.py"><code>example_config.py</code></a>.</p>
 
-There are no window borders/decorations.  There is support for viewports/large
+<p>There are no window borders/decorations.  There is support for viewports/large
 desktops, which are basically like virtual desktops, but are "physically"
 linked in that a window hanging off of one will show up partially in the next,
 instead of each desktop being its own isolated little world.  (Desktops are implemented by hiding/showing windows.  Viewports are implemented by <em>moving</em> all windows over by one screen's-width or screen's-height.)  There aren't many
 window management operations implemented other than the basics: moving,
-resizing, closing, raising, lowering.
+resizing, closing, raising, lowering.</p>
 
 <h2>general design</h2>
 
-Whimsy is built in a somewhat decentralized, indirect way.  The main point of a
+<p>Whimsy is built in a somewhat decentralized, indirect way.  The main point of a
 window manager, especially one that you want to customize, is to decide what to
 do with X events, and then do it.  All of this decision-making and execution of
 actions is kept largely decoupled from the core of the window manager.  It's
 essentially an implementation of
 <a href="http://en.wikipedia.org/wiki/Model-view-controller">MVC</a> using the
 <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>,
-with a single "publisher" object, which is called the <strong>hub</strong>.
+with a single "publisher" object, which is called the <strong>hub</strong>.</p>
 
 <h3>models</h3>
 
-Right now the only models are the <strong>window manager</strong> and the
-<strong>client</strong>.
+<p>Right now the only models are the <strong>window manager</strong> and the
+<strong>client</strong>.</p>
 
 <h3>controllers</h3>
 
-The <strong>tick controller</strong> is dead simple and simply sends out tick
+<p>The <strong>tick controller</strong> is dead simple and simply sends out tick
 signals (through the hub, to whoever wants to receive them) in an
 almost-endless loop.  Some handlers for things like SIGINT call its
 <code>stop</code> method which will abort the endless loop at the end of the
-current iteration and allow for a clean shutdown and exit.
+current iteration and allow for a clean shutdown and exit.</p>
 
-The <strong>X event controller</strong> responds to tick signals and checks for
+<p>The <strong>X event controller</strong> responds to tick signals and checks for
 new X events.  It then sends out its own signal when it finds an event.  Event
 handlers can in turn listen for <em>that</em> signal and do whatever they want
-to handle the event.
+to handle the event.</p>
 
 <h3>other stuff</h3>
 
-<strong>Actions</strong> are the callbacks that actually implement the desired
-functionality to handle events.
+<p><strong>Actions</strong> are the callbacks that actually implement the desired
+functionality to handle events.</p>
 
-<strong>Filters</strong> inspect events and return a boolean indicating whether
+<p><strong>Filters</strong> inspect events and return a boolean indicating whether
 the event meets certain conditions, such as certain keyboard state, or what
-type of window is involved.
+type of window is involved.</p>
 
-I think that the X server could probably be considered the view.  MVC can be
-confusing.  I don't take it too seriously.
+<p>I think that the X server could probably be considered the view.  MVC can be
+confusing.  I don't take it too seriously.</p>
 
 <h2>license</h2>
 
-Whimsy is public domain.
+<p>Whimsy is public domain.</p>
 
 <h2>releases</h2>
 
-<ul>
+<p><ul>
     <li><a href="/files/dev/whimsy-0.1a1.tgz">0.1 alpha 1</a></li>
-</ul>
+</ul></p>
 
 {% endblock content %}
