@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "corn dbus api" %}
+{% block content %}
 <a href="corn.html">Corn</a>'s service name is org.mpris.corn.  There are two interfaces.
 org.freedesktop.MediaPlayer is the implementation of the <a
     href="http://wiki.xmms2.xmms.se/wiki/MPRIS">MPRIS specification</a>.
@@ -89,3 +92,4 @@ method return sender=:1.684 -&gt; dest=:1.785 reply_serial=2
 
 <pre><code>$ dbus-send --session --type=method_call --dest=org.mpris.corn /Player org.freedesktop.MediaPlayer.Next</code></pre>
 
+{% endblock content %}

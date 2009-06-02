@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "usb hard drive in lunix" %}
+{% block content %}
 <ul>
  <li>plug it all in</li>
  <li>look for which sdX drive it is in /var/log/messages</li>
@@ -12,3 +15,4 @@
  <li>edit fstab</li>
  <li>blammo</li>
 </ul>
+{% endblock content %}

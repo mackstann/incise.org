@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "thump" %}
+{% block content %}
 <strong>note: thump is defunct.</strong>
 
 <h2>Feedback</h2>
@@ -79,3 +82,4 @@ files that serve various purposes.
  <li>playlist is a standard m3u format file, which is, just a list of files, one per line.</li>
  <li>stderr.out is where stderr gets redirected to.  If thumpd dies mysteriously, check this file.  You can also run thumpd with the -nodaemon option, which stops thumpd from forking and becoming a daemon, and also keeps stdout/stderr directed to your terminal.</li>
 </ul>
+{% endblock content %}

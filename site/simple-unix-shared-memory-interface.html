@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "simple unix shared memory interface" %}
+{% block content %}
 This is a simple example of how to use shared memory.  I found that there were a number of hoops
 to jump through to make it work right, so I figured I'd put my code up in case anyone else
 needs help with it.
@@ -84,3 +87,4 @@ static void * open_shm(size_t bytes, int justreading)
     return shm;
 }</code></pre>
 
+{% endblock content %}

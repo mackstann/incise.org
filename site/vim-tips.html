@@ -1,5 +1,9 @@
+{% extends "/base.html" %}
+{% set title = "vim tips" %}
+{% block content %}
 <h2>Using BufExplorer</h2>
 
 tip #1: Typing <code>:BufExplorer</code> sucks.  Try: <code>map ,b :BufExplorer<cr></code>
 
 tip #2: <code>set hidden</code>, otherwise vim will try to close buffers and whine about unsaved files and other annoying behavior that makes no sense with bufexplorer.
+{% endblock content %}

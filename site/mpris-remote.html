@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "mpris remote" %}
+{% block content %}
 mpris-remote is a utility that controls an <a
     href="http://mpris.org/">MPRIS</a>-capable music player.
 
@@ -37,3 +40,4 @@ $ mpris-remote loop true
 $ find ~/music -name '*.mp3' | mpris-remote addtrack -
 $ mpris-remote play</code></pre>
 
+{% endblock content %}

@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "un bust your x server" %}
+{% block content %}
 <h1>Recovering keyboard and mouse input in X11</h1>
 
 Once upon a time, I had my mouse and keyboard input rudely stolen from me by a
@@ -46,3 +49,4 @@ int main(void) {
 
 Thanks to "fhffhqvb" and "izn0g" from #debian on freenode, and "Yorick" from
 #sdl on freenode.
+{% endblock content %}

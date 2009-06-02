@@ -1,5 +1,9 @@
+{% extends "/base.html" %}
+{% set title = "why viewports rule" %}
+{% block content %}
 To sum it up, viewports make spatial sense.  Workspaces are all cut off from each other and the only concept you have of them is a number.  You can sort of put workspaces in a grid, by using a pager that implements <a href="http://standards.freedesktop.org/wm-spec/wm-spec-1.3.html#id2506507">_NET_DESKTOP_LAYOUT</a>, but the fact that windows don't hang over the edges breaks the illusion, and for whatever reason this protocol <em>requires</em> a pager, and I generally don't like pagers or any other screen space-stealing gadgets.
 
 I have a 3x3 viewport setup.  I can go directly to any viewport by using Ctrl+Alt+[uiojklm,.].  Notice the layout of these keys on the keyboard.  I can also do relative viewport movements ("go left one viewport", etc) with Ctrl+arrow keys.  With the mouse I can do a few things using edge flipping.  First I can click at the screen edge to flip to the next viewport (in any of the 4 directions).  I can also hold alt and edge flip without having to click.  This also applies to when I move a window with alt+drag.
 
 I generally don't stack many windows on top of each other; instead, I spread them out.  This means I don't need a taskbar, which means I can devote my full screen to the programs I use.  And even when I do stack windows on top of each other, it is very easy to restack them using Alt+mouse wheel up/down to lower/raise respectively.
+{% endblock content %}

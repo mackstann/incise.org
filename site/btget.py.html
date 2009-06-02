@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "btget.py" %}
+{% block content %}
 Azureus is a pretty nice way to download torrents, but I tend to put it off in another workpsace and forget about it.  I thought it would be cool if I could reliably script a bittorrent download on the command line so that when it finished, some other scripted action(s) would happen (for example, send the file off somewhere else).
 
 btdownloadheadless is perfect for this task.  All you need to do is kill it once you get to 100% success.  I thought that maybe I could get away with a simple shell command, like this:
@@ -57,3 +60,4 @@ It will look just like btdownloadheadless except it'll exit when 100% is reached
 
 Todo: wait until X amount of additional good-citizen seeding has been done before exiting.
 
+{% endblock content %}

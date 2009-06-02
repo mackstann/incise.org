@@ -1,3 +1,6 @@
+{% extends "/base.html" %}
+{% set title = "transcoding music" %}
+{% block content %}
 <h2>M4A (AAC) to MP3</h2>
 
 The <code>faad</code> program is what is supposed to be used to play M4A files,
@@ -42,3 +45,4 @@ done</code></pre>
 
 Hey.. good idea.  I also made a script that parallelizes and <a href="http://github.com/mackstann/bin/tree/master/TranscodeToMP3">put it on github</a>.
 
+{% endblock content %}
