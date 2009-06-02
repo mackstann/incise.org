@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel="stylesheet" type="text/css" href="/pygments.css" />
+        <link rel="stylesheet" type="text/css" href="/style.css" />
+    </head>
+    <body>
+        <h1>
+            <a href="/">[incise.org]</a>
+            {{ title }}
+        </h1>
+
+        {% block content %}
+        {% endblock %}
+
+        <hr />
+
+        <address>
+        Nick Welch <a href="mailto:nick@incise.org">&lt;nick@incise.org&gt;</a>
+        </address>
+    </body>
+</html>
