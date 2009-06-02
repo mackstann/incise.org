@@ -7,25 +7,15 @@ import pygments, pygments.lexers, pygments.formatters
 def makepage(content, title, css, ctime, mtime):
     titledate = '' if ctime == "long ago.." else ctime
 
+    cssmarkup = '<link rel="stylesheet" type="text/css" href="%s" />' % css if css else ''
+
     return '''
 <html>
 <head>
 <title>incise.org - %(title)s</title>
-<link rel="stylesheet" type="text/css" href="/pygments.css" /> 
-<style type="text/css">
-    body { font-family: sans-serif; max-width: 750px; }
-    p { line-height: 1.4em; }
-    table, tr { background: #aaa; }
-    td, th { background: white; }
-    address { font-size: small; }
-    .titledate { font-size: small; color: #555; vertical-align: super; }
-    pre { background: #ffe; border: 1px solid #666; padding: 5px; }
-
-    .pyg-c, .pyg-cm, .pyg-c1, .pyg-cs, .pyg-ge, .pyg-sd { font-style: normal; }
-    .pyg-err { border: none; }
-
-    %(css)s
-</style>
+<link rel="stylesheet" type="text/css" href="/pygments.css" />
+<link rel="stylesheet" type="text/css" href="/style.css" />
+%(cssmarkup)s
 </head>
 <body>
 <h1>
@@ -122,17 +112,20 @@ def run():
         else:
             title = base.replace('-', ' ')
 
-        if os.path.isfile(cssfile):
-            css = file(cssfile).read().strip()
-        else:
-            css = ''
-
         outdir = re.sub('^pages', 'output', dir)
         outfile = "%s/%s" % (outdir, os.path.basename(fn))
-        os.system("mkdir -p '%s'" % outdir)
+        try:
+            os.makedirs(outdir)
+        except OSError:
+            pass
+
+        csswebpath = ''
+        if os.path.isfile(cssfile):
+            csswebpath = '/'+os.path.basename(cssfile)
+            file(os.path.join(outdir, os.path.basename(cssfile)), 'w').write(file(cssfile).read().strip())
 
         content = file(fn).read()
-        content = makepage(content, title, css, ctime, mtime)
+        content = makepage(content, title, csswebpath, ctime, mtime)
         content = paragraphify(content)
         content = highlight(content)
         print >>file(outfile, 'w'), content
