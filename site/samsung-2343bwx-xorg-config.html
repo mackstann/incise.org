@@ -1,0 +1,58 @@
+{% extends "/base.html" %}
+{% set title = "samsung 2343bwx xorg config" %}
+{% block content %}
+
+<p>I recently acquired a Samsung 2343BWX monitor, which has an odd (but nice)
+resolution of 2048x1152.  The thing I like most about this over my old
+1920x1280 monitor is that I can have two browsers side-by-side, each at 1024
+pixels wide.  Before I had my two browser windows at 960 pixels wide each, and
+a lot of sites would wind up with a horizontal scroll bar, because they were
+designed for 1024x768.</p>
+
+<p>Anyway, I bought it on kind of a gamble, because I couldn't find much
+information about whether it'd work with Ubuntu (9.04) and my onboard Intel
+video correctly.  Turns out it does, but I had to manually add some stuff to
+xorg.conf.</p>
+
+<p>Here is my full xorg.conf now:</p>
+
+<pre><code>Section "Device"
+    Identifier  "Configured Video Device"
+EndSection
+
+Section "Monitor"
+    Identifier  "Configured Monitor"
+        # 2048x1152 @ 60.00 Hz Reduced Blank (CVT)
+        #   field rate 59.91 Hz; hsync: 70.99 kHz; pclk: 156.75 MHz
+        Modeline "2048x1152_60.00_rb"  156.75  2048 2096 2128 2208  1152 1155 1160 1185  +HSync -Vsync
+EndSection
+
+Section "Screen"
+    Identifier  "Default Screen"
+    Monitor     "Configured Monitor"
+    Device      "Configured Video Device"
+        SubSection "Display"
+            Modes "2048x1152"
+            Virtual 2048 1152
+        EndSubSection
+EndSection</code></pre>
+
+<p>I'm sure at least one of those settings is redundant, but I didn't want to
+go through the tedious process of narrowing it down.</p>
+
+<p>I had also feared that I might need to use a real video card, but my onboard
+Intel video seems to be doing fine.  This is what <code>lspci</code> lists my
+GPU as:</p>
+
+<pre>00:02.0 VGA compatible controller: Intel Corporation 82945G/GZ Integrated Graphics Controller (rev 02)
+00:02.1 Display controller: Intel Corporation 82945G/GZ Integrated Graphics Controller (rev 02)</pre>
+
+<p>It's on an ASRock Conroe1333-DVI/H motherboard.</p>
+
+<p>Hope this helps someone out there!</p>
+
+<p>Oh yeah, and if you're reading this from the future, there's a decent chance
+you don't need to bother doing this stuff.  This page was written in June
+2009.</p>
+
+{% endblock content %}
