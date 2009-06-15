@@ -137,8 +137,8 @@ the easiest way to go is to buy an already complete one and take it apart.</p>
     CC by-nc-sa.
 </p>
 
-<p>The Griffin iMic is exactly that, and it seems to generally be regarded as
-having good sound quality.  To turn it into an in-amp
+<p>The Griffin iMic is a USB sound card that is basically just a small, cheap DAC.
+To turn it into an in-amp
 <abbr title="digital-to-analog converter">DAC</abbr>, all one needs to do is
 connect its USB cord to a panel-mounted USB female jack, and connect its analog
 output into the amp's line-level input.</p>
@@ -157,6 +157,70 @@ switches, but I just found some cheap ones at <a
 Generally, for input switching, you want to look for switches designed for
 low-level switching, and have a rating of less than 5<abbr title="amps">A</abbr>
 or so.</p>
+
+<h3>heat sinks</h3>
+
+<p>The LM3886 chips produce enough heat that they must be attached to some sort
+of heat sink.  I found two matching computer CPU heat sinks at
+<a href="http://freegeek.org">Free Geek</a> for $2 each.
+Old Pentium II heat sinks would probably work really well, as they're
+black and kind of cool looking, and their fins are widely spaced, which is
+optimal when you're not using a fan.</p>
+
+<h3>enclosure</h3>
+
+<p>The only decent, cheap enclosures that seem to be for sale in the US are
+from <a href="http://par-metal.com">Par-Metal</a>.  I decided to make my
+own out of some scrap wood, aluminum tape (to shield EMI), and a Heineken
+5L mini-keg.</p>
+
+<h3>volume control</h3>
+
+<p>You can spend a lot of money on a really high end potentiometer or
+stepped attenuator, but I'm not really interested in spending that much
+money, and I doubt I'd ever notice enough difference for it to be worth
+it.  The Alps blue velvet is a good quality volume control, and is reasonably
+inexpensive.  I believe Noble pots are also in a similar price and quality range.</p>
+
+<h3>input/output connectors</h3>
+
+<p>I just bought some cheap ones on eBay.  I probably went a little <em>too</em>
+cheap on the RCAs, as their build quality is kind of questionable.  I also got a
+1/8" stereo jack from Radio Shack as a front panel input.</p>
+
+<h3>and a sweet chickenhead knob</h3>
+
+<p>I just like the name.</p>
+
+<p><img src="/images/gainclone/chickenhead.jpg" /></p>
+
+<h2>step zero: a test build</h2>
+
+<p>I first assembled the important parts of the amp on a piece of scrap wood, to make
+sure I wasn't horribly mistaken about how anything worked.  I got the wiring of the
+transformer secondaries mixed up and melted a few fuses in the process, but once I
+fixed that, everything worked nicely.  There's a very helpful page at "Decibel Dungeon"
+about <a href="http://myweb.tiscali.co.uk/nuukspot/decdun/gainclone_psu.html">building
+a gainclone power supply</a>.  The only thing I'd add to it is that if both of your transformer's
+secondaries have the same colors colors (like my Antek has blue/green for both), remember that
+you can't just wire either of the blues to either of the greens.  I did this and wound up
+wiring one secondary winding into a short circuit with itself.  Use a multimeter and make
+sure you're chaining the two secondaries together.</p>
+
+<p><img src="/images/gainclone/testbuild.jpg">
+<img src="/images/gainclone/testbuild.jpg"><br>
+<cite>My test build</cite></p>
+
+<p>My iMic hadn't come yet, and I wasn't really worried about my ability to figure
+out the pre-amp wiring, so this was mostly a test of the amp and power supply, since
+I had never built anything like them before.  I only tested one channel of the amp.</p>
+
+<p>A brief listen to the amp at this point showed that
+it produced drastically less hiss than my normal low-end consumer-grade
+class A/B stereo receiver.  It still picked up the sound of my external hard
+drive spinning up, so obviously that sound is either being picked up by the
+computer's built-in sound card, or the cables running from the computer to
+the amp.  The built-in DAC should mostly (or completely) eliminate this.</p>
 
 <h2>to be continued...</h2>
 
