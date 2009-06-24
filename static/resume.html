@@ -1,11 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
         <title>Nick Welch</title>
-
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
         <style type="text/css">
             body {
@@ -13,6 +11,7 @@
                 color: #333;
                 max-width: 800px;
                 font-family: sans-serif;
+                background: white;
             }
 
             #skills ul, #skills li { display: inline; padding-left: 0px; margin-left: 0px; }
@@ -42,15 +41,19 @@
 
             ol { list-style: none; }
 
-            .adr .type, .tel .type { display: none; visibility: hidden; width: 0px; height: 0px; }
+            .adr .type,
+            .tel .type
+            { display: none; visibility: hidden; width: 0px; height: 0px; }
 
-            #contact ul li:after { content: ' \00b7 '; font-weight: bold; }
-            #contact ul li:last-child:after { content: ''; }
-            #contact ul, #contact li { display: inline; list-style: none; margin-left: 0px; padding-left: 0px; }
+            .quicklist li:after { content: ' \00b7 '; font-weight: bold; }
+            .quicklist li:last-child:after { content: ''; }
+            .quicklist, .quicklist li { display: inline; list-style: none; margin-left: 0px; padding-left: 0px; }
 
             #projects dt a { font-weight: bold; }
 
             .dtstart, .dtend, .rdate, .rrule { text-decoration: none; border-bottom: none; }
+
+            div#footer { text-align: center; font-size: small; }
 
             ul, ol { list-style: square; }
         </style>
@@ -69,11 +72,11 @@
 
                 <h2 class="title">Software Developer</h2> 
 
-                <ul>
+                <ul class="quicklist">
                     <li class="adr">
                         <span class="type">Home</span>
                         <span class="locality">Portland</span>,
-                        <acronym class="region" title="Oregon">OR</acronym>,
+                        <abbr class="region" title="Oregon">OR</abbr>,
                         <span class="country-name">United States</span>
                     </li>
                     <li class="tel">
@@ -307,6 +310,21 @@
                         <abbr class="dtstart" title="2002-12-01">2002</abbr>
                         -
                         <abbr class="dtend" title="2005-05-01">2005</abbr>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="footer">
+                <ul class="quicklist">
+                    <li id="license"><a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a></li>
+                    <li><a href="http://validator.w3.org/check?uri=referer">HTML5</a></li>
+                    <li><a href="http://jigsaw.w3.org/css-validator/validator?uri=incise.org%2Fresume.html&profile=css3">CSS3</a></li>
+                    <li>
+                        <a href="http://microformats.org">Microformats</a>
+                        (<a href="http://microformats.org/wiki/hresume">hResume</a>,
+                         <a href="http://microformats.org/wiki/hcalendar">hCalendar</a>,
+                         <a href="http://microformats.org/wiki/rel-tag">rel=tag</a>,
+                         <a href="http://microformats.org/wiki/rel-license">rel=license</a>)
                     </li>
                 </ul>
             </div>
