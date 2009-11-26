@@ -5,3 +5,4 @@ td, th { background: white; }
 address { font-size: small; }
 .titledate { font-size: small; color: #555; vertical-align: super; }
 pre { background: #ffe; border: 1px solid #666; padding: 5px; overflow: auto; }
+td ul, td ol { margin-bottom: 0px; }
