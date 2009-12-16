@@ -1,0 +1,69 @@
+{% extends "/base.html" %}
+{% set title = "urllib3 testrun" %}
+{% block content %}
+
+<p><a href="http://github.com/mackstann/urllib3-testrun/">This</a> is a simple
+test/benchmark I wrote to test out the new <a
+    href="http://code.google.com/p/urllib3/">urllib3</a> library that I found
+on <a href="http://www.reddit.com/r/Python/comments/aeud6/urllib3_http_library_with_threadsafe_connection/">the internets</a>
+today.  I currently use the excellent <a
+    href="http://code.google.com/p/httplib2/">httplib2</a>, so I used it for
+comparison.</p>
+
+<p>A typical run looks something like this:</p>
+
+<pre>simple sequential download, first run:
+
+urllib3  took 2.396 seconds
+httplib2 took 1.851 seconds
+
+simple sequential download, second run:
+
+urllib3  took 1.705 seconds
+httplib2 took 0.104 seconds
+
+now, urllib3 with 4 threads and 4 connections:
+
+took 1.124 seconds</pre>
+
+<p>Each timed run downloads 15 URLs, all from the same google domain.</p>
+
+<p>In the first sequential benchmark, httplib2 and urllib3 are pretty even.
+Sometimes one is faster, sometimes the other is.  It's a wash.  This makes
+sense because they both have persistent connections.</p>
+
+<p>In the second sequential benchmark, httplib2 is always much faster, due to
+it pulling everything from its on-disk cache.</p>
+
+<p>In the last benchmark, urllib3 tends to execute in 1/3 to 1/2 the time it
+would sequentially, by using a thread pool and a connection pool, each with a
+size of 4.  There is no comparison with httplib2 here, because httplib2
+currently <a href="http://code.google.com/p/httplib2/issues/detail?id=5">is not
+    thread-safe</a>.</p>
+
+<h2>Conclusions</h2>
+
+<ul>
+    <li>urllib3 is no faster than httplib2 if used in a sychronous, sequential
+    manner, even if fetching from the same domain over and over.</li>
+
+    <li>httplib2 is incredibly faster than urllib3 if you are fetching the same
+    content over and over and can take advantage of caching.</li>
+
+    <li>urllib3 is much faster than httplib2 if you run multiple threads, which
+    httplib2 <a
+    href="http://code.google.com/p/httplib2/issues/detail?id=5">is currently
+    not capable of</a>.  This is urllib3's killer feature.</li>
+
+    <li>The speed benefits from caching vs. multi-threaded downloading may be
+    hard to accurately predict, and it's not trivial to swap out one library
+    for the other to do a test run (see next item).</li>
+
+    <li>urllib3 is a bit more primitive in its API, forcing you to create a
+    separate HTTPConnectionPool object for every domain you want to connect to.
+    You might want to construct a "pool of pools" which would transparently
+    cache these pool objects, expiring ones that haven't been used in a while,
+    or something similar.  httplib2 already does this for you.</li>
+</ul>
+
+{% endblock content %}
