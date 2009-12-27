@@ -1,0 +1,55 @@
+{% extends "/base.html" %}
+{% set title = "urllib3 testrun" %}
+{% block content %}
+
+<p>I listen to music on two computers -- one at work, one at home.  Both run
+Linux and ssh, but neither is listening on an internet-accessible IP.
+Furthermore, syncing a lot of music across the internet would suck up bandwidth
+that my coworkers might not appreciate being sucked up.  I often add new music
+to my collection at home, but I also sometimes rename or otherwise re-organize
+old music, and I would like all of those changes to be easily transferred to
+work.</p>
+
+<p>The solution I've found is rdiffdir, which is part of <a
+href="http://duplicity.nongnu.org/">duplicity</a>.  The man page describes how
+to use it pretty well, if a bit tersely:</p>
+
+<pre><code>rdiffdir [options] sig[nature] basis_dir signature_file
+rdiffdir [options] delta signature_file new_dir delta_file
+rdiffdir [options] patch basis_dir delta_file</code></pre>
+
+<p>So to copy my music collection changes from home to work, I would do the
+following:</p>
+
+<p>1. Create a "signature" of the out-of-date directory at work.  This
+generates a fairly large file -- about 200MB for my music collection and not
+really compressible at all -- but it's still much smaller than the actual
+directory contents.</p>
+
+<pre><code>work $ rdiffdir signature ~/Music music.sig</code></pre>
+
+<p>2. Bring the signature file home on a flash drive, and run the delta
+command.  This will compare the signature with the contents of the up-to-date
+directory, and put all of the required changes into a delta file, which will be
+quite large.</p>
+
+<pre><code>home $ rdiffdir delta music.sig ~/Music music.delta</code></pre>
+
+<p>3. Put the delta file onto the flash drive and take it back to work.  If
+it's too large, you can split it up into multiple chunks of a given size:</p>
+
+<pre><code>home $ split -b 7G music.delta</code></pre>
+
+<p>This creates files named xaa, xab, xac, etc., which you can then join back
+together with cat:</p>
+
+<pre><code>work $ cat xaa xab &gt; music.delta</code></pre>
+
+<p>4. Now use the patch command to apply the delta to the out-of-date
+directory, updating its contents.</p>
+
+<pre><code>work $ rdiffdir patch ~/Music music.delta</code></pre>
+
+<p>All done!</p>
+
+{% endblock content %}
