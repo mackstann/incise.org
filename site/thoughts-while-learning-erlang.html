@@ -2,7 +2,7 @@
 {% set title = "thoughts while learning erlang" %}
 {% block content %}
 
-<h1>array/string ambiguity is uncomfortable</h1>
+<h2>array/string ambiguity is uncomfortable</h2>
 
 <pre class="erlang"><code>6&gt; [1000, 500, 4].
 [1000,500,4]
@@ -22,7 +22,7 @@ that is [104,101,108,108,111]</a>.</blockquote>
 <p>I guess that's kinda fun.  I'm starting to get feelings about Erlang similar to
 C++ -- it's somewhat perverse, but in a way I can appreciate.</p>
 
-<h1>boilerplate stuff</h1>
+<h2>boilerplate stuff</h2>
 
 <p>filename foo.erl needs "-module(foo)" at the top of it, which is annoyingly
 redundant.  although i wonder what happens when the two differ?  could this be
@@ -34,21 +34,21 @@ exported, is redundant.  I feel like I'm writing C header files again.</p>
 
 <p>(that's hyperbole, somewhat)</p>
 
-<h1>function name overloading</h1>
+<h2>function name overloading</h2>
 
 <p>Looking for the same function name but with a different number of arguments
 seems a little annoying.  It would be a little more obvious to just give them
 different names.  This may just be a deficiency in the coding style of the
 tutorial I am reading.</p>
 
-<h1>arbitrary base integers</h1>
+<h2>arbitrary base integers</h2>
 
 <p>not really very useful for me, but i always thought it was a cool idea when i
 heard of it in smalltalk (i think).  base#value where base is 2-36</p>
 
 <p>(speaking of base 36... so that's what those dang reddit and youtube ids are!)</p>
 
-<h1>tail call recursion optimization</h1>
+<h2>tail call recursion optimization</h2>
 
 <p>fun to have it; a refreshing change from python</p>
 

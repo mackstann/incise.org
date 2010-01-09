@@ -1,25 +1,26 @@
 {% extends "/base.html" %}
-{% set title = "simple unix shared memory interface" %}
+{% set title = "unix shared memory example" %}
 {% block content %}
 
-<p>This is a simple example of how to use shared memory.  I found that there were a number of hoops
-to jump through to make it work right, so I figured I'd put my code up in case anyone else
-needs help with it.</p>
+<p>The simple act of acquiring a piece of shared memory through the SYSV SHM
+API is fiendishly tedious.  This page used to have &ldquo;simple&rdquo; in the
+title, as in, <em>a simple way to do this</em>, but it was a bad title because
+there really is no simple way, if you're using the raw system call API.  But
+this an example, at least.</p>
 
 <p>If you want to use multiple blocks of shared memory in a single process then
-you might need to pass a different id to ftok() for each one.  I used the same block every time so I had no need for that.</p>
+you might need to pass a different id to <code>ftok()</code> for each one.  I
+used the same block every time so I had no need for that.</p>
 
-<p>In any case,
-the main entry point is open_shm(). It returns a block of shared memory
-of the specified size. If justreading is 1 and there's been data written
-to the block of shared mem, then you access what has already been
-written. Otherwise, you create a new one
-with undefined contents.</p>
+<p>In any case, the main entry point is <code>open_shm()</code>. It returns a
+block of shared memory of the specified size. If <code>justreading</code> is 1
+and there's been data written to the block of shared mem, then you access what
+has already been written. Otherwise, you create a new one with undefined
+contents.</p>
 
-<p>Once you get your memory block successfully returned to you by open_shm(), you can treat it like any
-other block of memory that you'd get from e.g. malloc().</p>
-
-<p>PDIE() is left as an exercise to the reader...</p>
+<p>Once you get your memory block successfully returned to you by
+<code>open_shm()</code>, you can treat it like any other block of memory that
+you'd get from e.g.  <code>malloc()</code>.</p>
 
 <pre class="c"><code>/* This code written by Nick Welch <mack@incise.org>, 2006.
  *
@@ -34,7 +35,7 @@ static key_t get_shm_key(void)
 
     key_t key = ftok(KEY_PATH, KEY_ID);
     if (key == (key_t)-1)
-        PDIE("ftok");
+        DIE("ftok");
 
     return key;
 }
@@ -43,7 +44,7 @@ static int get_shm_min(void)
 {
     struct shminfo info;
     if((shmctl(0, IPC_INFO, (struct shmid_ds *)(void *)&amp;info)) == -1)
-        PDIE("shmctl (shminfo)");
+        DIE("shmctl (shminfo)");
     return info.shmmin;
 }
 
@@ -64,26 +65,26 @@ static void * open_shm(size_t bytes, int justreading)
         id = shmget(key, get_shm_min(), 0644|IPC_CREAT);
 
         if(id == -1)
-            PDIE("shmget (first call)");
+            DIE("shmget (first call)");
 
         shm = shmat(id, NULL, 0);
         if (shm == NULL)
-            PDIE("shmat(first call)");
+            DIE("shmat(first call)");
 
         if(shmctl(id, IPC_RMID, NULL) == -1)
-            PDIE("shmctl (marking shm segment for removal)");
+            DIE("shmctl (marking shm segment for removal)");
 
         if(shmdt(shm) == -1)
-            PDIE("shmdt (detaching shm segment to delete it)");
+            DIE("shmdt (detaching shm segment to delete it)");
     }
 
     id = shmget(key, bytes, justreading ? 0 : 0644|IPC_CREAT);
     if(id == -1)
-        PDIE("shmget (second call)");
+        DIE("shmget (second call)");
 
     shm = shmat(id, NULL, 0);
     if (shm == NULL)
-        PDIE("shmat (second call)");
+        DIE("shmat (second call)");
 
     return shm;
 }</code></pre>
