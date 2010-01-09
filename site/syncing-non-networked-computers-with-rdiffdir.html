@@ -2,7 +2,7 @@
 {% set title = "syncing non-networked computers with rdiffdir" %}
 {% block content %}
 
-<p>I listen to music on two computers -- one at work, one at home.  Both run
+<p>I listen to music on two computers: one at work, one at home.  Both run
 Linux and ssh, but neither is listening on an internet-accessible IP.
 Furthermore, syncing a lot of music across the internet would suck up bandwidth
 that my coworkers might not appreciate being sucked up.  I often add new music
@@ -22,8 +22,8 @@ rdiffdir [options] patch basis_dir delta_file</code></pre>
 following:</p>
 
 <p>1. Create a "signature" of the out-of-date directory at work.  This
-generates a fairly large file -- about 200MB for my music collection and not
-really compressible at all -- but it's still much smaller than the actual
+generates a fairly large file&mdash;about 200MB for my music collection and not
+really compressible at all&mdash;but it's still much smaller than the actual
 directory contents.</p>
 
 <pre><code>work $ rdiffdir signature ~/Music music.sig</code></pre>
