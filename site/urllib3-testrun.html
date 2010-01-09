@@ -66,4 +66,16 @@ currently <a href="http://code.google.com/p/httplib2/issues/detail?id=5">is not
     or something similar.  httplib2 already does this for you.</li>
 </ul>
 
+<h2>Other Options</h2>
+
+<ul>
+    <li>
+        Tornado's
+        <a href="http://github.com/facebook/tornado/blob/master/tornado/httpclient.py">AsyncHTTPClient</a>
+        (works well for me)
+    </li>
+    <li><a href="http://eventlet.net/">Eventlet</a></li>
+    <li>Twisted's somewhat incomplete(?) <a href="http://twistedmatrix.com/documents/8.1.0/api/twisted.web.http.HTTPClient.html">HTTP client module</a></li>
+</ul>
+
 {% endblock content %}
