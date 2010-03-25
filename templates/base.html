@@ -1,7 +1,9 @@
 <html>
     <head>
         <title>{{ title }}</title>
-        <link rel="stylesheet" type="text/css" href="/style.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        {% block head_extra %}
+        {% endblock %}
     </head>
     <body>
         <h1>
