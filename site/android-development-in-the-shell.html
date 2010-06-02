@@ -1,0 +1,78 @@
+{% extends "/base.html" %}
+{% set title = "Android Development in the Shell" %}
+{% block content %}
+
+<p>I love Android but I really hate Eclipse, and the whole IDE paradigm in
+general.  I prefer to do development using Vim, screen, and a few shells
+running whatever commands are relevant for the project I'm working on.
+However, the Android project make it pretty clear that they support Eclipse+ADT
+first and foremost, so I gave it a try, if only to see what magical features
+I would need to figure out how to replace.  Thankfully, doing so is pretty
+easy.  Here's what you need to do to develop for Android with just a shell
+and your favorite text editor.</p>
+
+<h2>Bootstrap Ant</h2>
+
+<p>Ant is the build tool you'll use to build and deploy your
+project while developing, and to make a release when ready.  But you can't
+run Ant in a project created in Eclipse with ADT, because ADT
+doesn't give you the necessary build files.  But they're easy to populate,
+using <code>android update project</code>.</p>
+
+<p>Before running <code>android update project</code>, you need to find out the
+ID of the target you want to use for your project.  Run <code>android list
+    targets</code> and find the ID for your target.  Now run <code>android
+    update project --target your-target-id --name your-project-name --path
+    /path/to/your/project</code>.  It will populate your project with
+<code>build.xml</code> and <code>local.properties</code>.  It'll also say that
+it's updating <code>default.properties</code>, but it left it unchanged for
+me.</p>
+
+<p>Bonus tip: If you want to avoid Eclipse completely and start your project
+from scratch on the command line, you can simply run <code>android create
+    project</code> with the <code>--target</code>, <code>--name</code>,
+<code>--path</code>, <code>--activity</code>, and <code>--package</code>
+options populated appropriately.  This is the more direct route, instead of
+starting a project in Eclipse and then later running <code>android update
+    project</code> like I did.</p>
+
+<h2>Building and Installing</h2>
+
+<p>This part is simple.  See <code>ant help</code> for more details.</p>
+<ul>
+    <li><code>ant compile</code> will compile your code and re-generate
+        <code>R.java</code>.</li>
+    <li><code>ant debug</code> will do the above, plus build and sign a package
+        (apk) file.</li>
+    <li><code>ant install</code> will do all of the above plus install it to
+        the emulator/phone.</li>
+</ul>
+
+<h2>Automated App Launching</h2>
+
+<p>I don't like Eclipse but I do like that it automatically launches my app on
+the emulator when I build it.  It took some asking in IRC to figure out how to
+do this, but here it is:</p>
+
+<pre><code>adb shell 'am start -n your.package.name/.YourActivityName'</code></pre>
+
+<p>So a full build+run command might look something like:</p>
+
+<pre><code>ant install &amp;&amp; adb shell 'am start -n your.package.name/.YourActivityName'</code></pre>
+
+<h2>Other Stuff</h2>
+
+<p>There are some parts of Eclipse/ADT that don't really have direct
+replacements; for example, the wizards for editing AndroidManifest.xml.  In
+this case you'll just have to edit it by hand, but if you're reading this then
+you're probably okay with that.</p>
+
+<p>If there's anything I've missed, please leave a comment.</p>
+
+<h2>Further Reading</h2>
+
+<p>The <a href="http://developer.android.com/guide/developing/other-ide.html">Other IDEs</a>
+page of the Android development documentation will fill in some of the
+simplifications I have made here and is recommended reading.</p>
+
+{% endblock content %}
