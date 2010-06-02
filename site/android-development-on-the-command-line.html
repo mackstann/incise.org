@@ -64,6 +64,20 @@ do this, but here it is:</p>
 
 <p>See what your app is saying with <code>adb logcat</code>.</p>
 
+<h2>Ctags for Autocompletion</h2>
+
+<p>Install exhuberant-ctags and run <code>ctags -R src gen</code> in the root
+of your project to generate a <code>tags</code> file that many editors will
+automatically use for autocompletion.</p>
+
+<h2>Further automation</h2>
+
+<p>I'm planning on eventually writing a script that uses inotify
+(<code>inotifywait -m -r</code>) to watch for source code changes and
+automatically rebuild and re-scan the code with ctags. (Although I'm not sure
+if editors will detect changes to the tags file on the fly... must research
+that.)</p>
+
 <h2>Other Stuff</h2>
 
 <p>There are some parts of Eclipse/ADT that don't really have direct
