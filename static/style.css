@@ -6,3 +6,5 @@ address { font-size: small; }
 .titledate { font-size: small; color: #555; vertical-align: super; }
 pre { background: #333; color: #eee; padding: 5px; overflow: auto; }
 td ul, td ol { margin-bottom: 0px; }
+.caption { font-size: small; color: #555; font-style: italic; }
+.caption .attribution { font-size: xx-small; color: #666; font-style: italic; }

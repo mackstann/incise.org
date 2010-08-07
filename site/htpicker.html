@@ -1,0 +1,59 @@
+{% extends "/base.html" %}
+{% set title = "htpicker" %}
+{% block content %}
+
+<p><a href="http://github.com/mackstann/htpicker">htpicker</a> is a simple file
+browser for your Linux-based HTPC (Home Theater PC).  It simply navigates your
+filesystem and allows you to watch or play your media files with the programs
+of your choice.</p>
+
+<p>
+    <img src="/images/htpicker-windowed.png" alt="htpicker in a window">
+    <br><span class="caption">htpicker in a window</span>
+</p>
+
+<p>There are no over-complicated plugins, scripts, XML files, or anything like
+that.  There is one small configuration file located at
+<code>~/.htpickerrc</code>.  This file will be created for you the first time
+you run htpicker.  The meat of this config file is mapping certain directories
+and/or file extensions to programs that can play them.  The stock config file
+sets up a few reasonable defaults, such as using mplayer to play files in
+<code>~/Videos</code> as well as files with common video filename extensions,
+and playing a couple types of video game ROMs with their respective
+console emulators.  You can change or expand these settings to play any file
+with any program you want.</p>
+
+<p>
+    <img src="/images/htpicker-tv.jpg" alt="htpicker on a tv">
+    <br><span class="caption">htpicker on your tv?<br>
+        <span class="attribution">original image &copy; 2008
+            <a href="http://www.flickr.com/photos/williamhook/2215956645/">William Hook</a>
+        and modified by me.
+        used under CC attribution-sharealike license.</span></span>
+</p>
+
+<p>Since htpicker's GUI is written in HTML and JavaScript (using WebKit), it
+does not engage any special video modes or cause problems with switching to
+other programs.  It can run in a window or fullscreen (the toggle is in the
+config file).  Despite using WebKit for its GUI, it is not a web application,
+and does not access the network in any way.</p>
+
+<p>This project is still quite young, so testers and experimenters are highly
+encouraged to try it out.  I don't recommend you use it yet if you expect total
+robustness and zero bugs.</p>
+
+<p>There are also some things that still need doing:</p>
+
+<ul>
+    <li>Joystick support
+    <li>Remote (lirc) support
+    <li>Theming via CSS
+    <li>JavaScript hacking/hooks
+    <li>Thumbnails (maybe)
+    <li>Perhaps expanding the UI to be more than just a file list.
+</ul>
+
+<p>Report any bugs or suggestions <a
+    href="http://github.com/mackstann/htpicker/issues">on Github</a>.</p>
+
+{% endblock content %}
