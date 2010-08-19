@@ -1,0 +1,291 @@
+{% extends "/base.html" %}
+{% set title = "searching for a good grep" %}
+{% block content %}
+
+<style>
+    code { background: #fdd; padding-left: 3px; padding-right: 3px; }
+</style>
+
+<p>grep has gained a few competitors over the years.  <a href="">ack</a> and <a
+    href="">grin</a> both aim to fill in the gaps in grep's functionality, and
+provide a style of interaction that is focused on searching large code
+repositories.  By default, they search recursively, colorize their output, and
+ignore certain "obvious" files that no one generally wants to search through.
+The latter both cuts noise out of search results, and allows them to run
+faster.</p>
+
+<p>I've used all three over the years; mostly grep and grin.  I've encountered
+surprising issues with ack and grin, both in terms of performance and behavior:</p>
+
+<ul>
+    <li>ack quickly scared me away with its default behavior of only searching
+    files that match a hard-coded whitelist of file suffixes.  This appeared to
+    be addressed with the addition of the <code>-a</code> option, but it turns
+    out: not really.
+    <li>With grin, I recently realized that the performance of 1.1 was
+    shockingly bad, but that horror was short-lived after realizing that grin
+    1.2 was out, and fixed the problem.
+</ul>
+
+<p>The discovery and resolution of these issues has caused me to switch back
+and forth a few times, and finally I decided to do a performance test of all
+three, just to make sure I wasn't missing out on something.</p>
+
+<h2>An attempt at a speed comparison</h2>
+
+Considering that the files/directories that you ignore from your search will
+play a big role in determining how fast your search executes, I wanted to
+equalize the set of files/directories that the three tools ignore, to give a
+fair comparison.  This turned out to be problematic.  It resulted in the
+following commands:
+
+<pre>grep --color=auto -sPIr \
+--exclude-from=excludes \
+--exclude-dir='.*' \
+--exclude-dir='~.dep' \
+--exclude-dir='~.dot' \
+--exclude-dir='~.nib' \
+--exclude-dir='~.plst' \
+--exclude-dir=blib \
+--exclude-dir=CVS \
+--exclude-dir=RCS \
+--exclude-dir=SCCS \
+--exclude-dir=_darcs \
+--exclude-dir=_sgbak \
+--exclude-dir=autom4te.cache \
+--exclude-dir=cover_db \
+--exclude-dir=_build \
+--exclude-dir=build \
+'aflksdjfk?falk\d+sdfj' `pwd`
+
+ack -a \
+--ignore-dir=build \
+--ignore-dir=dist \
+--type-set='junk=.pyc,.pyo,.so,.o,.a,.tgz,.tar.gz,.rar,.zip,~,#,.bak,.png,.jpg,.gif,.bmp,.tif,.tiff,.pyd,.dll,.exe,.obj,.lib' \
+--type=nojunk \
+'aflksdjfk?falk\d+sdfj'
+
+grin \
+-d 'CVS,RCS,.svn,.hg,.bzr,build,dist,.git,~.dep,~.dot,~.nib,~.plst,blib,SCCS,_darcs,_sgbak,autom4te.cache,cover_db,_build' \
+'aflksdjfk?falk\d+sdfj'</pre>
+
+<p>For the full picture, here is the contents of the <code>excludes</code> file
+referenced by the grep command:</p>
+
+<pre>.*
+*.pyc
+*.pyo
+*.so
+*.o
+*.a
+*.tgz
+*.tar.gz
+*.rar
+*.zip
+*~
+*#
+*.bak
+*.png
+*.jpg
+*.gif
+*.bmp
+*.tif
+*.tiff
+*.pyd
+*.dll
+*.exe
+*.obj
+*.lib
+#?*#
+.*.swp
+_*.swp
+core.[0-9]*</pre>
+
+<p>I ran this on my personal code projects directory, which has all kinds of
+random stuff that's built up over the years.  Code, images, executables,
+archive files, SQLite databases, and so on.  Here are the results:</p>
+
+<table>
+    <tr><td>grep</td><td>12.524s</td></tr>
+    <tr><td>ack</td><td>25.873s</td></tr>
+    <tr><td>grin</td><td>14.703</td></tr>
+</table>
+
+<p>There were a few exceptions with grin; it can't ignore file patterns other
+than literal suffixes, so ack's default ignoring of <code>#.+#\$</code>,
+<code>[._].*\\.swp\$</code>, and <code>core\\.\\d+\$</code> could not be
+applied to grin.  Thankfully, all of those filenames are pretty rare, so it
+shouldn't matter much.</p>
+
+<p>ack's file suffix ignoring mechanism, which is a bit circuitous, turns out
+to be completely disabled when using <code>-a</code>.  It is impossible to
+ignore any files when using <code>-a</code>; only literal directory names (no
+globs).  In other words, you can modify ack's whitelist of file suffixes, but
+if you want to forego the whitelist and use a blacklist approach instead,
+tough luck.  You either use the whitelist or you search everything.</p>
+
+<p>If you are okay with the whitelist approach, ack is pretty close in
+performance to the other two.  It performed the same search as above in in
+13.988 seconds.  This number can't be compared strictly to the others, but it's
+as close as I can get.</p>
+
+<p>So in short, performance is fairly uniform, with grep being the fastest by a
+fairly small margin (around 10-20%).</p>
+
+<h2>Filtering files and general usability</h2>
+
+<h3>grep</h3>
+
+<p>grep did not have the <code>--exclude-dir</code> option <a
+    href="http://savannah.gnu.org/patch/?func=detailitem&amp;item_id=3521">until
+    version 2.5.3</a>.  That was released in 2007 or 2008 (it's surprisingly
+hard to track down the date), but Ubuntu 10.04 is still using grep 2.5.1.  In
+light of this, and to be fair to grep with regard to any recent performance
+enhancements, I installed the newest (2.6.3) package <a
+    href="https://launchpad.net/ubuntu/+source/grep">from Launchpad</a>.</p>
+
+<p>Now that I <em>had</em> the <code>--exclude-dir</code> option available to
+me, I had a lot of trouble with it.  If you tell it to ignore <code>.*</code>
+(any "dot directories"), and you then pass <code>.</code> as the directory to
+search, it will immediately exit without having done anything.  It might seem
+obvious why when I state it that way, but I was truly baffled for a little
+while.  One solution is to pass <code>`pwd`</code> instead of <code>.</code>;
+But now, all of the filenames in your search results will have their full,
+absolute path shown, and that's usually quite long and ridiculous to sift
+through.  Another solution is to never ignore <code>.*</code>,  but rather
+ignore specific names like <code>.git</code> and <code>.svn</code>.  You can
+even ignore almost every dot-dir you'll encounter in the real world by using
+<code>--exclude-dir='.[a-zA-Z0-9]*'</code>.  This will fail if a dot-dir starts
+with anything other than an ascii alphanumeric character, but it should be good
+for the vast majority of cases.  By the way, <code>.?*</code> and
+<code>.??*</code> mysteriously do <strong>not</strong> work.  For me, they
+prevent grep from recursing.  I don't understand that at all.  It may be some
+weird artifact of the options grep is passing to <code>fnmatch()</code>.</p>
+
+<p>grep also fails to exclude a directory glob that
+<code>looks/like/this*</code>.  I'm not sure why this happens either.</p>
+
+<p>Beyond those issues, grep, unlike ack and grin, has a pretty complete set of
+options for excluding files and directories.</p>
+
+<p>There are some other issues with grep. You probably know about these. They
+all mostly have solutions now.</p>
+
+<ul>
+    <li>Regex syntax is limited.  Solution: use <code>-E</code> or <code>-P</code>.
+    <li>No coloring.  Solution: use <code>--color=auto</code>.
+    <li>Annoying error messages on broken symlinks and other filesystem
+    oddities. Solution: use <code>-s</code>.
+</ul>
+
+<h3>grin</h3>
+
+<p>I've had a couple issues with grin over time.  The first is a lack of a
+<code>-w</code> (word) option.  You can simulate it by doing
+<code>\bpattern\b</code>, but that's pretty tedious.  The author did not seem
+very interested in implementing this feature when I asked.  ack and grep have
+it.</p>
+
+<p>My other issue with grin is well known by the author:</p>
+
+<blockquote>[...] setuptools installs scripts indirectly; the scripts
+    installed to $prefix/bin or Python2xScripts use setuptools' pkg_resources
+    module to load the exact version of grin egg that installed the script,
+    then runs the script's main() function. This [...] can add substantial
+    startup overhead [...]. If you want the response of grin to be snappier, I
+    recommend installing custom scripts that just import the grin module and
+    run the appropriate main() function.
+    -- <a href="http://pypi.python.org/pypi/grin">From the grin PyPI page</a></blockquote>
+
+<p>Not only does the default script start up a bit slower than it could, but if
+you hit control-C soon after grin starts up, you might get an ugly Python
+traceback, because grin hasn't gotten to its KeyboardInterrupt try/catch
+statement yet.</p>
+
+<p>This is more a Python packaging limitation than a problem with grin per se.
+Nonetheless, it's another annoyance to deal with as a user, and fair or not,
+it makes it less appealing.</p>
+
+<p>grin only supports excluding literal directory names, and filename
+suffixes.</p>
+
+<h3>ack</h3>
+
+<p>Its default whitelisting behavior is a really poor choice in my opinion.  If
+it isn't familiar with a given file extension, it will simply ignore it.  Since
+you have no idea it's ignoring it, you won't know that you missed something
+until there is some unfortunate side effect.  That can be downright dangerous
+when refactoring big, old, ugly code that has stuff in all kinds of
+unpredictable filenames.  A coworker and I have both sadly run into this
+problem while working on a messy legacy PHP project where some PHP files had
+names ending with ".inc".  I can picture this whitelist behavior biting a lot
+of people in the ass when they don't realize that's how ack works.</p>
+
+<p>The default whitelisting approach might be forgivable if it were possible to
+turn it off and go with a blacklisting approach, but that, according to the
+author, is simply not supported.</p>
+
+<h2>A summary of the file exclusion madness</h2>
+
+<p>These are all of the variations of file/directory exclusions I could dream
+up, and their support across these three tools:</p>
+
+<style>
+    table#comparison td, table#comparison th { text-align: center; vertical-align: center; padding: 2px 15px 2px 15px; }
+</style>
+<table id=comparison>
+    <tr><th colspan=4>Excluding Files</th></tr>
+    <tr><td>&nbsp;</td>                                                                <th>grep</th><th>grin</th>                                 <th>ack</th></tr>
+    <tr><td style="text-align: left;">fixed name (<code>foo</code>)</td>               <td>OK</td>  <td>suffixes only</td>                        <td>-</td></tr>
+    <tr><td style="text-align: left;">glob (<code>fo*</code>)</td>                     <td>OK</td>  <td>-</td>                                    <td>-</td></tr>
+    <tr><td style="text-align: left;">fixed name w/path (<code>path/to/foo</code>)</td><td>OK</td>  <td>-</td>                                    <td>-</td></tr>
+    <tr><td style="text-align: left;">glob w/path (<code>path/to/fo*</code>)</td>      <td>-</td>   <td>-</td>                                    <td>-</td></tr>
+    <tr><th colspan=4>Excluding Directories</th></tr>
+    <tr><td>&nbsp;</td>                                                                <th>grep</th><th>grin</th>                                 <th>ack</th></tr>
+    <tr><td style="text-align: left;">fixed name (<code>foo</code>)</td>               <td>OK</td>  <td>OK</td>                                   <td>OK</td></tr>
+    <tr><td style="text-align: left;">glob (<code>fo*</code>)</td>                     <td>OK</td>  <td>-</td>                                    <td>-</td></tr>
+    <tr><td style="text-align: left;">fixed name w/path (<code>path/to/foo</code>)</td><td>OK</td>  <td>-</td>                                    <td>-</td></tr>
+    <tr><td style="text-align: left;">glob w/path (<code>path/to/fo*</code>)</td>      <td>OK</td>  <td>-</td>                                    <td>-</td></tr>
+</table>
+
+<h2>The ultimate grep setup</h2>
+
+<p>I'm going with this for now:</p>
+
+<pre>export GREP_OPTIONS='-rIPs --exclude-dir=.[a-zA-Z0-9]* --exclude=.* --exclude=*~ --color=auto'
+alias cgrep='grep --color=always'</pre>
+
+<p>This brings grep 95% of the way towards doing what I appreciate about grin
+and ack.  You do still have to pass the directory name to search, whereas ack
+and grin will default to the current directory if you don't tell them
+otherwise.  However, I can live with typing another space and period.</p>
+
+<p>The cgrep alias will force colors on, which you can pipe through
+<code>less -R</code> if you want to page the output.</p>
+
+<h2>And dreams for the future</h2>
+
+<p>What I think would work amazingly would be a hierarchical set of exclusion
+rule files.  Let's give them the filename <code>.grepignore</code>.  You could
+have a <code>.grepignore</code> in your home directory which would list
+files/dirs you <em>always</em> want to ignore.  Then in each project's
+directory (which are children of your home directory) you could have another
+<code>.grepignore</code> file that would ignore the specific files that you
+want to ignore in that project.  $GREP would then ignore the superset of all
+the <code>.grepignore</code> files from <code>/</code> down to the directory
+you're in.  This seems like it would be elegant, simple, and effective.</p>
+
+<p>I looked into implementing something like this in grin, but it turns out
+there may be a good reason for grin not being able to ignore
+multi/level/paths/with/glob*s -- Python's fnmatch function is (re-)implemented
+in pure Python and does not use the system fnmatch.  Thus, it's impossible to
+use the <code>FNM_PATHNAME</code> flag, which enables sane multi-level
+globbing.  Python's fnmatch thinks that the glob <code>foo*bar</code> matches
+<code>foo/x/y/z/bar</code>, which is strange and contrary to most other
+tools.</p>
+
+<p>Implementing hierarchical exclusion rule files in grep would certainly be
+more laborious, since it's written in C instead of Python.  I may try doing it
+with some kind of wrapper script instead.  Anyone wanna beat me to it?</p>
+
+{% endblock content %}
