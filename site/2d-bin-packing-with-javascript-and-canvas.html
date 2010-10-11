@@ -1,0 +1,196 @@
+{% extends "/base.html" %}
+{% set title = "2D bin packing with javascript and &lt;canvas&gt;" %}
+{% block content %}
+
+<p>
+    This is a demonstration of a 2D <a
+        href="http://en.wikipedia.org/wiki/Bin_packing_problem">bin packing</a>
+    algorithm, operating on a continuously randomly-generated set of
+    rectangles.  Credit for this algorithm goes to Jim Scott.  Read <a
+        href="http://www.blackpawn.com/texts/lightmaps/default.html">his
+        page</a> to learn how it works.
+</p>
+
+<p>
+    I don't claim this to be any sort of optimal implementation.  Ideally, you
+    would have a pre-generated set of rectangles you want to pack into a
+    certain area.  You could then pre-sort them in different ways to find more
+    efficient packing arrangements.  There are also completely different
+    algorithms for accomplishing this task.  This is merely one.  Bin packing
+    is an <a href="http://en.wikipedia.org/wiki/NP-hard">NP-hard</a> problem,
+    meaning that the only way to find the best result is to try every possible
+    combination in a brute force manner, which becomes computationally
+    impractical or impossible when you have many items to pack together.  Thus,
+    algorithms like this one merely achieve an acceptable balance between
+    packing efficiency and computation speed.
+</p>
+
+<p>
+    Speed:
+    <a href=# onclick="g_delay = 0; return false;">fastest</a>
+    <a href=# onclick="g_delay = parseInt(g_delay * 0.8); return false;">faster</a>
+    <a href=# onclick="g_delay = Math.max(g_delay + 1, parseInt(g_delay * 1.2)); return false;">
+        slower</a>
+</p>
+<p>
+    Piece size:
+    <a href=# onclick="update_piece_size(parseInt(Math.max(g_max_rect_size + 1, g_max_rect_size * 1.1))); return false;">bigger</a>
+    <a href=# onclick="update_piece_size(parseInt(Math.max(1, g_max_rect_size * 0.9))); return false;">smaller</a>
+    <a href=# onclick="update_piece_size(1); return false;">smallest</a>
+</p>
+<p>
+    <span id=percentfull></span>% full
+    (<span id=pixelstogo></span> pixels to go)
+</p>
+
+<p>
+    Next piece:
+    <canvas id=status></canvas>
+</p>
+
+<br>
+<canvas id=bin></canvas>
+
+<script>
+    function Rect(x, y, w, h)
+    {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    }
+
+    Rect.prototype.fits_in = function(outer)
+    {
+        return outer.w >= this.w && outer.h >= this.h;
+    }
+
+    Rect.prototype.same_size_as = function(other)
+    {
+        return this.w == other.w && this.h == other.h;
+    }
+
+    function Node()
+    {
+        this.left = null;
+        this.right = null;
+        this.rect = null;
+        this.filled = false;
+    }
+
+    Node.prototype.insert_rect = function(rect)
+    {
+        if(this.left != null)
+            return this.left.insert_rect(rect) || this.right.insert_rect(rect);
+
+        if(this.filled)
+            return null;
+
+        if(!rect.fits_in(this.rect))
+            return null;
+
+        if(rect.same_size_as(this.rect))
+        {
+            this.filled = true;
+            return this;
+        }
+
+        this.left = new Node();
+        this.right = new Node();
+
+        var width_diff = this.rect.w - rect.w;
+        var height_diff = this.rect.h - rect.h;
+
+        var me = this.rect;
+
+        if(width_diff > height_diff)
+        {
+            // split literally into left and right, putting the rect on the left.
+            this.left.rect = new Rect(me.x, me.y, rect.w, me.h);
+            this.right.rect = new Rect(me.x + rect.w, me.y, me.w - rect.w, me.h);
+        }
+        else
+        {
+            // split into top and bottom, putting rect on top.
+            this.left.rect = new Rect(me.x, me.y, me.w, rect.h);
+            this.right.rect = new Rect(me.x, me.y + rect.h, me.w, me.h - rect.h);
+        }
+
+        return this.left.insert_rect(rect);
+    }
+
+    var random_color = function()
+    {
+        var color = [0, 0, 0]
+        for(var i = 0; i <= 2; i++)
+        {
+            if(Math.random() < 0.66666)
+                color[i] = 32 + parseInt(Math.random() * 192);
+        }
+        return 'rgb('+color[0]+','+color[1]+','+color[2]+')';
+    }
+
+    var width = 750;
+    var height = 750;
+    var total_area = width * height;
+    var filled_area = 0;
+
+    var start_node = new Node();
+    start_node.rect = new Rect(0, 0, width, height);
+
+    var canvas = document.getElementById('bin');
+    canvas.width = width;
+    canvas.height = height;
+
+    var status_canvas = document.getElementById('status');
+
+    g_max_rect_size = null;
+
+    var update_piece_size = function(size)
+    {
+        g_max_rect_size = size;
+        status_canvas.width = g_max_rect_size;
+        status_canvas.height = g_max_rect_size;
+    }
+    update_piece_size(25);
+
+    var status_ctx = status_canvas.getContext('2d');
+
+    var ctx = canvas.getContext('2d');
+
+    var timeout_id = null;
+
+    var percentfull_el = document.getElementById('percentfull');
+    var pixelstogo_el = document.getElementById('pixelstogo');
+
+    g_delay = 100;
+
+    var iteration = function() {
+        var color = random_color();
+
+        var rect = new Rect(0, 0, // x/y don't matter here; it has no position yet
+            Math.min(Math.floor(1 + Math.random() * g_max_rect_size), g_max_rect_size),
+            Math.min(Math.floor(1 + Math.random() * g_max_rect_size), g_max_rect_size));
+
+        status_ctx.fillStyle = '#fff';
+        status_ctx.fillRect(0, 0, g_max_rect_size, g_max_rect_size);
+        status_ctx.fillStyle = color;
+        status_ctx.fillRect(0, 0, rect.w, rect.h);
+
+        var node = start_node.insert_rect(rect);
+        if(node)
+        {
+            var r = node.rect;
+            ctx.fillStyle = random_color();
+            ctx.fillRect(r.x, r.y, r.w, r.h);
+            filled_area += r.w * r.h;
+            percentfull_el.innerHTML = ((filled_area / total_area) * 100).toFixed(6);
+            pixelstogo_el.innerHTML = total_area - filled_area;
+        }
+        if(total_area - filled_area)
+            setTimeout(iteration, g_delay);
+    };
+    setTimeout(iteration, 0);
+</script>
+
+{% endblock content %}
