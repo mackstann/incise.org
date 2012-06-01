@@ -1,47 +1,65 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <title>{{ title }}</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
         {% block head_extra %}
         {% endblock %}
     </head>
     <body>
-        <h1>
-            <a href="/">incise.org</a>:
-            {{ title }}
-        </h1>
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h1 class="sitetitle">
+                        {% block titlecontent %}
+                            <a href="/">incise.org</a>:
+                            {{ title }}
+                        {% endblock titlecontent %}
+                    </h1>
+                </div>
+            </div>
 
-        {% block content %}
-        {% endblock content %}
+            <div class="row">
+                <div class="span12">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </div>
 
-        {% block comments %}
+            <div class="row">
+                <div class="span12">
+                    {% block comments %}
+                </div>
+            </div>
 
-        <hr />
+            <hr />
 
-        <h2>comments</h2>
+            <h2>comments</h2>
 
-        <div id="disqus_thread"></div>
+            <div id="disqus_thread"></div>
 
-        <script type="text/javascript" src="http://disqus.com/forums/incise/embed.js"></script>
-        <noscript><a href="http://incise.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+            <script type="text/javascript" src="http://disqus.com/forums/incise/embed.js"></script>
+            <noscript><a href="http://incise.disqus.com/?url=ref">View the discussion thread.</a></noscript>
 
-        {% endblock comments %}
+            {% endblock comments %}
 
-        <hr />
+            <hr />
 
-        <address>
-        Nick Welch <a href="mailto:nick@incise.org">&lt;nick@incise.org&gt;</a>
-        </address>
+            <address>
+            Nick Welch <a href="mailto:nick@incise.org">&lt;nick@incise.org&gt;</a>
+            </address>
 
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-            try {
-                var pageTracker = _gat._getTracker("UA-11422404-1");
-                pageTracker._trackPageview();
-            } catch(err) {}
-        </script>
+            <script type="text/javascript">
+                var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+            <script type="text/javascript">
+                try {
+                    var pageTracker = _gat._getTracker("UA-11422404-1");
+                    pageTracker._trackPageview();
+                } catch(err) {}
+            </script>
+        </div>
     </body>
 </html>

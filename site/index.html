@@ -1,80 +1,99 @@
 {% extends "/base.html" %}
-{% set title = "index" %}
+{% block titlecontent %}
+Nick Welch
+<span class="meta">
+    <a href="resume.html">cv/resume</a> &middot;
+    <a href="http://twitter.com/bunengine">twitter</a> &middot;
+    <a href="http://github.org/mackstann">github</a> &middot;
+    <a href="http://www.flickr.com/people/69116804@N00/">flickr</a>
+</span>
+{% endblock titlecontent %}
 {% block content %}
 
-<h2>meta</h2>
+<h2>Projects; Past and Present</h2>
+
+<div class="row showcase">
+ <div class="span6">
+  <a href="http://fundstew.com">Fund Stew</a>, a data visualization tool for index fund holdings.
+  <img src="images/frontpage/fundstew.png"><br>
+ </div>
+ <div class="span6">
+  <a href="http://leastcommon.com/elf-prototype/">Elf</a>, a tiny computer case made of laser-cut bamboo.
+  <img src="images/frontpage/elf.jpg"><br>
+ </div>
+</div>
+
+<div class="row showcase">
+ <div class="span6">
+  <a href="htpicker.html">htpicker</a>, a home theater frontend app for linux machines.
+  <img src="images/frontpage/htpicker.png"><br>
+ </div>
+ <div class="span6">
+  <a href="http://portlandthings.com">Portland Things</a>, an aggregator for local blogs and feeds.
+  <img src="images/frontpage/portlandthings.png"><br>
+ </div>
+</div>
+
+<div class="row showcase">
+ <div class="span6">
+  <a href="2d-bin-packing-with-javascript-and-canvas.html">2D bin packing visualization with javascript and &lt;canvas&gt;</a>
+  <img src="images/frontpage/binpack.png"><br>
+ </div>
+ <div class="span6">
+  <a href="hash-table-benchmarks.html">Hash table library benchmarks when using lots of keys</a>
+  <img src="images/frontpage/hash.png"><br>
+ </div>
+</div>
+
+<div class="row showcase">
+ <div class="span6">
+  <a href="gainclone.html">A "gainclone" amplifier</a>
+  <img src="images/frontpage/gainclone.jpg"><br>
+ </div>
+ <div class="span6">
+  <a href="http://www.instructables.com/id/Power-LED-Backpack-Lighting-system/">Power LED backpack lighting system at Instructables</a>
+  <img src="images/frontpage/leds.jpg"><br>
+ </div>
+</div>
+
+<!--
+<div class="row showcase">
+ <div class="span6">
+ </div>
+</div>
+
+ BEGIN INVESTING -->
+
+
 <ul>
- <li><a href="resume.html">cv/resume</a></li>
- <li>elsewhere:
-     <a href="http://twitter.com/bunengine">twitter</a> &middot;
-     <a href="http://github.org/mackstann">github</a> &middot;
-     <a href="http://www.flickr.com/people/69116804@N00/">flickr</a>
- </li>
+ <li><a href="mpris-remote.html">mpris-remote</a>, a command-line tool for controlling media players.</li>
+ <li><a href="tinywm.html">TinyWM</a>, the tiniest window manager ever.</li>
+ <li><a href="whimsy.html">Whimsy</a>, a window manager written in Python.</li>
+ <li><a href="corn.html">Corn</a>, a small music playing daemon.</li>
+ <li><a href="py-libmpdclient2.html">py-libmpdclient2</a>, a Python library for controlling MPD (Music Player Daemon).</li>
+ <li><a href="searching-for-a-good-grep.html">A comparison of grep alternatives</a></li>
+ <li><a href="android-development-on-the-command-line.html">Tips for command-line based Android development</a></li>
+ <li><a href="urllib3-testrun.html">A comparison between urllib3 and httplib2</a></li>
+ <li><a href="torrentfinder.html">A small script for automating TPB searches</a></li>
+ <li><a href="syncing-non-networked-computers-with-rdiffdir.html">How to sync non-networked computers with rdiffdir</a></li>
+ <li><a href="transcoding-music.html">Transcoding music on the command line</a></li>
 </ul>
 
-<h2>current projects</h2>
+<h2>Old, embarrassing, or uninteresting</h2>
 <ul>
- <li><a href="http://leastcommon.com/elf-prototype/">elf</a>, a tiny computer case made of laser-cut bamboo.</li>
- <li><a href="htpicker.html">htpicker</a>, a home theater frontend app for linux machines.</li>
-</ul>
-
-<h2>code projects</h2>
-<ul>
- <li>django webapp: <a href="http://portlandthings.com">portlandthings.com</a></li>
- <li>window managers:
-     <a href="tinywm.html">tinywm</a> &middot;
-     <a href="whimsy.html">whimsy</a></li>
- <li>media playing:
-     <a href="mpris-remote.html">mpris-remote</a> &middot;
-     <a href="corn.html">corn</a> &middot;
-     <a href="py-libmpdclient2.html">py-libmpdclient2</a></li>
-</ul>
-
-<h2>programming-related</h2>
-<ul>
- <li><a href="2d-bin-packing-with-javascript-and-canvas.html">2D bin packing with javascript and &lt;canvas&gt;</a></li>
- <li><a href="searching-for-a-good-grep.html">searching for a good grep</a></li>
- <li><a href="android-development-on-the-command-line.html">android development on the command line</a></li>
- <li><a href="hash-table-benchmarks.html">hash table benchmarks</a></li>
- <li><a href="urllib3-testrun.html">urllib3 testrun</a></li>
+ <li><a href="amp6.html">amp6 (precursor to gainclone project; plans only)</a></li>
  <li><a href="postgres-array-stuff.html">postgres array stuff</a></li>
  <li><a href="flash-making-firefox-raise-itself.html">a hack to prevent flash from raising firefox windows to the top</a></li>
  <li><a href="thoughts-while-learning-erlang.html">thoughts while learning erlang</a></li>
  <li><a href="simple-unix-shared-memory-interface.html">unix shared memory example</a></li>
- <li><a href="torrentfinder.html">a small script for automating TPB searches</a></li>
-</ul>
-
-<h2>X11-related</h2>
-<ul>
  <li><a href="samsung-2343bwx-xorg-config.html">samsung 2343bwx xorg config</a></li>
  <li><a href="not-so-tiny-window-managers.html">not-so-tiny window managers</a></li>
  <li><a href="xlib-key-passing.html">xlib key passing</a></li>
  <li><a href="un-bust-your-x-server.html">un-bust your x server</a></li>
  <li><a href="linux-format-kahakai-article.html">linux format kahakai article</a></li>
-</ul>
-
-<h2>linux-related</h2>
-<ul>
- <li><a href="syncing-non-networked-computers-with-rdiffdir.html">syncing non-networked computers with rdiffdir</a></li>
- <li><a href="transcoding-music.html">transcoding music</a></li>
-</ul>
-
-<h2>electronics projects</h2>
-<ul>
- <li><a href="gainclone.html">gainclone</a></li>
- <li><a href="http://www.instructables.com/id/Power-LED-Backpack-Lighting-system/">power led backpack lighting system at instructables.com</a></li>
- <li><a href="amp6.html">amp6 (plans only)</a></li>
-</ul>
-
-<h2>console gaming</h2>
-<ul>
  <li><a href="disgaea-cheat-sheet.html">disgaea cheat sheet</a></li>
  <li><a href="advanced-sim-city-strategies.html">advanced sim city strategies</a></li>
-</ul>
-
-<h2>etc.</h2>
-<ul>
- <li><a href="old-ass-stuff.html">irrelevant and condemned pages</a></li>
+ <li><a href="old-ass-stuff.html">even more old crap</a></li>
 </ul>
 
 {% endblock content %}
