@@ -1,0 +1,44 @@
+{% extends "/base.html" %}
+{% set title = "binary tree treemap for d3" %}
+{% block content %}
+
+<p><a href="http://d3js.org">D3</a> is a pretty amazing data visualization
+library.  I use its <a
+    href="http://mbostock.github.com/d3/ex/treemap.html">treemap</a>
+visualization in my <a href="http://fundstew.com">fundstew</a> index fund
+holdings visualization project. I selected D3 for this use mostly based on its
+speed, which is far faster than any competing library I tried (Google
+Visualizations and JavaScript InfoVis Toolkit).</p>
+
+<p>I had one problem, though: I really preferred the binary tree algorithm for
+laying out treemaps, at least for the sort of data I'm working with on my
+project. It divides the treemap roughly into quadrants (and sub-quadrants, and
+so on, recursively), which is helpful in getting a sense of the size and
+weighting of stock holdings.</p>
+
+<p>D3's "squarified" algorithm also seems to be a bit buggy. Some items (on the
+edges and corner with the smallest items) are displayed with a size that is
+either much larger or much smaller than it should be:</p>
+
+<p>
+    <img src="/images/d3-squarified-bugs.png" alt="bugs? in D3's squarified algorithm">
+</p>
+
+<p>Here's a broader look at what the two different algorithms look
+like:</p>
+
+<p>
+    <img src="/images/d3-squarified.png" alt="D3's squarified layout">
+    <br><span class="caption">Squarified</span>
+</p>
+
+<p>
+    <img src="/images/d3-binary-tree.png" alt="D3's squarified layout">
+    <br><span class="caption">Binary tree</span>
+</p>
+
+<p>The code is not fully integrated into D3 yet, but if you don't mind a few
+rough edges, you can find it on Github via <a
+    href="http://github.com/mbostock/d3/issues/653">issue #653 for d3</a>.</p>
+
+{% endblock content %}
