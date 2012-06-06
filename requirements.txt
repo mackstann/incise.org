@@ -1,2 +1,2 @@
 mercurial
--e hg+http://bitbucket.org/jek/blatter/#egg=blatter
+-e hg+http://bitbucket.org/mackstann/blatter/#egg=blatter
