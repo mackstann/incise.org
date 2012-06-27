@@ -53,15 +53,22 @@
                 margin-top: 10px;
                 margin-bottom: 10px;
             }
+            h5 {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
 
             a:link,
             a:visited,
             a:active,
             a:hover { text-decoration: none; }
 
-            #work .date { float: right; clear: none; font-size: small; color: #888; margin-top: 1em; }
-            #work li h4 { float: left; margin-top: 1em; margin-bottom: 0px; }
-            #work h5 { clear: both; font-style: italic; }
+            #work h5.title { font-style: italic; }
+            #work .date {
+                font-size: 0.9em;
+                color: #666;
+                padding-left: 10px;
+            }
             #work > ol {
                 margin-top: 0px;
                 margin-left: 0px;
@@ -160,8 +167,10 @@
                 <ol>
                     <li class="experience">
                         <h4><a rel="employer" href="http://www.parthenonsoftware.com">Parthenon Software Group</a></h4>
-                        <p class="date">April 2009 - present</p>
-                        <h5 class="summary title">Production Software Developer</h5>
+                        <h5 class="summary title">
+                            Production Software Developer
+                            <span class="date">April 2009 - present</span>
+                        </h5>
                         <ul class="description">
                             <li>Revamped and streamlined code deployment. Heavy
                             use of Git and Subversion. Helped develop and
@@ -183,8 +192,10 @@
 
                     <li class="experience">
                         <h4><a rel="employer" href="http://rentrak.com">Rentrak Corporation</a></h4>
-                        <p class="date">August 2006 - May 2008</p>
-                        <h5 class="summary title">Software Developer</h5>
+                        <h5 class="summary title">
+                            Software Developer
+                            <span class="date">August 2006 - May 2008</span>
+                        </h5>
                         <ul class="description">
                             <li>Developed new features and bug fixes for Theatrical Box Office Essentials, a data warehousing and business intelligence service.</li>
                             <li>Worked with Perl, Oracle, and Linux to collect and summarize large volumes of box office transactions efficiently and in accordance with complex business rules.</li>
@@ -199,8 +210,10 @@
 
                     <li class="experience">
                         <h4><a rel="employer" href="http://www.xerox.com">Xerox Corporation</a></h4>
-                        <p class="date">November 2005 - August 2006</p>
-                        <h5 class="summary title">Test Technician</h5>
+                        <h5 class="summary title">
+                            Test Technician
+                            <span class="date">November 2005 - August 2006</span>
+                        </h5>
                         <ul class="description">
                             <li>Emulated customer use of multifunction printers and recorded defects.</li>
                             <li>Used in-house software to remotely control printers and analyze debug logging data from printers&#8217; internal computers to troubleshoot problems.</li>
@@ -210,8 +223,10 @@
 
                     <li class="experience">
                         <h4><a rel="employer" href="http://www.stratassemble.com/">Stratassemble</a></h4>
-                        <p class="date">January 2005 - August 2005</p>
-                        <h5 class="summary title">Lead Web Developer and Linux Admin</h5>
+                        <h5 class="summary title">
+                            Lead Web Developer and Linux Admin
+                            <span class="date">January 2005 - August 2005</span>
+                        </h5>
                         <ul class="description">
                             <li>Designed and built a wiki-based project management web application using Python, MySQL, and Javascript.</li>
                             <li>Installed and maintained Debian Linux on server.</li>
@@ -221,8 +236,10 @@
 
                     <li class="experience">
                         <h4><a rel="employer" href="http://www.rcreader.com">River Cities&#8217; Reader</a></h4>
-                        <p class="date">February 2003 - November 2003</p>
-                        <h5 class="summary title">Lead Intranet Developer and IT Person</h5>
+                        <h5 class="summary title">
+                            Lead Intranet Developer and IT Person
+                            <span class="date">February 2003 - November 2003</span>
+                        </h5>
                         <ul class="description">
                             <li>Designed and implemented internal web application in <abbr>PHP</abbr> and MySQL for tracking and managing advertising sales.</li>
                             <li>Administrated Debian Linux server and Redhat PCs.</li>
