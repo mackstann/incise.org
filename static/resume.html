@@ -24,7 +24,11 @@
 
             #contact, #skills { padding-bottom: 1em; }
 
-            #contact .quicklist { float: right; margin-top: 16px; }
+            #contact .quicklist {
+                float: right;
+                margin-top: 22px;
+                font-size: 13px;
+            }
 
             a:link, a:visited, a:hover { color: #33a; }
 
@@ -88,6 +92,13 @@
             div#footer { text-align: center; font-size: small; }
 
             ul, ol { list-style: square; }
+
+            * {
+                page-break-before: avoid;
+            }
+            .skills li, li.experience, h3 {
+                page-break-before: auto;
+            }
         </style>
 
     </head>
@@ -250,23 +261,18 @@
                     <dt><a href="http://leastcommon.com/elf-prototype/">Elf</a></dt>
                     <dd>Mini-ITX computer case design that is laser-cut.</dd>
 
+                    <dt><a href="http://fundstew.com">Fund Stew</a></dt>
+                    <dd>Index fund comparison tool using a treemap visualization.</dd>
+
                     <dt><a href="http://incise.org/htpicker.html">htpicker</a></dt>
                     <dd>Home theater frontend program. Uses WebKit, Python, and jQuery.</dd>
 
-                    <dt><a href="http://incise.org/mpris-remote.html">mpris-remote</a></dt>
-                    <dd>Command-line tool for controlling <abbr title="Media Player Remote Interface Specification">MPRIS</abbr>-capable music players.</dd>
-
-                    <dt><a href="http://incise.org/py-libmpdclient2.html">py-libmpdclient</a></dt>
-                    <dd>Python client library for the Music Player Daemon project, a networked music player.</dd>
-
                     <dt><a href="http://incise.org/tinywm.html">TinyWM</a></dt>
-                    <dd>Tiny X11 window manager written in around 50 lines of C.</dd>
+                    <dd>The tiniest window manager in the world, written in around 50 lines of C. Packaged in Debian and Ubuntu!</dd>
 
                     <dt><a href="http://github.com/mackstann/markovio/tree/master">Markovio</a></dt>
                     <dd>Randomized level generator for a popular classic video game, using a <a href="http://en.wikipedia.org/wiki/Markov_chain">Markov chain</a> algorithm.</dd>
                 </dl>
-
-                <p><em>mpris-remote, py-libmpdclient, and TinyWM have been officially packaged in Debian and Ubuntu.</em></p>
             </div>
 
             <div id="groups">
