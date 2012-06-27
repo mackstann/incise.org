@@ -8,16 +8,12 @@
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 
         <style type="text/css">
+            * { font-family: 'Lato', sans-serif; }
+
             body {
-                font-family: 'Lato', sans-serif;
                 color: #333;
                 max-width: 800px;
-                font-family: sans-serif;
                 background: white;
-            }
-
-            * {
-                font-family: 'Lato', sans-serif;
             }
 
             #skills ul, #skills li { display: inline; padding-left: 0px; margin-left: 0px; }
@@ -28,6 +24,8 @@
 
             #contact, #skills { padding-bottom: 1em; }
 
+            #contact .quicklist { float: right; margin-top: 16px; }
+
             a:link, a:visited, a:hover { color: #33a; }
 
             h1 a:link,
@@ -35,15 +33,40 @@
             h1 a:hover,
             h1 a:visited { text-decoration: none; color: black; }
 
-            #skills a:link,
-            #skills a:visited,
-            #skills a:active,
-            #skills a:hover { text-decoration: none; }
+            h1#nick-welch {
+                margin-top: 10px;
+                margin-bottom: 0px;
+                border-bottom: 1px solid black;
+            }
+            h2.title {
+                margin-top: 0px;
+                margin-bottom: 5px;
+                font-size: 18px;
+                padding-left: 1px;
+            }
+            h3 {
+                font-size: 1.35em;
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+            h4 {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            a:link,
+            a:visited,
+            a:active,
+            a:hover { text-decoration: none; }
 
             #work .date { float: right; clear: none; font-size: small; color: #888; margin-top: 1em; }
             #work li h4 { float: left; margin-top: 1em; margin-bottom: 0px; }
             #work h5 { clear: both; font-style: italic; }
-            #work > ol { margin-left: 0px; padding-left: 0px; }
+            #work > ol {
+                margin-top: 0px;
+                margin-left: 0px;
+                padding-left: 0px;
+            }
 
             ol { list-style: none; }
 
@@ -65,17 +88,17 @@
         <div>
 
             <div id="contact">
-                <h1 id="nick-welch">
-                    <a rel="home me" href="http://incise.org/resume.html" title="Nick Welch's Resume">Nick Welch</a>
-                </h1>
-
-                <h2 class="title">Software Developer</h2> 
-
                 <ul class="quicklist">
                     <li>Portland, OR, United States</li>
                     <li><a class="value" href="callto:5034880805" title="Call Nick Welch">503-488-0805</a></li>
                     <li><a class="email" href="mailto:nick@incise.org" title="E-mail Nick Welch">nick@incise.org</a></li>
                 </ul>
+
+                <h1 id="nick-welch">
+                    <a rel="home me" href="http://incise.org/resume.html" title="Nick Welch's Resume">Nick Welch</a>
+                </h1>
+
+                <h2 class="title">Software Developer</h2> 
             </div>
 
             <div id="skills">
