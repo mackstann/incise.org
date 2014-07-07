@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+<head>
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap-spacelab.css"></link>
+    <link rel="stylesheet" type="text/css" href="jquery.qtip.min.css"></link>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.qtip.min.js"></script>
+
+    <style>
+        .cell {
+            color: #fff;
+            font: 10px sans-serif;
+            line-height: 11px;
+            overflow: hidden;
+            position: absolute;
+        }
+        #fund1-select, #fund2-select {
+            width: 300px;
+        }
+    </style>
+    <script src="d3.v2.js"></script>
+    <script type="text/javascript">
+        function make_gradient_rules()
+        {
+            var start = [0x2c, 0xb0, 0x2c];
+            var mid = [150, 150, 150];
+            var end = [0x1f, 0x37, 0xb4];
+            var html = "<style>";
+            for(var i = 0; i <= 100; i++)
+            {
+                var from, to, percent;
+                if(i <= 50)
+                {
+                    from = start;
+                    to = mid;
+                    percent = (i / 100) * 2;
+                }
+                else
+                {
+                    from = mid;
+                    to = end;
+                    percent = ((i-50) / 100) * 2;
+                }
+                var color = d3.rgb(
+                    Math.round(from[0] + (to[0] - from[0])*percent),
+                    Math.round(from[1] + (to[1] - from[1])*percent),
+                    Math.round(from[2] + (to[2] - from[2])*percent))
+                var color2 = color.darker(0.45);
+
+                html += (".tilt" + i + " { background: " + color.toString() + "; } ");
+
+                var names = ['-ms-radial-gradient', '-moz-radial-gradient', '-o-radial-gradient', '-webkit-radial-gradient', 'radial-gradient'];
+                for(var n = 0; n < names.length; n++)
+                {
+                    html += (".tilt" + i + " { background-image: " + names[n] + "(left top, circle farthest-corner, "
+                        + color.toString() + " 0%, " + color2.toString() + " 100%); } ");
+                }
+            }
+            $('head').append(html + "</style>");
+        }
+
+        function draw_treemap(fund1_data, fund2_data) {
+            var chart_data = combine_fund_data(fund1_data, fund2_data);
+
+            $('#visualization').html('');
+
+            var x = d3.select('#visualization').property('offsetLeft');
+            var y = d3.select('#visualization').property('offsetTop');
+            var width = d3.select('#visualization').property('offsetWidth');
+            var height = d3.select('#visualization').property('offsetHeight');
+
+            var treemap = d3.layout.treemap()
+                .size([width, height])
+                .sticky(true)
+                 // use with the nested dataset .value(function(d) { return d.size; })
+                .sort(function comparator(a, b) { return a.real_value - b.real_value; });
+
+            // use with nested dataset var color =  d3.scale.category20c();
+            function color(tilt)
+            {
+                if(tilt == 0)
+                {
+                    return "-webkit-radial-gradient(left top, circle farthest-corner, #2233BB 0%, #001199 100%);";
+                }
+                if(tilt == 1)
+                {
+                    return "-webkit-radial-gradient(left top, circle farthest-corner, #001199 0%, #229900 100%);";
+                }
+                return 'white';
+            }
+            var tooltip_data = {};
+            d3.select("#visualization").data([chart_data]).selectAll("div")
+                .data(treemap.nodes)
+                .enter().append("div")
+                    .attr("class", function (d) { return "cell" + (d.children ? '' : (' tilt' + Math.round(d.tilt * 10)*10)); })
+                    .attr("data-holding-name", function (d) { if(!d.children) {
+                        tooltip_data[d.name] = d;
+                        return d.name;
+                    }})
+                    //.style("background-image", function(d) { return d.children ? null : color(d.tilt); })
+                    // use with nested dataset .style("background", function(d) { return d.children ? color(d.tilt) : null; })
+                    .style("left", function(d) { return '' + (x + d.x) + "px"; })
+                    .style("top", function(d) { return '' + (y + d.y) + "px"; })
+                    .style("width", function(d) { return Math.max(0, d.dx) + "px"; })
+                    .style("height", function(d) { return Math.max(0, d.dy) + "px"; })
+                    .style("display", function(d) { return Math.max(0, d.dx) && Math.max(0, d.dy) ? "block" : "none"; })
+                      .text(function(d) { return d.children || d.area < 1000 ? null : d.name; })
+                    .attr("data-name", function(d) { return d.children ? null : (d.size > 0.15 ? d.name : ''); });
+
+            var round_pct = function (val) {
+                if(val == 0)
+                    return 0;
+                if(val >= 1)
+                    return Math.round(val*100)/100;
+                if(val >= 0.1)
+                    return Math.round(val*1000)/1000;
+                if(val >= 0.01)
+                    return Math.round(val*10000)/10000;
+                if(val >= 0.001)
+                    return Math.round(val*100000)/100000;
+                if(val >= 0.0001)
+                    return Math.round(val*1000000)/1000000;
+                if(val >= 0.00001)
+                    return Math.round(val*10000000)/10000000;
+                return val;
+            }
+            $('.cell').qtip({
+                content: {
+                    text: function (api) {
+                        var holding_name = $(this).attr('data-holding-name');
+                        var d = tooltip_data[holding_name];
+                        return '<b>' + holding_name + '</b><br>' +
+                        round_pct(d.percentages[0]) + '% of ' + fund1_data['fund_name'] + '<br>' +
+                        round_pct(d.percentages[1]) + '% of ' + fund2_data['fund_name'];
+                    }
+                },
+                style: { classes: 'ui-tooltip-light ui-tooltip-bootstrap' },
+                position: { target: 'mouse', adjust: { x: 15, y: 8, method: 'flipinvert flipinvert' }, viewport: $(window) }
+
+            });
+        }
+
+        function array_unique(arr) {
+            var obj = {};
+            for(var i = 0; i < arr.length; i++)
+                obj[arr[i]] = 1;
+            return Object.keys(obj);
+        }
+
+
+        function combine_fund_data(fund1, fund2) {
+            var names = array_unique(Object.keys(fund1['holdings']).concat(Object.keys(fund2['holdings'])));
+
+            var holdings = [];
+            for(var i = 0; i < names.length; i++)
+            {
+                var name = names[i];
+                var percentages = [
+                    name in fund1['holdings'] ? fund1['holdings'][name] : 0,
+                    name in fund2['holdings'] ? fund2['holdings'][name] : 0
+                ];
+                var percentage = Math.max(percentages[0], percentages[1]);
+                var tilt = percentages[0] / (percentages[0] + percentages[1]);
+
+                var adjusted_value = percentage;
+                if(settings.scale == 'log')
+                    adjusted_value = Math.log(1.006+percentage);
+                if(settings.scale == 'equal')
+                    adjusted_value = 1;
+
+                holdings.push({
+                    'name': name,
+                    'value': adjusted_value,
+                    'real_value': percentage,
+                    'tilt': tilt,
+                    'percentages': percentages
+                });
+            }
+            return {
+                'name': 'all',
+                'children': holdings
+            };
+        }
+
+        function summarize_fund_data(data) {
+            var total = data['total_investments'];
+            var newdata = $.extend({}, data); // copy
+            newdata.holdings = {};
+            for(var i = 0; i < data['holdings'].length; i++)
+            {
+                var holding = data['holdings'][i];
+                var name = holding[0];
+                var amount = holding[2];
+                if(amount > 0)
+                    newdata['holdings'][name] = amount/total * 100;
+            }
+            return newdata;
+        }
+
+
+        $(make_gradient_rules);
+
+        var settings = {
+            'fund1': 'VFINX',
+            'fund2': 'VTSMX',
+            'scale': 'linear'
+        };
+
+        var fund_cache = {};
+
+        function start_loading_funds()
+        {
+            var fund1_data = null;
+            var fund2_data = null;
+            var cache_hits = 0;
+
+            if(settings.fund1 in fund_cache)
+            {
+                fund1_data = fund_cache[settings.fund1];
+                cache_hits++;
+            }
+            else
+                $.ajax('json/' + settings.fund1 + '.json', {
+                    'dataType': 'json',
+                    'success': function (data, textStatus, jqXHR) {
+                        fund1_data = summarize_fund_data(data);
+                        fund_cache[settings.fund1] = fund1_data;
+                        if(fund1_data && fund2_data)
+                            draw_treemap(fund1_data, fund2_data);
+                    }
+                });
+
+            if(settings.fund2 in fund_cache)
+            {
+                fund2_data = fund_cache[settings.fund2];
+                cache_hits++;
+            }
+            else
+                $.ajax('json/' + settings.fund2 + '.json', {
+                    'dataType': 'json',
+                    'success': function (data, textStatus, jqXHR) {
+                        fund2_data = summarize_fund_data(data);
+                        fund_cache[settings.fund2] = fund2_data;
+                        if(fund1_data && fund2_data)
+                            draw_treemap(fund1_data, fund2_data);
+                    }
+                });
+
+            if(cache_hits == 2)
+                draw_treemap(fund1_data, fund2_data);
+        }
+
+        function set_fragment()
+        {
+            var pieces = [];
+            $.each(settings, function(key, value){
+                pieces.push(key + "=" + value);
+            });
+            window.location = "/#" + pieces.join("&");
+        }
+
+        $(function () {
+
+            $('#visualization').css("height", ($(window).height() - 80) + 'px');
+
+            var fragment = window.location.href.split("#")[1];
+            if(fragment)
+            {
+                var pieces = fragment.split("&");
+                for(var i = 0; i < pieces.length; i++)
+                {
+                    var name = pieces[i].split("=")[0];
+                    var value = pieces[i].split("=")[1];
+                    if(name in settings)
+                    {
+                        console.log(name + '=' + value);
+                        settings[name] = value;
+                    }
+                }
+            }
+
+            start_loading_funds();
+
+            $.ajax('json/funds.json', {
+                'dataType': 'json',
+                'success': function (data, textStatus, jqXHR) {
+                    for(var i = 0; i < data.length; i++)
+                    {
+                        var fund = data[i];
+                        var selected1 = (fund.ticker == settings.fund1) ? ' selected' : '';
+                        var selected2 = (fund.ticker == settings.fund2) ? ' selected' : '';
+                        $('#fund1-select').append('<option value="' + fund.ticker + '"' + selected1 + '>' + fund.name + '</option>');
+                        $('#fund2-select').append('<option value="' + fund.ticker + '"' + selected2 + '>' + fund.name + '</option>');
+                    }
+                }
+            });
+
+            var apply_changes = function (key, value) {
+                settings[key] = value;
+                set_fragment();
+                start_loading_funds();
+            }
+
+            $('#fund1-select').change(function (ev) {
+                apply_changes('fund1', $('#fund1-select').val());
+            });
+            $('#fund2-select').change(function (ev) {
+                apply_changes('fund2', $('#fund2-select').val());
+            });
+            $('button.scale-linear').click(function (ev) {
+                apply_changes('scale', 'linear');
+            });
+            $('button.scale-log').click(function (ev) {
+                apply_changes('scale', 'log');
+            });
+            $('button.scale-equal').click(function (ev) {
+                apply_changes('scale', 'equal');
+            });
+
+            var html = '<table class="span12" style="margin-bottom: 10px;"><tr>';
+            for(var i = 100; i >= 0; i--)
+                html += '<td class="tilt' + i + '" style="height:10px;"></td>';
+            html += '</tr></table>';
+            $('.top-area').append(html);
+        });
+
+    </script>
+</head>
+<body>
+    <div class=container>
+        <div class="row top-area" style="margin-top: 10px;">
+            <div class="span4">
+                <select id="fund1-select"></select>
+            </div>
+            <div class="span4" style="text-align: center;">
+                <div class="btn-group" style="display: inline-block; text-align: center;">
+                    <button class="btn scale-linear">Linear</button>
+                    <button class="btn scale-log">Log</button>
+                    <button class="btn scale-equal">Equal Weight</button>
+                </div>
+            </div>
+            <div class="span4" style="text-align: right;">
+                <select id="fund2-select"></select>
+            </div>
+        </div>
+        <div class=row>
+            <div class="span12" id="visualization"></div>
+        </div>
+    </div>
+</body>
+</html>
