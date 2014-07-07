@@ -1,0 +1,9 @@
+body { background: #222; font-family: "museo-sans-1", sans-serif; }
+body, a:link, a:visited, a:active, a:hover { color: #aaa; }
+a:link, a:visited, a:active, a:hover { color: #ddd; font-family: "museo-sans-1", sans-serif; text-decoration: none; }
+address { font-size: small; font-style: normal; text-align: center; margin-top: 60px; }
+h1, h2, h3, h4 { font-family: "museo-1", sans-serif; }
+#header { text-align: center; margin-bottom: 70px; margin-top: 40px; }
+#header a img { border: none; }
+#content { width: 600px; margin-left: auto; margin-right: auto; }
+#comments { margin-top: 80px; }
