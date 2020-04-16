@@ -1,7 +1,3 @@
-{% extends "/base.html" %}
-{% set title = "syncing non-networked computers with rdiffdir" %}
-{% block content %}
-
 <p>I listen to music on two computers: one at work, one at home.  Both run
 Linux and ssh, but neither is listening on an internet-accessible IP.
 Furthermore, syncing a lot of music across the internet would suck up bandwidth
@@ -51,5 +47,3 @@ directory, updating its contents.</p>
 <pre><code>work $ rdiffdir patch ~/Music music.delta</code></pre>
 
 <p>All done!</p>
-
-{% endblock content %}

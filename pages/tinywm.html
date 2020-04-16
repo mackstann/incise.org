@@ -1,7 +1,3 @@
-{% extends "/base.html" %}
-{% set title = "tinywm" %}
-{% block content %}
-
 <p>TinyWM is a tiny window manager that I created as an exercise in minimalism.  It is also maybe helpful in learning some of the very basics of creating a window manager.  It is only around 50 lines of C.  There is also a Python version using python-xlib.</p>
 
 <p>It lets you do four basic things:</p>
@@ -342,5 +338,3 @@ while 1:
             height = max(1, attr.height + (start.detail == 3 and ydiff or 0)))
     elif ev.type == X.ButtonRelease:
         dpy.ungrab_pointer(X.CurrentTime)</code></pre>
-
-{% endblock content %}

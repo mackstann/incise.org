@@ -1,7 +1,3 @@
-{% extends "/base.html" %}
-{% set title = "btget.py" %}
-{% block content %}
-
 <p>Azureus is a pretty nice way to download torrents, but I tend to put it off
 in another workpsace and forget about it.  I thought it would be cool if I
 could reliably script a bittorrent download on the command line so that when it
@@ -68,5 +64,3 @@ except KeyboardInterrupt:
 <p>It will look just like btdownloadheadless except it'll exit when 100% is reached.</p>
 
 <p>Todo: wait until X amount of additional good-citizen seeding has been done before exiting.</p>
-
-{% endblock content %}

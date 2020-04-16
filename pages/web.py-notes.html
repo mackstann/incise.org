@@ -1,6 +1,3 @@
-{% extends "/base.html" %}
-{% set title = "web.py notes" %}
-{% block content %}
 <p>render(template, terms=None, asTemplate=False, base=None, isString=False):  : Renders a template, caching where it can.</p>
 
 <p>`template` is the name of a file containing the a template in
@@ -11,5 +8,3 @@ the `templates/` folder</p>
  already set, is set to `context`. <strong>Meaning: explicitly pass terms=locals() to reduce the amount of magic going on.</strong></p>
 
 <p>update: I like CherryPy and Mako better than web.py now.</p>
-
-{% endblock content %}

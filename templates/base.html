@@ -2,7 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{{ title }}</title>
+        <title>
+            __TITLE__
+        </title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
@@ -11,18 +13,14 @@
             <div class="row">
                 <div class="span12">
                     <h1 class="sitetitle">
-                        {% block titlecontent %}
-                            <a href="/">incise.org</a>:
-                            {{ title }}
-                        {% endblock titlecontent %}
+                        __TITLE_CONTENT__
                     </h1>
                 </div>
             </div>
 
             <div class="row">
                 <div class="span12">
-                    {% block content %}
-                    {% endblock content %}
+                    __CONTENT__
                 </div>
             </div>
 

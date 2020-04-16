@@ -1,7 +1,3 @@
-{% extends "/base.html" %}
-{% set title = "gnome vfs command line tools" %}
-{% block content %}
-
 <p>A long time ago I remember thinking it would be cool if you could use arbitrary URLs on the command line to refer to files, such as "cat http://google.com".  I wrote something to do it (using wget I think), but for some reason I never got it to work right with LD_PRELOAD.</p>
 
 <p>Well it turns out that gnome's vfs (virtual file system) has a set of command line tools to do things just like this.  On ubuntu I installed the <strong>libgnomevfs2-bin</strong> package, and it gave me:</p>
@@ -25,5 +21,3 @@
 <p>This is pretty cool.  The only thing that sucks is that they are pretty crude and take few or no options other than the filenames.</p>
 
 <p>Also I found that if you use the sftp protocol, you need to use key auth.  If password auth is needed, it just fails.</p>
-
-{% endblock content %}

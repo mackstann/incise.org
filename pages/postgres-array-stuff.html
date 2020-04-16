@@ -1,6 +1,3 @@
-{% extends "/base.html" %}
-{% set title = "postgres array stuff" %}
-{% block content %}
 <h2>A procedure that takes an array argument and inserts a row for each array element</h2>
 
 <p>Use generate_series.</p>
@@ -45,5 +42,3 @@ where
     post.id = ?
 group by
     post.name</code></pre>
-
-{% endblock content %}

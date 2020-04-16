@@ -1,7 +1,3 @@
-{% extends "/base.html" %}
-{% set title = "unix shared memory example" %}
-{% block content %}
-
 <p>The simple act of acquiring a piece of shared memory through the SYSV SHM
 API is fiendishly tedious.  This page used to have &ldquo;simple&rdquo; in the
 title, as in, <em>a simple way to do this</em>, but it was a bad title because
@@ -88,5 +84,3 @@ static void * open_shm(size_t bytes, int justreading)
 
     return shm;
 }</code></pre>
-
-{% endblock content %}
