@@ -30,31 +30,6 @@ def read(filename):
         return f.read()
 
 
-#def replace_section(body, placeholder, content):
-#    in_section = False
-#    contents = []
-#    for line in body.splitlines():
-#        line = line.strip()
-#        if line == 'BEGIN ' + section_name:
-#            if in_section:
-#                raise RuntimeError("Duplicate opening of section %s in %s",
-#                    section_name, filename)
-#            in_section = True
-#        elif line == 'END ' + section_name:
-#            if not in_section:
-#                raise RuntimeError("Duplicate closing of section %s in %s",
-#                    section_name, filename)
-#            in_section = False
-#        elif in_section:
-#            if contents[-1] is not None:
-#                contents.append(None)
-#        else:
-#            contents.append(line)
-#    idx = contents.index(None)
-#    contents[idx] = content
-#    return '\n'.join(contents)
-
-
 def replace_placeholder(body, placeholder, content):
     new_contents = []
     for line in body.splitlines():
@@ -64,26 +39,6 @@ def replace_placeholder(body, placeholder, content):
             line = ''.join(parts)
         new_contents.append(line)
     return '\n'.join(new_contents)
-
-
-#def extract_section(body, section_name):
-#    in_section = False
-#    contents = []
-#    for line in body.splitlines():
-#        line = line.strip()
-#        if line == 'BEGIN ' + section_name:
-#            if in_section:
-#                raise RuntimeError("Duplicate opening of section %s in %s",
-#                    section_name, filename)
-#            in_section = True
-#        elif line == 'END ' + section_name:
-#            if not in_section:
-#                raise RuntimeError("Duplicate closing of section %s in %s",
-#                    section_name, filename)
-#            in_section = False
-#        elif in_section:
-#            contents.append(line)
-#    return '\n'.join(contents)
 
 
 if __name__ == '__main__':
