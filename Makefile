@@ -3,10 +3,10 @@ build: out
 
 out: static
 	mkdir -p out
-	rsync -a static/ out/
+	rsync --delete -ca static/ out/
 
 upload:
-	rsync -vaP out/ nick@incise.org:/var/www/incise/
+	rsync --delete -cvaz out/ nick@incise.org:/var/www/incise/
 
 clean:
 	rm -rf out
