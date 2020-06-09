@@ -37,9 +37,20 @@ being worked on for a long time.</p>
 an HTML5 canvas.</p>
 
 <p>It's a bit disorienting because the boxes aren't labeled, but you can
-hopefully get a rough idea of how they correspond to the nodes in this example
+hopefully get a rough idea of how they correspond to the nodes in the example
 query plan based on each node's <tt>rows</tt>, <tt>width</tt>, and <tt>actual
-time</tt>:</p>
+time</tt>. From left to right, here is what each box corresponds to:</p>
+
+<ul>
+  <li>Sort  (cost=717.34..717.59 rows=101 width=488) (actual time=7.761..7.774 rows=100 loops=1)</li>
+  <li>Hash Join  (cost=230.47..713.98 rows=101 width=488) (actual time=0.711..7.427 rows=100 loops=1)</li>
+  <li>Seq Scan on tenk2 t2  (cost=0.00..445.00 rows=10000 width=244) (actual time=0.007..2.583 rows=10000 loops=1)</li>
+  <li>Hash  (cost=229.20..229.20 rows=101 width=244) (actual time=0.659..0.659 rows=100 loops=1)</li>
+  <li>Bitmap Heap Scan on tenk1 t1  (cost=5.07..229.20 rows=101 width=244) (actual time=0.080..0.526 rows=100 loops=1)</li>
+  <li>Bitmap Index Scan on tenk1_unique1  (cost=0.00..5.04 rows=101 width=0) (actual time=0.049..0.049 rows=100 loops=1)</li>
+</ul>
+
+<p>Here is the raw <code>EXPLAIN ANALYZE</code> output being used:</p>
 
 <pre>
                                                                  QUERY PLAN
@@ -47,15 +58,15 @@ time</tt>:</p>
  Sort  (cost=717.34..717.59 rows=101 width=488) (actual time=7.761..7.774 rows=100 loops=1)
    Sort Key: t1.fivethous
    Sort Method: quicksort  Memory: 77kB
-   ->  Hash Join  (cost=230.47..713.98 rows=101 width=488) (actual time=0.711..7.427 rows=100 loops=1)
+   -&gt;  Hash Join  (cost=230.47..713.98 rows=101 width=488) (actual time=0.711..7.427 rows=100 loops=1)
          Hash Cond: (t2.unique2 = t1.unique2)
-         ->  Seq Scan on tenk2 t2  (cost=0.00..445.00 rows=10000 width=244) (actual time=0.007..2.583 rows=10000 loops=1)
-         ->  Hash  (cost=229.20..229.20 rows=101 width=244) (actual time=0.659..0.659 rows=100 loops=1)
+         -&gt;  Seq Scan on tenk2 t2  (cost=0.00..445.00 rows=10000 width=244) (actual time=0.007..2.583 rows=10000 loops=1)
+         -&gt;  Hash  (cost=229.20..229.20 rows=101 width=244) (actual time=0.659..0.659 rows=100 loops=1)
                Buckets: 1024  Batches: 1  Memory Usage: 28kB
-               ->  Bitmap Heap Scan on tenk1 t1  (cost=5.07..229.20 rows=101 width=244) (actual time=0.080..0.526 rows=100 loops=1)
+               -&gt;  Bitmap Heap Scan on tenk1 t1  (cost=5.07..229.20 rows=101 width=244) (actual time=0.080..0.526 rows=100 loops=1)
                      Recheck Cond: (unique1 < 100)
-                     ->  Bitmap Index Scan on tenk1_unique1  (cost=0.00..5.04 rows=101 width=0) (actual time=0.049..0.049 rows=100 loops=1)
-                           Index Cond: (unique1 < 100)
+                     -&gt;  Bitmap Index Scan on tenk1_unique1  (cost=0.00..5.04 rows=101 width=0) (actual time=0.049..0.049 rows=100 loops=1)
+                           Index Cond: (unique1 &lt; 100)
 </pre>
 
 <p>The one thing I like best about this visualization is how it shows the flow
@@ -74,3 +85,5 @@ one else is doing, you might be a pioneer, or you might just be lost.</p>
 <p>There are still more things I would like to try, like adding text labels, and
 showing the flow of data between nodes. I still want to continue this
 exploration... but probably in 2D.</p>
+
+<p>The (messy) code is <a href="https://github.com/mackstann/qplaniso">here on github</a>.</p>
