@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import os
 import re
@@ -13,7 +14,7 @@ def build_page(template_filename, page_filename):
     page = read(page_filename)
 
     title = read(title_filename).strip()
-    title_content = '<a href="/">incise.org</a>: ' + title
+    title_content = '<br /><p><a href="/">← home</a></p><h1 class="sitetitle">' + title + '</h1>'
     if os.path.exists(title_content_filename):
         title_content = read(title_content_filename)
 
