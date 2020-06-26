@@ -1,0 +1,65 @@
+<p>There is much lamenting out there about the state of diagramming software architecture.</p>
+
+<p>I've found myself quite frustrated by what George Fairbanks calls the model-code gap (in <em>Just Enough Software
+    Architecture</em>). I don't want to play around in a graphics program doing repetitive and inefficient dragging,
+resizing, etc. -- and then never updating it again, because it's too much trouble. I want a model of my code, without
+all the misery. I want new people on a project to more easily grok the overall idea of what's going on. I want it to be
+regularly useful in discussions. And I want everyone working on the code to be able to participate in the modeling.</p>
+
+<p>I think I like Simon Brown's <a href="https://c4model.com/">C4 model</a>, but it sort of dimisses the code-level
+view of things.  He calls it level 4 and says you should generate it, not build it yourself. But what do you use to
+generate that?  Suddenly you're in the land of language-specific tooling that doesn't scale beyond one or maybe a few
+languages.  I don't want to be confined to one language. I want one tool I can always use. I can stick it in my personal
+toolkit and be a better software engineer, no matter what direction my next project takes. It's an investment that
+scales.</p>
+
+<p>One big problems with code visualization is that code is hard to introspect. It's hard enough if you focus on one
+language, but supporting an arbitrary number of different languages is a huge effort that even large organizations
+struggle with.</p>
+
+<p>But what do all languages have in common? Directories, files, and line numbers. Maybe we can work at that level. No, it
+won't reveal details of classes, functions, and so on, but in a way that's a good thing: those tend to be very
+fine-grained and create an overwhelming diagram that's impossible to love.</p>
+
+<h3>Goals:</h3>
+<ul>
+    <li>The diagram source can live as text along with the code, for version control and freshness. An output image can
+        be generated in commit hooks or CI, and (hand wave) diffed visually.</li>
+    <li>The diagram should be as convenient as possible to maintain, and useful enough to justify the maintenance work.
+        This is critical for success, because no one wants another pointless burden in their workflow.</li>
+    <li>The basic level of granularity will be that of files. Files can be logically organized into groups, and those
+        files/groups can be organized into layers. These can correspond to the vertical/horizontal partitioning of your
+        project's logic. Files can be referenced in terms of glob patterns (e.g. <tt>src/foo/bar_*.go</tt>).</li>
+    <li>The layout should be controllable in a straightforward way (through text, of course). This is necessary because
+        the tool won't know about code dependencies, but it's also a benefit because we wind up with a sensible map that
+        resembles our mental model, and isn't some insane maze like so many generated diagrams are.</li>
+    <li>The layout should be stable, so that the diagram can serve as a consistent map of the code, without
+        unpredictable layout shakeups when one little thing changes.</li>
+    <li>The diagram should exploit visualization techniques to make the code more tangible. First and foremost is
+        scaling each file based on the actual amount of code in it. A file with 5 lines is simply not worth the same
+        real estate (either mental or graphical) as a file with 1000 lines.</li>
+</ul>
+
+<h3>Longer-term vision and bonus ideas:</h3>
+<ul>
+    <li>Visualizing code entropy by comparing compressed code size to its normal size (e.g. variable coloring of each
+        file) and comparing similarity between files.</li>
+    <li>Visualizing code volatility by leveraging git history.</li>
+    <li>Connecting the diagram to profiling data to visualize performance problems. Maybe piggyback on existing
+        cross-language tooling like flamegraphs, dtrace, etc.</li>
+    <li>Additionally, profiling data can help us construct the interdependencies in the code, since the tool is
+        blind to code semantics and normally doesn't know how the logic flows.</li>
+    <li>Integrate into larger C4 models as the neglected 4th level.</li>
+    <li>What other kinds of anaysis can we do about files of text, without speaking their programming language?</li>
+</ul>
+
+<h3>Limitations:</h3>
+<ul>
+    <li>You must maintain the mapping between your source code layout and the diagram. But this is better than
+        maintaining a completely disconnected diagram.</li>
+    <li>The tool is dumb about code: It doesn't understand dependencies, so you must arrange the structure yourself. So
+        there will be quite a bit of editorializing. But by enforcing matches to actual files on disk, we can make
+        sure the diagram doesn't completely drift away from reality.</li>
+    <li>Integrating with profiler output will only work if it contains filenames and line numbers, which it often does
+        not.</li>
+</ul>
